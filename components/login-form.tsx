@@ -76,7 +76,7 @@ export function LoginForm({
                 </Button>
               </div>
               <div className="text-center text-sm">
-                Không có tài khoản?{" "}
+                Chưa có tài khoản?{" "}
                 <a href="#" className="underline underline-offset-4">
                   Đăng ký
                 </a>
