@@ -8,10 +8,8 @@
     "build": "next build",
     "start": "next start",
     "format": "prettier --write '**/*.ts' '**/*.tsx'",
-    "lint": "next lint",
     "lint-staged": "lint-staged",
-    "typecheck": "tsc --noEmit",
-    "prepare": "husky"
+    "pretty-quick": "pretty-quick --staged"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
@@ -58,15 +56,10 @@
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pretty-quick --staged && lint-staged"
-    }
-  },
   "lint-staged": {
-    "./assets/*/*.svg": [
-      "imagemin-lint-staged"
+    "*.{ts,tsx}": [
+      "prettier --write",
+      "eslint"
     ]
   }
 }
-
