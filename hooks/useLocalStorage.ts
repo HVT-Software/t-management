@@ -3,7 +3,7 @@ import { version } from "../package.json";
 
 const prefix = `transform:${version}:`;
 
-export function useLocalStorage(key: string, initialValue: any) {
+export function useLocalStorage<T>(key: string, initialValue: T) {
   // State to store our value
   // Pass initial state function to useState so logic is only executed once
 
@@ -12,7 +12,7 @@ export function useLocalStorage(key: string, initialValue: any) {
       // Get from local storage by key
       const item = window?.localStorage.getItem(prefix + key) || initialValue;
       // Parse stored json or if none return initialValue
-      return JSON.parse(item);
+      return typeof item === "string" ? JSON.parse(item) : item;
     } catch {
       // If error also return initialValue
       return initialValue;
@@ -24,8 +24,7 @@ export function useLocalStorage(key: string, initialValue: any) {
   const setValue = (value: any) => {
     try {
       // Allow value to be a function so we have same API as useState
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
       // Save state
       setStoredValue(valueToStore);
       window.localStorage.setItem(prefix + key, JSON.stringify(valueToStore));
