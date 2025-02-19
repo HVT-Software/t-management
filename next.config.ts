@@ -5,8 +5,9 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: []
   },
-  experiments: {
-    asyncWebAssembly: true
+  webpack: config => {
+    config.experiments = { ...config.experiments, asyncWebAssembly: true };
+    return config;
   }
 };
 

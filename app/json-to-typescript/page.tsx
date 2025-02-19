@@ -11,7 +11,6 @@ export default function JsonToTypescript() {
     typealias: false
   });
 
-  console.log(settings);
   const transformer = useCallback(
     async (value: string | undefined) => {
       if (!value) return "";
