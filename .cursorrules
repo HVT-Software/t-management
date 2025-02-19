@@ -53,4 +53,27 @@ Key Conventions:
   - Use only for Web API access in small components
   - Avoid for data fetching or state management
 
-Follow Next.js docs for Data Fetching, Rendering, and Routing
+Follow Next.js docs for Data Fetching, Rendering, and App Router
+
+- Use Next.js App Router
+- Use Next.js Server Actions
+- Use Next.js Image Component
+- Use Next.js Metadata
+- Use Next.js Link Component
+- Use Next.js Head Component
+
+Tech Stack:
+
+- Next.js
+- TypeScript
+- Tailwind CSS
+- Shadcn UI
+- Webpack
+- Web Workers
+- Monaco Editor
+- Prettier
+- Zod
+- React Hook Form
+- React Query
+- Tanstack Query
+- Tanstack Table
