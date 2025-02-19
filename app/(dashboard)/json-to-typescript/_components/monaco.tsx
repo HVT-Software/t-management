@@ -3,6 +3,7 @@
 import React from "react";
 import Editor from "@monaco-editor/react";
 import type { EditorProps } from "@monaco-editor/react";
+import { Card } from "@/components/ui/card";
 
 export function processSize(size: string) {
   return !/^\d+$/.test(size) ? size : `${size}px`;
@@ -22,7 +23,7 @@ interface MonacoProps {
 
 export const Monaco: React.FC<MonacoProps> = ({ language, value, defaultValue, height, width, options, onChange, readOnly }) => {
   return (
-    <div className="h-full w-full">
+    <Card className="h-full w-full">
       <div className="flex justify-between">Al</div>
       <Editor
         defaultLanguage={language}
@@ -45,7 +46,7 @@ export const Monaco: React.FC<MonacoProps> = ({ language, value, defaultValue, h
         //   </Pane>
         // }
       />
-    </div>
+    </Card>
   );
 };
 
