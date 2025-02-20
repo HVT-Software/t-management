@@ -21,6 +21,18 @@ interface MonacoProps {
   readOnly?: boolean;
 }
 
+const defaultOptions: EditorProps["options"] = {
+  fontSize: 14,
+  codeLens: false,
+  fontFamily: "Menlo, Consolas, monospace, sans-serif",
+  minimap: {
+    enabled: false
+  },
+  quickSuggestions: false,
+  lineNumbers: "on",
+  renderValidationDecorations: "off"
+};
+
 export const Monaco: React.FC<MonacoProps> = ({ language, value, defaultValue, height, width, options, onChange, readOnly }) => {
   return (
     <Card className="h-full w-full">
@@ -31,7 +43,7 @@ export const Monaco: React.FC<MonacoProps> = ({ language, value, defaultValue, h
         value={value}
         height={height}
         width={width}
-        options={{ ...options, readOnly: readOnly }}
+        options={{ ...defaultOptions, ...options, readOnly: readOnly }}
         onChange={onChange}
         // TODO: Add loading state
         // loading={

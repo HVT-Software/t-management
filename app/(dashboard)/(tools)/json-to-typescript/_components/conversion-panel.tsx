@@ -1,11 +1,11 @@
 "use client";
 
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
-import Monaco from "./monaco";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Monaco from "../../_components/monaco";
 
 interface ConversionPanelProps {
-  transformer: (value: string | undefined) => Promise<string>;
+  transformer: (value: string) => Promise<string>;
   editorLanguage: string;
   resultLanguage: string;
 }
@@ -26,18 +26,27 @@ const defaultJson = {
   createdDate: "2024-10-25T04:31:07.714+00:00"
 };
 
-export const ConversionPanel: React.FC<ConversionPanelProps> = ({ transformer, editorLanguage, resultLanguage }) => {
+const ConversionPanel: React.FC<ConversionPanelProps> = ({ transformer, editorLanguage, resultLanguage }) => {
+  const [json, setJson] = useState<string | undefined>(JSON.stringify(defaultJson, null, 2));
   const [transformedCode, setTransformedCode] = useState<string>("");
 
-  const handleInputChange = async (value: string | undefined) => {
-    const result = await transformer(value);
-    setTransformedCode(result);
-  };
+  useEffect(() => {
+    async function transform() {
+      try {
+        const result = await transformer(json || "");
+        setTransformedCode(result);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    transform();
+  }, [json, transformer]);
 
   return (
     <ResizablePanelGroup direction="horizontal">
       <ResizablePanel>
-        <Monaco value={JSON.stringify(defaultJson, null, 2)} language={editorLanguage} onChange={handleInputChange} />
+        <Monaco value={json} language={editorLanguage} onChange={setJson} />
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel>
@@ -46,3 +55,5 @@ export const ConversionPanel: React.FC<ConversionPanelProps> = ({ transformer, e
     </ResizablePanelGroup>
   );
 };
+
+export default React.memo(ConversionPanel);

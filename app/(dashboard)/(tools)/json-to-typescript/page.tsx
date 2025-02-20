@@ -1,11 +1,11 @@
 "use client";
 
-import { useCallback } from "react";
-import { useSettings } from "../../../hooks/useSettings";
-import { ConversionPanel } from "./_components/conversion-panel";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Separator } from "@/components/ui/separator";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/components/ui/breadcrumb";
+import { Separator } from "@/components/ui/separator";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { useSettings } from "@/hooks/useSettings";
+import { useCallback } from "react";
+import ConversionPanel from "./_components/conversion-panel";
 
 export default function JsonToTypescript() {
   const name = "JSON to Typescript";
@@ -15,8 +15,7 @@ export default function JsonToTypescript() {
   });
 
   const transformer = useCallback(
-    async (value: string | undefined) => {
-      if (!value) return "";
+    async (value: string) => {
       const { run } = await import("json_typegen_wasm");
       return run(
         "Root",
@@ -28,6 +27,8 @@ export default function JsonToTypescript() {
     },
     [settings]
   );
+
+  console.log("render");
 
   return (
     <main>
