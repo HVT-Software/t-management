@@ -1,15 +1,15 @@
 "use client";
 
-import React from "react";
-import Editor from "@monaco-editor/react";
 import type { EditorProps } from "@monaco-editor/react";
-import { Card } from "@/components/ui/card";
+import Editor from "@monaco-editor/react";
+import { LoaderPinwheel } from "lucide-react";
+import React from "react";
 
 export function processSize(size: string) {
   return !/^\d+$/.test(size) ? size : `${size}px`;
 }
 
-interface MonacoProps {
+export interface MonacoProps {
   theme?: string;
   language?: string;
   value?: string;
@@ -35,30 +35,20 @@ const defaultOptions: EditorProps["options"] = {
 
 export const Monaco: React.FC<MonacoProps> = ({ language, value, defaultValue, height, width, options, onChange, readOnly }) => {
   return (
-    <Card className="h-full w-full">
-      <div className="flex justify-between">Al</div>
-      <Editor
-        defaultLanguage={language}
-        defaultValue={defaultValue}
-        value={value}
-        height={height}
-        width={width}
-        options={{ ...defaultOptions, ...options, readOnly: readOnly }}
-        onChange={onChange}
-        // TODO: Add loading state
-        // loading={
-        //   <Pane
-        //     display="flex"
-        //     alignItems="center"
-        //     justifyContent="center"
-        //     height={400}
-        //     flex={1}
-        //   >
-        //     <Spinner />
-        //   </Pane>
-        // }
-      />
-    </Card>
+    <Editor
+      defaultLanguage={language}
+      defaultValue={defaultValue}
+      value={value}
+      height={height}
+      width={width}
+      options={{ ...defaultOptions, ...options, readOnly: readOnly }}
+      onChange={onChange}
+      loading={
+        <div className="flex items-center justify-center h-[400px] flex-1">
+          <LoaderPinwheel className="animate-spin text-primary" />
+        </div>
+      }
+    />
   );
 };
 

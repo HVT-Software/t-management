@@ -2,7 +2,7 @@
 
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import React, { useEffect, useState } from "react";
-import Monaco from "../../_components/monaco";
+import { EditorPannel } from "../../_components/editor-pannel";
 
 interface ConversionPanelProps {
   transformer: (value: string) => Promise<string>;
@@ -44,13 +44,13 @@ const ConversionPanel: React.FC<ConversionPanelProps> = ({ transformer, editorLa
   }, [json, transformer]);
 
   return (
-    <ResizablePanelGroup direction="horizontal">
-      <ResizablePanel>
-        <Monaco value={json} language={editorLanguage} onChange={setJson} />
+    <ResizablePanelGroup direction="horizontal" className="w-full h-[calc(100vh-4rem)]">
+      <ResizablePanel className="h-full">
+        <EditorPannel value={json} language={editorLanguage} onChange={setJson} />
       </ResizablePanel>
       <ResizableHandle />
       <ResizablePanel>
-        <Monaco language={resultLanguage} value={transformedCode} readOnly={true} />
+        <EditorPannel language={resultLanguage} value={transformedCode} readOnly={true} />
       </ResizablePanel>
     </ResizablePanelGroup>
   );
