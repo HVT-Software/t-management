@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { FileUp, Settings, Trash2 } from "lucide-react";
+import { Copy, FileUp, Settings, Trash2 } from "lucide-react";
 import * as React from "react";
 import Monaco, { MonacoProps } from "./monaco";
 import { HoTaTooltip } from "@/components/hota-tooltip";
@@ -10,31 +10,42 @@ interface EditorPannelProps extends MonacoProps {
   className?: string;
 }
 
-export const EditorPannel: React.FC<EditorPannelProps> = ({ className, ...props }) => {
+export const EditorPannel: React.FC<EditorPannelProps> = ({ className, value, onChange, readOnly, ...props }) => {
   return (
     <div className={`h-full w-full ${className}`}>
-      <Card className="flex items-center justify-end p-1 w-full rounded-none border-x-0">
+      <Card className="flex items-center justify-end p-1 w-full rounded-none border-x-0 h-12">
         <div className="gap-2 flex">
-          <HoTaTooltip content="Cài đặt">
-            <Button variant="outline" size="icon">
-              <Settings />
-            </Button>
-          </HoTaTooltip>
-          <HoTaTooltip content="Tải lên">
-            <Button variant="outline" size="icon">
-              <FileUp color="green" />
-            </Button>
-          </HoTaTooltip>
-          <HoTaTooltip content="Xóa">
-            <Button variant="outline" size="icon" title="Clear">
-              <Trash2 color="red" />
-            </Button>
-          </HoTaTooltip>
+          {!readOnly && (
+            <>
+              <HoTaTooltip content="Cài đặt">
+                <Button variant="outline" size="icon">
+                  <Settings />
+                </Button>
+              </HoTaTooltip>
+              <HoTaTooltip content="Tải lên">
+                <Button variant="outline" size="icon">
+                  <FileUp color="green" />
+                </Button>
+              </HoTaTooltip>
+              <HoTaTooltip content="Xóa">
+                <Button variant="outline" size="icon" onClick={() => onChange?.("")}>
+                  <Trash2 color="red" />
+                </Button>
+              </HoTaTooltip>
+            </>
+          )}
+          {readOnly && (
+            <HoTaTooltip content="Sao chép">
+              <Button variant="ghost" size="icon">
+                <Copy />
+              </Button>
+            </HoTaTooltip>
+          )}
         </div>
       </Card>
-      <Card className="h-full w-full overflow-hidden rounded-none border-x-0">
-        <Monaco {...props} />
-      </Card>
+      <div className="h-[calc(100%-3rem)] w-full rounded-none border-none border-b mt-4">
+        <Monaco value={value} onChange={onChange} {...props} />
+      </div>
     </div>
   );
 };
