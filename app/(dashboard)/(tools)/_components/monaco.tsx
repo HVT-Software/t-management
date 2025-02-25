@@ -3,6 +3,7 @@
 import type { EditorProps } from "@monaco-editor/react";
 import Editor from "@monaco-editor/react";
 import { LoaderPinwheel } from "lucide-react";
+import { useTheme } from "next-themes";
 import React from "react";
 
 export function processSize(size: string) {
@@ -34,6 +35,8 @@ const defaultOptions: EditorProps["options"] = {
 };
 
 export const Monaco: React.FC<MonacoProps> = ({ language, value, defaultValue, height, width, options, onChange, readOnly }) => {
+  const { theme } = useTheme();
+
   return (
     <Editor
       defaultLanguage={language}
@@ -41,6 +44,7 @@ export const Monaco: React.FC<MonacoProps> = ({ language, value, defaultValue, h
       value={value}
       height={height}
       width={width}
+      theme={theme === "light" ? "light" : "vs-dark"}
       options={{ ...defaultOptions, ...options, readOnly: readOnly }}
       onChange={onChange}
       loading={

@@ -19,6 +19,17 @@ export function NavMain({ items }: { items: Route[] }) {
     <SidebarGroup>
       <SidebarMenu>
         {items.map(item => {
+          if (!item.items)
+            return (
+              <SidebarMenuItem key={item.title}>
+                <a href={item.url}>
+                  <SidebarMenuButton tooltip={item.title} isActive={item.isActive}>
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                  </SidebarMenuButton>
+                </a>
+              </SidebarMenuItem>
+            );
           return (
             <Collapsible key={item.title} asChild defaultOpen={item.isActive} className="group/collapsible">
               <SidebarMenuItem>
