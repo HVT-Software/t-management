@@ -79,3 +79,32 @@ Tech Stack:
 - React Query
 - Tanstack Query
 - Tanstack Table
+
+- Project struct
+
+````structure
+└── 📁app
+   └── 📁(dashboard)
+       └── 📁(tools) // Page tools
+           └── 📁_components // Components of root page using
+               └── editor-pannel.tsx
+               └── monaco.tsx
+           └── 📁json-formatter
+               └── page.tsx
+           └── 📁json-to-typescript // Page json-to-typescript
+               └── 📁_components // Components only page using
+                   └── conversion-panel.tsx
+               └── page.tsx
+           └── layout.tsx
+       └── 📁dashboard // Page dashboard
+           └── page.tsx
+       └── layout.tsx
+       └── loading.tsx
+   └── 📁login // Page login
+       └── page.tsx
+   └── favicon.ico
+   └── globals.css
+   └── layout.tsx
+   └── page.tsx
+``` stucture
+````

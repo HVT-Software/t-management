@@ -4,6 +4,8 @@ import { Copy, FileUp, Settings, Trash2 } from "lucide-react";
 import * as React from "react";
 import Monaco, { MonacoProps } from "./monaco";
 import { HoTaTooltip } from "@/components/hota-tooltip";
+import { toastComingSoon } from "@/lib/utils/toast-comming-soon";
+import { toast } from "sonner";
 
 interface EditorPannelProps extends MonacoProps {
   id?: string;
@@ -18,12 +20,12 @@ export const EditorPannel: React.FC<EditorPannelProps> = ({ className, value, on
           {!readOnly && (
             <>
               <HoTaTooltip content="Cài đặt">
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" onClick={toastComingSoon}>
                   <Settings />
                 </Button>
               </HoTaTooltip>
               <HoTaTooltip content="Tải lên">
-                <Button variant="outline" size="icon">
+                <Button variant="outline" size="icon" onClick={toastComingSoon}>
                   <FileUp color="green" />
                 </Button>
               </HoTaTooltip>
@@ -36,7 +38,14 @@ export const EditorPannel: React.FC<EditorPannelProps> = ({ className, value, on
           )}
           {readOnly && (
             <HoTaTooltip content="Sao chép">
-              <Button variant="ghost" size="icon">
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => {
+                  navigator.clipboard.writeText(value || "");
+                  toast.success("Đã sao chép");
+                }}
+              >
                 <Copy />
               </Button>
             </HoTaTooltip>
