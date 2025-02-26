@@ -1,70 +1,16 @@
-"use client"
+"use client";
 
-import {
-  AudioWaveform,
-  Book,
-  Command,
-  GalleryVerticalEnd
-} from "lucide-react"
-import * as React from "react"
+import * as React from "react";
 
-import { NavMain } from "@/components/nav-main"
-import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarRail,
-} from "@/components/ui/sidebar"
-
-// This is sample data.
-const data = {
-  user: {
-    name: "Hồ Văn Toàn",
-    email: "it.vantoan@.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Quiz",
-      url: "#",
-      icon: Book,
-      isActive: true,
-      items: [
-        {
-          title: "Vocabulary",
-          url: "#",
-        },
-        {
-          title: "Listening",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  
-}
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
+import { TeamSwitcher } from "@/components/team-switcher";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
+import { useActivePath } from "@/lib/configs/routers";
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const data = useActivePath();
+  console.log(data);
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -78,5 +24,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

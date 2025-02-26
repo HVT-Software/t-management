@@ -5,6 +5,19 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: []
   },
+  experimental: {
+    turbo: {
+      rules: {
+        "*.svg": {
+          as: "*.tsx",
+          loaders: ["@svgr/webpack"]
+        }
+      },
+      resolveAlias: {
+        canvas: "./empty-module.ts"
+      }
+    }
+  },
   webpack: config => {
     config.experiments = { ...config.experiments, asyncWebAssembly: true };
     return config;
