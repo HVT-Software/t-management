@@ -5,6 +5,7 @@ Code Style and Structure:
 - Prefer iteration and modularization over code duplication
 - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
 - Structure files: exported component, subcomponents, helpers, static content, types
+- Create components used in the page in the ./\_components directory at the same level as the initialized page.js
 
 Naming Conventions:
 
