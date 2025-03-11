@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import { NavAuth } from "@/lib/types/sidebar";
+import { NavAuth } from "@/lib/models/sidebar";
 
 export function NavUser({ user }: { user: NavAuth }) {
   const { isMobile } = useSidebar();

@@ -1,5 +1,5 @@
 import { Book, GalleryVerticalEnd, Hammer } from "lucide-react";
-import { NavData } from "../types/sidebar";
+import { NavData } from "../models/sidebar";
 import { usePathname } from "next/navigation";
 
 export const data: NavData = {
