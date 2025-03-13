@@ -14,6 +14,7 @@ async function LoginPage() {
 
   // Redirect to dashboard if already authenticated
   if (session) {
+    console.log(session);
     redirect("/");
   }
 
