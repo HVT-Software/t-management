@@ -2,6 +2,8 @@ import { LoginResponse } from "@/app/login/models/login-response";
 import axios from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import DiscordProvider from "next-auth/providers/discord";
+import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import { CLOUD_AUTH_ENPOINT, CLOUD_AUTH_LOGIN_ENDPOINT } from "../constants/cloud-endpoint";
 import { loginPath } from "../constants/routes";
@@ -18,6 +20,14 @@ export const authOptions: NextAuthOptions = {
           response_type: "code"
         }
       }
+    }),
+    DiscordProvider({
+      clientId: process.env.DISCORD_CLIENT_ID || "",
+      clientSecret: process.env.DISCORD_CLIENT_SECRET || ""
+    }),
+    GitHubProvider({
+      clientId: process.env.GITHUB_CLIENT_ID || "",
+      clientSecret: process.env.GITHUB_CLIENT_SECRET || ""
     }),
     CredentialsProvider({
       name: "Credentials",
@@ -49,7 +59,7 @@ export const authOptions: NextAuthOptions = {
           baseURL: process.env.API_URL,
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${account.id_token}`
+            Authorization: `${account.provider === "google" ? "Bearer" : account.provider} ${account.id_token || account.access_token}`
           }
         };
 
