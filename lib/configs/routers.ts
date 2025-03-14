@@ -1,6 +1,7 @@
 import { Book, GalleryVerticalEnd, Hammer } from "lucide-react";
 import { NavData } from "../models/sidebar";
 import { usePathname } from "next/navigation";
+import { dashboardPath, jsonToTypescriptPath } from "../constants/routes";
 
 export const data: NavData = {
   user: {
@@ -16,7 +17,7 @@ export const data: NavData = {
     }
   ],
   navMain: [
-    { title: "Dashboard", url: "dashboard", icon: Book },
+    { title: "Dashboard", url: dashboardPath, icon: Book },
     {
       title: "Quiz",
       url: "#",
@@ -40,7 +41,7 @@ export const data: NavData = {
       items: [
         {
           title: "Json to Typescript",
-          url: "json-to-typescript"
+          url: jsonToTypescriptPath
         }
       ]
     }

@@ -1,19 +1,31 @@
-import { QueryClient, DefaultOptions } from "@tanstack/react-query";
+import { defaultShouldDehydrateQuery, isServer, QueryClient } from "@tanstack/react-query";
 
-const defaultQueryOptions: DefaultOptions = {
-  queries: {
-    staleTime: 60 * 1000, // 1 minute
-    gcTime: 5 * 60 * 1000, // 5 minutes
-    retry: 1,
-    refetchOnWindowFocus: false
-  },
-  mutations: {
-    retry: 1
-  }
-};
+let browserQueryClient: QueryClient | undefined;
 
-export function createQueryClient(): QueryClient {
+export function makeQueryClient(): QueryClient {
   return new QueryClient({
-    defaultOptions: defaultQueryOptions
+    defaultOptions: {
+      queries: {
+        staleTime: 60 * 1000, // 1 minute
+        gcTime: 5 * 60 * 1000, // 5 minutes
+        retry: 1,
+        refetchOnWindowFocus: false
+      },
+      mutations: {
+        retry: 1
+      },
+      dehydrate: {
+        shouldDehydrateQuery: query => defaultShouldDehydrateQuery(query) || query.state.status === "pending"
+      }
+    }
   });
 }
+
+export const getQueryClient = () => {
+  if (isServer) {
+    return makeQueryClient();
+  }
+
+  if (!browserQueryClient) browserQueryClient = makeQueryClient();
+  return browserQueryClient;
+};

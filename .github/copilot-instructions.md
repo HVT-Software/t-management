@@ -17,6 +17,8 @@ TypeScript Usage:
 - Use TypeScript for all code; prefer interfaces over types
 - Avoid enums; use maps instead
 - Use functional components with TypeScript interfaces
+- Use React.FC for functional components
+- Use next.config.ts for Next.js configuration
 
 Syntax and Formatting:
 

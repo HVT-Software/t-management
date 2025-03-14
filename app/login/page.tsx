@@ -1,8 +1,8 @@
-import { LoginForm } from "./_components/login-form";
+import { authOptions } from "@/lib/configs/auth-options";
 import { Metadata } from "next";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { LoginForm } from "./_components/login-form";
 
 export const metadata: Metadata = {
   title: "Đăng nhập",
@@ -12,10 +12,8 @@ export const metadata: Metadata = {
 async function LoginPage() {
   const session = await getServerSession(authOptions);
 
-  // Redirect to dashboard if already authenticated
   if (session) {
-    console.log(session);
-    redirect("/");
+    redirect("/dashboard");
   }
 
   return (

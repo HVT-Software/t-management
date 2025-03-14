@@ -1,7 +1,12 @@
 export interface LoginResponse {
-  userId: string;
-  token: string;
-  expiresIn: number;
   refreshToken: string;
-  tokenType: string;
+  token: string;
+  merchantCode: string;
+  merchantName: string;
+  username: string;
+  name: string;
+  email?: string;
+  image?: string;
+  expiredTime: number;
+  session: number;
 }
