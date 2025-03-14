@@ -1,12 +1,12 @@
-"use client";
-
 import { AppSidebar } from "@/components/app-sidebar";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { getSession } from "@/lib/query/getSession";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+export default async function Layout({ children }: { children: React.ReactNode }) {
+  const session = await getSession();
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar user={session?.user} />
       <SidebarInset>{children}</SidebarInset>
     </SidebarProvider>
   );

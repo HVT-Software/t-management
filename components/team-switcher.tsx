@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import { NavTeam } from "@/lib/types/sidebar";
+import { NavTeam } from "@/lib/models/sidebar";
 
 export function TeamSwitcher({ teams }: { teams: NavTeam[] }) {
   const { isMobile } = useSidebar();

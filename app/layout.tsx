@@ -1,8 +1,9 @@
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/sonner";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Providers } from "./providers";
+import { TanstackProvider } from "../lib/query/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -19,17 +20,14 @@ export const metadata: Metadata = {
   description: "HoTa is a platform for supporting the development of the Hota community."
 };
 
-export default function RootLayout({
-  children
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {children}
-          <Toaster className="text-red-50" />
+          <Providers>
+            <TanstackProvider>{children}</TanstackProvider>
+          </Providers>
         </ThemeProvider>
       </body>
     </html>

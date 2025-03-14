@@ -12,7 +12,7 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem
 } from "@/components/ui/sidebar";
-import { Route } from "@/lib/types/sidebar";
+import { Route } from "@/lib/models/sidebar";
 
 export function NavMain({ items }: { items: Route[] }) {
   return (

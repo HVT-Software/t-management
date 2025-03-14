@@ -5,6 +5,7 @@ Code Style and Structure:
 - Prefer iteration and modularization over code duplication
 - Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
 - Structure files: exported component, subcomponents, helpers, static content, types
+- Create components used in the page in the ./\_components directory at the same level as the initialized page.js
 
 Naming Conventions:
 
@@ -16,6 +17,8 @@ TypeScript Usage:
 - Use TypeScript for all code; prefer interfaces over types
 - Avoid enums; use maps instead
 - Use functional components with TypeScript interfaces
+- Use React.FC for functional components
+- Use next.config.ts for Next.js configuration
 
 Syntax and Formatting:
 
