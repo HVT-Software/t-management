@@ -3,6 +3,7 @@
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import React, { useEffect, useState } from "react";
 import { EditorPannel } from "../../_components/editor-pannel";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ConversionPanelProps {
   transformer: (value: string) => Promise<string>;
@@ -29,6 +30,7 @@ const defaultJson = {
 const ConversionPanel: React.FC<ConversionPanelProps> = ({ transformer, editorLanguage, resultLanguage }) => {
   const [json, setJson] = useState<string | undefined>(JSON.stringify(defaultJson, null, 2));
   const [transformedCode, setTransformedCode] = useState<string>("");
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     async function transform() {
@@ -43,8 +45,13 @@ const ConversionPanel: React.FC<ConversionPanelProps> = ({ transformer, editorLa
     transform();
   }, [json, transformer]);
 
-  return (
-    <ResizablePanelGroup direction="horizontal" className="w-full h-[calc(100vh-4rem)]">
+  return isMobile ? (
+    <div className="flex flex-col w-full h-[calc(100vh-4rem)]">
+      <EditorPannel value={json} language={editorLanguage} onChange={setJson} className="max-h-[calc(50%)]" />
+      <EditorPannel language={resultLanguage} value={transformedCode} readOnly={true} className="max-h-[calc(50%)]" />
+    </div>
+  ) : (
+    <ResizablePanelGroup direction="horizontal" className="w-full h-[calc(100vh-4rem)] flex-col">
       <ResizablePanel className="h-full">
         <EditorPannel value={json} language={editorLanguage} onChange={setJson} />
       </ResizablePanel>
