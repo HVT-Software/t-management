@@ -11,7 +11,7 @@ export const data: NavData = {
   },
   teams: [
     {
-      name: "HoTa",
+      name: "Tools",
       logo: GalleryVerticalEnd,
       plan: "Free"
     }
@@ -54,11 +54,11 @@ export const useActivePath = (): NavData => {
   const routes = { ...data, navMain: data.navMain.map(item => ({ ...item })) };
 
   routes.navMain.forEach(item => {
-    item.isActive = item.items?.some(subItem => path.includes(subItem.url)) || path.includes(item.url || "");
+    item.isActive = item.items?.some(subItem => path.includes(subItem.url.replace("/", ""))) || path.includes(item.url?.replace("/", "") || "");
     if (item.isActive && item.items) {
       item.items = item.items.map(subItem => ({
         ...subItem,
-        isActive: path.includes(subItem.url)
+        isActive: path.includes(subItem.url.replace("/", ""))
       }));
     }
   });
