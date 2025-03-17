@@ -24,5 +24,6 @@ export default function JsonToTypescript() {
     },
     [settings]
   );
+
   return <ConversionPanel transformer={transformer} editorLanguage="json" resultLanguage={"typescript"} />;
 }

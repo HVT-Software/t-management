@@ -16,7 +16,7 @@ export const EditorPannel: React.FC<EditorPannelProps> = ({ className, value, on
   return (
     <div className={`h-full w-full ${className}`}>
       <Card className="flex items-center justify-end p-1 w-full rounded-none border-x-0 h-12">
-        <div className="gap-2 flex">
+        <div className="gap-2 flex ">
           {!readOnly && (
             <>
               <HoTaTooltip content="Cài đặt">
@@ -39,7 +39,7 @@ export const EditorPannel: React.FC<EditorPannelProps> = ({ className, value, on
           {readOnly && (
             <HoTaTooltip content="Sao chép">
               <Button
-                variant="ghost"
+                variant="outline"
                 size="icon"
                 onClick={() => {
                   navigator.clipboard.writeText(value || "");
@@ -52,7 +52,7 @@ export const EditorPannel: React.FC<EditorPannelProps> = ({ className, value, on
           )}
         </div>
       </Card>
-      <div className="h-[calc(100%-3rem)] w-full rounded-none border-none border-b mt-4">
+      <div className="h-[calc(100%-3rem)] w-full rounded-none border-none border-b py-2">
         <Monaco value={value} onChange={onChange} {...props} />
       </div>
     </div>

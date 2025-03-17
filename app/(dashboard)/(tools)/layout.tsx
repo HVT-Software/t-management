@@ -31,7 +31,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <ModeToggle />
         </div>
       </header>
-      <div className="h-[calc(100%-4rem)]">{children}</div>
+      <div className="h-[calc(100%-3rem)]">{children}</div>
     </main>
   );
 }
