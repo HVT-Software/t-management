@@ -13,9 +13,10 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import { NavTeam } from "@/lib/models/sidebar";
+import { SidebarTeam } from "@/lib/models/sidebar";
+import Image from "next/image";
 
-export function TeamSwitcher({ teams }: { teams: NavTeam[] }) {
+export function TeamSwitcher({ teams }: { teams: SidebarTeam[] }) {
   const { isMobile } = useSidebar();
   const [activeTeam, setActiveTeam] = React.useState(teams[0]);
 
@@ -26,7 +27,7 @@ export function TeamSwitcher({ teams }: { teams: NavTeam[] }) {
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton size="lg" className="data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground">
               <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-                <activeTeam.logo className="size-4" />
+                <Image src={activeTeam.logo} alt="alt" className="size-8 " height={32} width={32} />
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{activeTeam.name}</span>
@@ -45,7 +46,7 @@ export function TeamSwitcher({ teams }: { teams: NavTeam[] }) {
             {teams.map((team, index) => (
               <DropdownMenuItem key={team.name} onClick={() => setActiveTeam(team)} className="gap-2 p-2">
                 <div className="flex size-6 items-center justify-center rounded-sm border">
-                  <team.logo className="size-4 shrink-0" />
+                  <Image src={team.logo} alt="alt" className="size-4" height={16} width={16} />
                 </div>
                 {team.name}
                 <DropdownMenuShortcut>⌘{index + 1}</DropdownMenuShortcut>

@@ -1,24 +1,24 @@
 import { LucideIcon } from "lucide-react";
 
-export interface NavData {
-  user: NavAuth;
-  teams: NavTeam[];
-  navMain: Route[];
+export interface SideBarConfig {
+  user: SidebarUser;
+  teams: SidebarTeam[];
+  navMain: SidebarRoute[];
 }
 
-export interface NavAuth {
+export interface SidebarUser {
   name: string;
   email: string;
   avatar: string;
 }
 
-export interface NavTeam {
+export interface SidebarTeam {
   name: string;
-  logo: any;
+  logo: string;
   plan: string;
 }
 
-export interface Route {
+export interface SidebarRoute {
   title: string;
   url?: string;
   icon?: LucideIcon;

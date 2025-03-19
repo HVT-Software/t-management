@@ -12,9 +12,9 @@ import {
   SidebarMenuSubButton,
   SidebarMenuSubItem
 } from "@/components/ui/sidebar";
-import { Route } from "@/lib/models/sidebar";
+import { SidebarRoute } from "@/lib/models/sidebar";
 
-export function NavMain({ items }: { items: Route[] }) {
+export function NavMain({ items }: { items: SidebarRoute[] }) {
   return (
     <SidebarGroup>
       <SidebarMenu>
