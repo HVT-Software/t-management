@@ -1,7 +1,12 @@
 declare type Result<T> = {
   success: boolean;
   message?: string;
-  data?: T;
+  data: T;
+};
+
+declare type WrapList<T = any> = {
+  totalCount: number;
+  items: Array<T>;
 };
 
 declare type FileResult = {
