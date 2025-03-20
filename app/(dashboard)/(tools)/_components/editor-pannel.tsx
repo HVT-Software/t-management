@@ -5,7 +5,7 @@ import { Card } from "@/components/ui/card";
 import { Copy, FileUp, Settings, Trash2 } from "lucide-react";
 import * as React from "react";
 import Monaco, { MonacoProps } from "./monaco";
-import { HoTaTooltip } from "@/components/hota-tooltip";
+import { HoTaTooltip } from "@/components/shared/hota-tooltip";
 import { toastComingSoon } from "@/lib/utils/toast-comming-soon";
 import { toast } from "sonner";
 
