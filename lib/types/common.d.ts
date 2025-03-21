@@ -1,3 +1,5 @@
+import "@tanstack/react-table";
+
 declare type Nullable<T> = T | null;
 
 declare type WrappedComponentProps = {
