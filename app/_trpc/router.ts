@@ -1,7 +1,7 @@
 import type { inferRouterOutputs } from "@trpc/server";
 
 import { baseRouter } from "./trpc";
-import { categoryApiRouter } from "./_apis/category.api";
+import { categoryApiRouter } from "./routes/category.api";
 
 export const apiRouter = baseRouter({
   category: categoryApiRouter

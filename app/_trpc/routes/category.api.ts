@@ -4,7 +4,7 @@ import { baseRouter, procedure } from "@/app/_trpc";
 
 import { CategoryFilter } from "@/app/(dashboard)/(money-tracking)/transactions/_model/category-filter";
 import { CLOUD_CATEGORY_ENDPOINT } from "@/lib/constants/cloud-endpoint";
-import { CookieKeys } from "@/lib/constants/cookie-keys";
+import { filterKeys } from "@/lib/constants/cookie-keys";
 import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants/messages";
 import { Category } from "@/lib/models/category";
 import { serverInstance } from "@/lib/query/server-instance";
@@ -15,7 +15,7 @@ export const categoryApiRouter = baseRouter({
     const res = await serverInstance.post<Result<WrapList<Category>>>(CLOUD_CATEGORY_ENDPOINT, input);
 
     if (!ctx.isServerCall) {
-      await saveToCookie<CategoryFilter>(CookieKeys.CATEGORY_FILTER, input);
+      await saveToCookie<CategoryFilter>(filterKeys.CATEGORY_FILTER, input);
     }
 
     return res.data.data;

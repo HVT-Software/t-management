@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
+import { CookiesProvider } from "next-client-cookies/server";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
-import { AppHeader } from "@/components/shared/app-header";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,7 +23,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers>{children}</Providers>
+        <CookiesProvider>
+          <Providers>{children}</Providers>
+        </CookiesProvider>
       </body>
     </html>
   );

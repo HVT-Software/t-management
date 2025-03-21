@@ -1,106 +1,107 @@
-Code Style and Structure:
+Next.js 14 Project Guidelines
 
-- Write concise, technical TypeScript code with accurate examples
-- Use functional and declarative programming patterns; avoid classes
-- Prefer iteration and modularization over code duplication
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
-- Structure files: exported component, subcomponents, helpers, static content, types
-- Create components used in the page in the ./\_components directory at the same level as the initialized page.js
+### **Code Style and Structure**
 
-Naming Conventions:
+- Write clean, concise **TypeScript** code using functional programming (avoid classes).
+- Avoid code duplication by favoring **iteration** and **modularization**.
+- Use descriptive variable names like `isLoading` or `hasError` for clarity.
+- Organize files logically:
+  - Main exported component
+  - Subcomponents
+  - Helper functions
+  - Static content
+  - Type definitions
+- Store page-specific components in a `./_components` folder at the page level.
 
-- Use lowercase with dashes for directories (e.g., components/auth-wizard)
-- Favor named exports for components
+---
 
-TypeScript Usage:
+### **Naming Conventions**
 
-- Use TypeScript for all code; prefer interfaces over types
-- Avoid enums; use maps instead
-- Use functional components with TypeScript interfaces
-- Use React.FC for functional components
-- Use next.config.ts for Next.js configuration
+- Use **lowercase with dashes** for directory names (e.g., `components/auth-wizard`).
+- Prefer **named exports** for components (e.g., `export { MyComponent }`).
 
-Syntax and Formatting:
+---
 
-- Use the "function" keyword for pure functions
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements
-- Use declarative JSX
+### **Project Structure**
 
-Error Handling and Validation:
+- **`_components/`**: Components specific to a page.
+- **`app/api/`**: API routes for Next.js.
+- **`components/`**: Reusable shared components.
+  - Includes a `ui/` subfolder for **Shadcn UI** components.
+- **`hooks/`**: Custom React hooks.
+- **`lib/`**: Utility files, including:
+  - Configuration files
+  - Constants
+  - Models
+  - Query utilities
+  - Type definitions
+  - General utilities
 
-- Prioritize error handling: handle errors and edge cases early
-- Use early returns and guard clauses
-- Implement proper error logging and user-friendly messages
-- Use Zod for form validation
-- Model expected errors as return values in Server Actions
-- Use error boundaries for unexpected errors
+---
 
-UI and Styling:
+### **UI and Styling**
 
-- Use Shadcn UI, Radix, and Tailwind Aria for components and styling
-- Implement responsive design with Tailwind CSS; use a mobile-first approach
+- Use **Shadcn UI**, **Radix**, and **Tailwind Aria** for UI components.
+- Style with **Tailwind CSS**, following a **mobile-first** approach for responsive design.
 
-Performance Optimization:
+---
 
-- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC)
-- Wrap client components in Suspense with fallback
-- Use dynamic loading for non-critical components
-- Optimize images: use WebP format, include size data, implement lazy loading
+### **Performance Optimization**
 
-Key Conventions:
+- Minimize client-side code (e.g., `use client`, `useEffect`, `setState`); prioritize **React Server Components**.
+- Wrap client components in **Suspense** with fallback UIs.
+- Dynamically load non-critical components to improve load times.
+- Optimize images using the **Next.js Image** component with **WebP** format and **lazy loading**.
 
-- Use 'nuqs' for URL search parameter state management
-- Optimize Web Vitals (LCP, CLS, FID)
-- Limit 'use client':
-  - Favor server components and Next.js SSR
-  - Use only for Web API access in small components
-  - Avoid for data fetching or state management
+---
 
-Follow Next.js docs for Data Fetching, Rendering, and App Router
+### **Key Conventions**
 
-- Use Next.js App Router
-- Use Next.js Server Actions
-- Use Next.js Image Component
-- Use Next.js Metadata
-- Use Next.js Link Component
-- Use Next.js Head Component
-- Use Next.js Layouts
-- Use Next.js Error Pages
-- Use Next.js Loading UI
+- Manage URL state with **`nuqs`** (Next.js URL Query State).
+- Focus on optimizing **Web Vitals** (e.g., LCP, CLS, FID).
+- Limit client-side code to **Web API access**; avoid using it for data fetching or state management.
 
-Follow Tech Stack:
+---
 
-- Next.js
-- Use TypeScript for all code
-- Use Tailwind CSS for styling
-- Use Shadcn UI for all components
-- Use Zod for validation
-- Use React Hook Form for forms
-- Use @tanstack/react-query for data fetching and caching
-- Use @tanstack/react-table for tables
-- Use Parallel router for popups
+### **Next.js Features**
 
-## Project Structure Guidelines
+- Leverage these Next.js features:
+  - **App Router**
+  - **Server Actions**
+  - **Image Component**
+  - **Metadata**
+  - **Link Component**
+  - **Head Management**
+  - **Layouts**
+  - **Error Pages**
+  - **Loading UI**
 
-### Directory Purposes
+---
 
-- **\_components/** - Components that are only used within a specific page
-- **app/api/** - API routes for server-side logic
-- **components/** - Components shared across the entire project
-  - **ui/** - Reusable UI components built with Shadcn
-- **hooks/** - Custom React hooks
-- **lib/** - Utility libraries and modules
-  - **configs/** - Configuration files
-  - **constants/** - Application constants and static values
-  - **models/** - Data models and schemas
-  - **query/** - Query-related files (React Query configuration)
-  - **types/** - TypeScript type definitions
-  - **utils/** - Helper functions and utilities
+### **Tech Stack**
 
-### Component Organization
+- Core technologies:
+  - **Next.js**
+  - **TypeScript**
+  - **Tailwind CSS**
+  - **Shadcn UI**
+- Additional tools:
+  - **Webpack**
+  - **Web Workers**
+  - **Monaco Editor**
+  - **Prettier** (code formatting)
+  - **Zod** (schema validation)
+  - **React Hook Form**
+  - **React Query** / **Tanstack Query**
+  - **Tanstack Table**
+  - **Parallel Router** (for popup functionality)
 
-Components should be organized based on their scope:
+---
 
-- Place page-specific components in `_components` directory at the page level
-- Place shared/global components in the root `components` directory
-- Follow the directory structure outlined in the project structure above
+### **Additional Tools**
+
+- **ESLint** (linting)
+- **Husky** (git hooks)
+- **Commitlint** (commit message linting)
+
+This summary covers the essentials of the guidelines. If you need more details on any specific section or help applying these to a project, just let me know—I’m here to assist!
