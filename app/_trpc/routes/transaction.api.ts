@@ -12,7 +12,7 @@ import { saveToCookie } from "@/lib/utils/cookie-helper";
 
 export const transactionApiRouter = baseRouter({
   list: procedure.input(z.custom<TransactionFilter>()).query<WrapList<Transaction>>(async ({ input, ctx }) => {
-    const res = await serverInstance.post<Result<WrapList<Transaction>>>(CLOUD_TRANSACTION_ENDPOINT, input);
+    const res = await serverInstance.get<Result<WrapList<Transaction>>>(CLOUD_TRANSACTION_ENDPOINT, { params: input });
 
     if (!ctx.isServerCall) {
       await saveToCookie<TransactionFilter>(filterKeys.TRANSACTION_FILTER, input);
