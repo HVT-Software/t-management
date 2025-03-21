@@ -78,12 +78,14 @@ Follow Tech Stack:
 - Use React Hook Form for forms
 - Use @tanstack/react-query for data fetching and caching
 - Use @tanstack/react-table for tables
+- Use Parallel router for popups
 
 ## Project Structure Guidelines
 
 ### Directory Purposes
 
 - **\_components/** - Components that are only used within a specific page
+- **app/api/** - API routes for server-side logic
 - **components/** - Components shared across the entire project
   - **ui/** - Reusable UI components built with Shadcn
 - **hooks/** - Custom React hooks
@@ -102,52 +104,3 @@ Components should be organized based on their scope:
 - Place page-specific components in `_components` directory at the page level
 - Place shared/global components in the root `components` directory
 - Follow the directory structure outlined in the project structure above
-
-Structure rules:
-└──📁components // Component shared
-└── 📁ui // UI using for project (Shadcn)
-└── hooks // Custom hooks
-└── 📁lib
-└── 📁configs
-└── 📁constants
-└── 📁models
-└── 📁query
-└── client-instance.ts // QueryClient instance
-└── getSession.ts // Get session
-└── providers.tsx // QueryClientProvider
-└── query-client.ts // QueryClient
-└── server-instance.ts // Server instance
-└── 📁types
-└── 📁utils
-📁app
-└── 📁(dashboard)
-└── 📁(money-tracking)
-└── 📁categories
-└── 📁transactions
-└── 📁_components
-└── page.tsx
-└── 📁(tools)
-└── 📁_components
-└── editor-pannel.tsx
-└── monaco.tsx
-└── 📁json-formatter
-└── page.tsx
-└── 📁json-to-typescript
-└── 📁_components
-└── conversion-panel.tsx
-└── page.tsx
-└── layout.tsx
-└── 📁dashboard
-└── page.tsx
-└── layout.tsx
-└── loading.tsx
-└── 📁api
-└── 📁auth
-└── 📁[...nextauth]
-└── route.ts
-└── 📁login
-└── 📁_components
-└── login-form.tsx
-└── 📁models
-└── login-response.ts
-└── page.tsx
