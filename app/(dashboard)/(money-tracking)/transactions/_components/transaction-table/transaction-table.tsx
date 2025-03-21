@@ -1,4 +1,13 @@
-export const TransactionTable = () => {
+import { TransactionFilter } from "../../_model/transaction-filter";
+import { useTransactionTable } from "./use-transaction-table";
+
+interface TransactionTableProps {
+  filter: TransactionFilter;
+}
+
+export const TransactionTable: React.FC<TransactionTableProps> = ({ filter }) => {
+  const { control, getValues, table, setValue } = useTransactionTable(filter);
+
   return (
     <table>
       <thead>

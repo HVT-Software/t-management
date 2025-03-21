@@ -8,30 +8,29 @@ export enum TransactionType {
 }
 
 export class Transaction {
-  @IsUUID()
-  userId!: string;
+  id: string = "";
 
-  @IsUUID()
-  categoryId!: string;
+  userId: string = "";
+  categoryId: string = "";
 
   @IsEnum(TransactionType)
-  type!: TransactionType;
+  type: TransactionType = TransactionType.INCOME;
 
   @IsNumber()
-  amount!: number;
+  amount: number = 0;
 
   @IsString()
-  description!: string;
+  description: string = "";
 
   @IsDate()
   @Type(() => Date)
-  date!: Date;
+  date: Date = new Date();
 
   @IsDate()
   @Type(() => Date)
-  createdAt!: Date;
+  createdAt: Date = new Date();
 
   @ValidateNested()
   @Type(() => Category)
-  category!: Category;
+  category: Category = new Category();
 }
