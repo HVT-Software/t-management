@@ -1,3 +1,9 @@
-export const CookieKeys = {
-  CATEGORY_FILTER: "brand_filter"
+export const filterKeys = {
+  CATEGORY_FILTER: "category_filter"
+};
+
+export const otherKeys = {
+  TIMEZONE_COOKIE_NAME: "timezone",
+  DEFAULT_TIMEZONE: "UTC",
+  DEFAULT_LOCALE: "en-US"
 };
