@@ -44,7 +44,7 @@ export const useTransactionTable = (filter: TransactionFilter) => {
     data: data?.items || [],
     enableGlobalFilter: false,
     enableColumnFilters: false,
-
+    enableSorting: true,
     state: {
       pagination,
       columnFilters

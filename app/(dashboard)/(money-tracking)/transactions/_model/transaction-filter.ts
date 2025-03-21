@@ -12,7 +12,7 @@ export class TransactionFilter implements Omit<ListRequest, "startDate" | "endDa
 
   pageIndex: number = 0;
 
-  pageSize: number = 15;
+  pageSize: number = 20;
 
   isCount?: boolean = true;
 

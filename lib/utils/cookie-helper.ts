@@ -12,7 +12,7 @@ export const saveToCookie = async <T>(key: string, data: T) => {
   });
 };
 
-export const getFromCookie = async <T>(key: string) => {
+export const getFromCookie = async <T>(key: string, defaultValue: T = {} as T) => {
   const cookieStore = await cookies();
 
   const value = cookieStore.get(key)?.value;
@@ -20,5 +20,5 @@ export const getFromCookie = async <T>(key: string) => {
     return JSON.parse(value) as T;
   }
 
-  return {} as T;
+  return instanceToPlain<T>(defaultValue) as T;
 };
