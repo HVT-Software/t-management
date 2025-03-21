@@ -1,5 +1,6 @@
 export const filterKeys = {
-  CATEGORY_FILTER: "category_filter"
+  CATEGORY_FILTER: "category_filter",
+  TRANSACTION_FILTER: "transaction_filter"
 };
 
 export const otherKeys = {
