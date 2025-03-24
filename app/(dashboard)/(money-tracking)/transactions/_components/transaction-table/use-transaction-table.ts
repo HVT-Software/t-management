@@ -1,4 +1,4 @@
-import { Transaction } from "@/lib/models/transaction";
+import { Transaction } from "@lib/models/transaction";
 import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { ColumnFiltersState, TableOptions, useReactTable } from "@tanstack/react-table";
 import { plainToInstance } from "class-transformer";
@@ -6,7 +6,7 @@ import { useForm, useWatch } from "react-hook-form";
 import { TransactionFilter } from "../../_model/transaction-filter";
 import { useMemo, useState } from "react";
 import { useQueryTransactions } from "../../_queries/use-query-transactions";
-import { tableOptions } from "@/lib/configs/table-options";
+import { tableOptions } from "@lib/configs/table-options";
 import { transactionCollumns as transactionColumns } from "./transaction-table.define";
 
 const resolver = classValidatorResolver(TransactionFilter);
@@ -26,7 +26,7 @@ export const useTransactionTable = (filter: TransactionFilter) => {
 
   const currentFilters = useWatch({ control }) as TransactionFilter;
 
-  const { data, isFetching } = useQueryTransactions({
+  const { data } = useQueryTransactions({
     ...currentFilters,
     ...pagination
   });

@@ -1,5 +1,5 @@
-import { ESortDirection } from "@/lib/enums/sort-direction";
-import { Transaction } from "@/lib/models/transaction";
+import { ESortDirection } from "@lib/enums/sort-direction";
+import { Transaction } from "@lib/models/transaction";
 import "reflect-metadata";
 import type { PascalCasedProperties } from "type-fest";
 

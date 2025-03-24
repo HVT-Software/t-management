@@ -1,4 +1,4 @@
-import { Transaction } from "@/lib/models/transaction";
+import { Transaction } from "@lib/models/transaction";
 import { ColumnDef } from "@tanstack/react-table";
 import { TransactionTypeBadge } from "../transaction-type-badge/transaction-type-badge";
 

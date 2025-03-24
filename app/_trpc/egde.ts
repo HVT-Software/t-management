@@ -1,7 +1,7 @@
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { cookies } from "next/headers";
 
-import type { ApiRouter } from "@/app/_trpc/router";
+import type { ApiRouter } from "@app/_trpc/router";
 
 export const proxyClient = createTRPCClient<ApiRouter>({
   links: [
