@@ -1,5 +1,5 @@
-import { ESortDirection } from "@/lib/enums/sort-direction";
-import { Category } from "@/lib/models/category";
+import { ESortDirection } from "@lib/enums/sort-direction";
+import { Category } from "@lib/models/category";
 import "reflect-metadata";
 import type { PascalCasedProperties } from "type-fest";
 

@@ -1,17 +1,17 @@
 "use client";
 import { flexRender } from "@tanstack/react-table";
 
-import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@components/ui/table";
 import { TransactionFilter } from "../../_model/transaction-filter";
-import { useTransactionTable } from "./use-transaction-table";
 import { transactionCollumns } from "./transaction-table.define";
+import { useTransactionTable } from "./use-transaction-table";
 
 interface TransactionTableProps {
   filter: TransactionFilter;
 }
 
 export const TransactionTable: React.FC<TransactionTableProps> = ({ filter }) => {
-  const { control, getValues, table, setValue } = useTransactionTable(filter);
+  const { table } = useTransactionTable(filter);
 
   return (
     <div className="rounded-md border mx-2">

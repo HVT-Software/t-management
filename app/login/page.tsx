@@ -1,4 +1,4 @@
-import { getSession } from "@/lib/query/getSession";
+import { getSession } from "@lib/query/getSession";
 import { Metadata } from "next";
 import { redirect } from "next/navigation";
 import { LoginForm } from "./_components/login-form";

@@ -1,6 +1,6 @@
-import { HydrateClient, trpcServer } from "@/app/_trpc/server";
-import { filterKeys } from "@/lib/constants/cookie-keys";
-import { getFromCookie } from "@/lib/utils/cookie-helper";
+import { HydrateClient, trpcServer } from "@app/_trpc/server";
+import { filterKeys } from "@lib/constants/cookie-keys";
+import { getFromCookie } from "@lib/utils/cookie-helper";
 import { TransactionTable } from "./_components/transaction-table/transaction-table";
 import { TransactionFilter } from "./_model/transaction-filter";
 

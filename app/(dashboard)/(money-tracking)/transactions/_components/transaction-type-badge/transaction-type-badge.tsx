@@ -1,5 +1,5 @@
-import { Badge } from "@/components/ui/badge";
-import { TransactionType } from "@/lib/models/transaction";
+import { Badge } from "@components/ui/badge";
+import { TransactionType } from "@lib/models/transaction";
 
 interface TransactionTypeBadgeProps {
   type: TransactionType;

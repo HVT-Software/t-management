@@ -2,9 +2,9 @@ import { TRPCError } from "@trpc/server";
 import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
 import { AxiosError } from "axios";
 
-import { apiRouter } from "@/app/_trpc/router";
-import { createTRPCContext } from "@/app/_trpc/trpc";
-import { logger } from "@/lib/utils/logger";
+import { apiRouter } from "@app/_trpc/router";
+import { createTRPCContext } from "@app/_trpc/trpc";
+import { logger } from "@lib/utils/logger";
 
 export const dynamic = "force-dynamic";
 
