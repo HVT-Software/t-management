@@ -3,3 +3,4 @@
 
 pnpm pretty-quick
 pnpm lint-staged
+pnpm run lint

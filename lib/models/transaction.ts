@@ -1,5 +1,5 @@
-import { IsUUID, IsNumber, IsString, IsDate, ValidateNested, IsEnum } from "class-validator";
 import { Type } from "class-transformer";
+import { IsDate, IsEnum, IsNumber, IsString, ValidateNested } from "class-validator";
 import { Category } from "./category";
 
 export enum TransactionType {
