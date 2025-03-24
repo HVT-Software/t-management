@@ -1,5 +1,3 @@
-import { Type } from "class-transformer";
-import { IsDate, IsEnum, IsNumber, IsString, ValidateNested } from "class-validator";
 import { Category } from "./category";
 
 export enum TransactionType {
@@ -7,30 +5,21 @@ export enum TransactionType {
   EXPENSE
 }
 
-export class Transaction {
-  id: string = "";
+export interface Transaction {
+  id: string;
 
-  userId: string = "";
-  categoryId: string = "";
+  userId: string;
+  categoryId: string;
 
-  @IsEnum(TransactionType)
-  type: TransactionType = TransactionType.INCOME;
+  type: TransactionType;
 
-  @IsNumber()
-  amount: number = 0;
+  amount: number;
 
-  @IsString()
-  description: string = "";
+  description: string;
 
-  @IsDate()
-  @Type(() => Date)
-  date: Date = new Date();
+  date: string;
 
-  @IsDate()
-  @Type(() => Date)
-  createdAt: Date = new Date();
+  createdAt: string;
 
-  @ValidateNested()
-  @Type(() => Category)
-  category: Category = new Category();
+  category: Category;
 }

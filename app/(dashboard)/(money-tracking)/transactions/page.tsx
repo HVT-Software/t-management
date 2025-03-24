@@ -1,17 +1,35 @@
 import { HydrateClient, trpcServer } from "@app/_trpc/server";
-import { filterKeys } from "@lib/constants/cookie-keys";
-import { getFromCookie } from "@lib/utils/cookie-helper";
+import { DataTableSkeleton } from "@components/data-table/data-table-skeleton";
+import { SearchParams } from "@lib/types";
+import { Suspense } from "react";
 import { TransactionTable } from "./_components/transaction-table/transaction-table";
-import { TransactionFilter } from "./_model/transaction-filter";
+import { searchParamsCache, TransactionFilter } from "./_lib/validations";
 
-const TransactionsPage: React.FC = async () => {
-  const defaultFilter = await getFromCookie(filterKeys.TRANSACTION_FILTER, new TransactionFilter());
+interface TransactionPageProps {
+  searchParams: Promise<SearchParams>;
+}
+
+const TransactionsPage: React.FC<TransactionPageProps> = async ({ searchParams }) => {
+  const searchParamsValue = await searchParams;
+  const defaultFilter: TransactionFilter = searchParamsCache.parse(searchParamsValue);
+
   await trpcServer.transaction.list.prefetch(defaultFilter);
 
-  console.log(defaultFilter);
   return (
     <HydrateClient>
-      <TransactionTable filter={defaultFilter} />
+      <Suspense
+        fallback={
+          <DataTableSkeleton
+            columnCount={6}
+            searchableColumnCount={1}
+            filterableColumnCount={2}
+            cellWidths={["10rem", "40rem", "12rem", "12rem", "8rem", "8rem"]}
+            shrinkZero
+          />
+        }
+      >
+        <TransactionTable filter={defaultFilter} />
+      </Suspense>
     </HydrateClient>
   );
 };
