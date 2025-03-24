@@ -33,7 +33,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { Slot, type SlotProps } from "@radix-ui/react-slot";
 import * as React from "react";
 
-import { composeEventHandlers, useComposedRefs } from "@lib/composition";
+import { composeEventHandlers, useComposedRefs } from "@lib/helpers/composition";
 import { cn } from "@lib/utils";
 import * as ReactDOM from "react-dom";
 

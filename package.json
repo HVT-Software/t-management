@@ -9,7 +9,8 @@
     "start": "next start",
     "format": "prettier --write '**/*.ts' '**/*.tsx'",
     "lint-staged": "lint-staged",
-    "pretty-quick": "pretty-quick --staged"
+    "pretty-quick": "pretty-quick --staged",
+    "lint": "next lint"
   },
   "dependencies": {
     "@dnd-kit/core": "6.3.1",
