@@ -13,6 +13,7 @@ import { SessionProvider, signOut } from "next-auth/react";
 import { useCookies } from "next-client-cookies";
 import { useEffect, useState } from "react";
 import { Toaster } from "sonner";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 interface ProvidersProps {
   children: React.ReactNode;
@@ -60,7 +61,7 @@ export function Providers({ children }: ProvidersProps) {
         <QueryProvider queryClient={queryClient}>
           <SessionProvider basePath="/api/auth">
             <TanstackProvider>
-              {children}
+              <NuqsAdapter>{children}</NuqsAdapter>
               <Init />
               <Toaster richColors position="top-right" />
             </TanstackProvider>

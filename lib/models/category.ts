@@ -1,20 +1,11 @@
-import { IsUUID, IsNumber, IsString, IsDate } from "class-validator";
-import { Type } from "class-transformer";
+export interface Category {
+  name: string;
 
-export class Category {
-  @IsString()
-  name!: string;
+  description: string;
 
-  @IsString()
-  description!: string;
+  budget: number;
 
-  @IsNumber()
-  budget!: number;
+  createAt: string;
 
-  @IsDate()
-  @Type(() => Date)
-  createAt!: Date;
-
-  @IsUUID()
-  id!: string;
+  id: string;
 }

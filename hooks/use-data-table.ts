@@ -148,9 +148,9 @@ export function useDataTable<TData>({
   const [rowSelection, setRowSelection] = React.useState<RowSelectionState>(initialState?.rowSelection ?? {});
   const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>(initialState?.columnVisibility ?? {});
 
-  const [page, setPage] = useQueryState("page", parseAsInteger.withOptions(queryStateOptions).withDefault(1));
+  const [page, setPage] = useQueryState("pageIndex", parseAsInteger.withOptions(queryStateOptions).withDefault(1));
   const [perPage, setPerPage] = useQueryState(
-    "perPage",
+    "pageSize",
     parseAsInteger.withOptions(queryStateOptions).withDefault(initialState?.pagination?.pageSize ?? 10)
   );
   const [sorting, setSorting] = useQueryState(

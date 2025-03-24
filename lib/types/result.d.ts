@@ -4,7 +4,7 @@ declare type Result<T> = {
   data: T;
 };
 
-declare type WrapList<T = any> = {
+declare type WrapList<T> = {
   totalCount: number;
   items: Array<T>;
 };

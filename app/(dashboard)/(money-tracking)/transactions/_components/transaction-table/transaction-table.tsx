@@ -1,52 +1,38 @@
 "use client";
-import { flexRender } from "@tanstack/react-table";
 
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@components/ui/table";
-import { TransactionFilter } from "../../_model/transaction-filter";
+import { DataTable } from "@components/data-table/data-table";
+import { useDataTable } from "@hooks/use-data-table";
+import { Transaction } from "@lib/models/transaction";
+import { useQueryTransactions } from "../../_queries/use-query-transactions";
 import { transactionCollumns } from "./transaction-table.define";
-import { useTransactionTable } from "./use-transaction-table";
+import { TransactionFilter } from "../../_lib/validations";
 
 interface TransactionTableProps {
   filter: TransactionFilter;
 }
 
 export const TransactionTable: React.FC<TransactionTableProps> = ({ filter }) => {
-  const { table } = useTransactionTable(filter);
+  const { data } = useQueryTransactions(filter);
+
+  const { table } = useDataTable<Transaction>({
+    data: data?.items ?? [],
+    columns: transactionCollumns,
+    pageCount: data?.totalCount ?? 0,
+    getRowId: originalRow => originalRow.id,
+    shallow: false,
+    clearOnDefault: true
+  });
 
   return (
-    <div className="rounded-md border mx-2">
-      <Table>
-        <TableHeader>
-          {table.getHeaderGroups().map(headerGroup => (
-            <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map(header => {
-                return (
-                  <TableHead key={header.id}>
-                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                  </TableHead>
-                );
-              })}
-            </TableRow>
-          ))}
-        </TableHeader>
-        <TableBody>
-          {table.getCoreRowModel().rows?.length ? (
-            table.getCoreRowModel().rows.map(row => (
-              <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
-                {row.getVisibleCells().map(cell => (
-                  <TableCell key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</TableCell>
-                ))}
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={transactionCollumns.length} className="h-24 text-center">
-                No results.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
-    </div>
+    <DataTable
+      table={table}
+      // floatingBar={
+      //   enableFloatingBar ? <TasksTableFloatingBar table={table} /> : null
+      // }
+    >
+      {/* <DataTableToolbar table={table} filterFields={filterFields}>
+        <TasksTableToolbarActions table={table} />
+      </DataTableToolbar> */}
+    </DataTable>
   );
 };
