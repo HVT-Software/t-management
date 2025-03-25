@@ -4,6 +4,18 @@ import { TransactionTypeBadge } from "../transaction-type-badge/transaction-type
 
 export const transactionCollumns: ColumnDef<Transaction>[] = [
   {
+    header: "Ngày",
+    accessorKey: "date",
+    cell: ({ row }) => {
+      const date = new Date(row.original.date);
+      return date.toLocaleDateString("vi-VN", {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit"
+      });
+    }
+  },
+  {
     header: "Loại",
     accessorKey: "type",
     cell: ({ row }) => <TransactionTypeBadge type={row.original.type} />
@@ -15,10 +27,6 @@ export const transactionCollumns: ColumnDef<Transaction>[] = [
   {
     header: "Mô tả",
     accessorKey: "description"
-  },
-  {
-    header: "Ngày",
-    accessorKey: "date"
   },
   {
     header: "Nhóm chi tiêu",

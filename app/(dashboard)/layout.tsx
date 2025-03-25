@@ -8,7 +8,7 @@ export default async function Layout({ children }: { children: React.ReactNode }
   return (
     <SidebarProvider>
       <AppSidebar user={session?.user} />
-      <SidebarInset>
+      <SidebarInset className="px-2">
         <AppHeader />
         {children}
       </SidebarInset>

@@ -11,11 +11,11 @@ export const TransactionTypeBadge: React.FC<TransactionTypeBadgeProps> = ({ type
 
   switch (type) {
     case TransactionType.INCOME:
-      badgeText = "Income";
+      badgeText = "Thu nhập";
       badgeVariant = "outline";
       break;
     case TransactionType.EXPENSE:
-      badgeText = "Expense";
+      badgeText = "Chi phí";
       badgeVariant = "destructive";
       break;
     default:
