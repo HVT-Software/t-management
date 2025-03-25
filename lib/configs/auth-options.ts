@@ -1,4 +1,4 @@
-import { LoginResponse } from "@app/login/models/login-response";
+import { LoginResponse } from "@/app/login/models/login-response";
 import axios from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";

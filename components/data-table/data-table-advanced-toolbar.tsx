@@ -1,25 +1,25 @@
 "use client";
 
-import type { DataTableAdvancedFilterField } from "@lib/types";
+import type { DataTableAdvancedFilterField } from "@/lib/types";
 import type { Table } from "@tanstack/react-table";
 import type * as React from "react";
 
-import { DataTableFilterList } from "@components/data-table/data-table-filter-list";
-import { DataTableSortList } from "@components/data-table/data-table-sort-list";
-import { DataTableViewOptions } from "@components/data-table/data-table-view-options";
-import { cn } from "@lib/utils";
+import { DataTableFilterList } from "@/components/data-table/data-table-filter-list";
+import { DataTableSortList } from "@/components/data-table/data-table-sort-list";
+import { DataTableViewOptions } from "@/components/data-table/data-table-view-options";
+import { cn } from "@/lib/utils";
 
 interface DataTableAdvancedToolbarProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The table instance returned from useDataTable hook with pagination, sorting, filtering, etc.
-   * @type Table<TData>
+   * @/type Table<TData>
    */
   table: Table<TData>;
 
   /**
    * An array of filter field configurations for the data table.
-   * @type DataTableAdvancedFilterField<TData>[]
-   * @example
+   * @/type DataTableAdvancedFilterField<TData>[]
+   * @/example
    * const filterFields = [
    *   {
    *     id: 'name',
@@ -42,14 +42,14 @@ interface DataTableAdvancedToolbarProps<TData> extends React.HTMLAttributes<HTML
 
   /**
    * Debounce time (ms) for filter updates to enhance performance during rapid input.
-   * @default 300
+   * @/default 300
    */
   debounceMs?: number;
 
   /**
    * Shallow mode keeps query states client-side, avoiding server calls.
    * Setting to `false` triggers a network request with the updated querystring.
-   * @default true
+   * @/default true
    */
   shallow?: boolean;
 }

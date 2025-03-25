@@ -3,11 +3,11 @@
 import { Check, ChevronsUpDown } from "lucide-react";
 import * as React from "react";
 
-import { Badge } from "@components/ui/badge";
-import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList, CommandSeparator } from "@components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
-import { useComposedRefs } from "@lib/helpers/composition";
-import { cn, composeEventHandlers } from "@lib/utils";
+import { Badge } from "@/components/ui/badge";
+import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { useComposedRefs } from "@/lib/helpers/composition";
+import { cn, composeEventHandlers } from "@/lib/utils";
 
 const FACETED_NAME = "Faceted";
 const TRIGGER_NAME = "FacetedTrigger";

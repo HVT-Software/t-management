@@ -1,17 +1,17 @@
-// import { SelectTrigger } from "@radix-ui/react-select";
+// import { SelectTrigger } from "@/radix-ui/react-select";
 // import type { Table } from "@tanstack/react-table";
 // import { ArrowUp, CheckCircle2, Download, Loader, Trash2, X } from "lucide-react";
 // import * as React from "react";
 // import { toast } from "sonner";
 
-// import { Button } from "@components/ui/button";
-// import { Kbd } from "@components/ui/kbd";
-// import { Portal } from "@components/ui/portal";
-// import { Select, SelectContent, SelectGroup, SelectItem } from "@components/ui/select";
-// import { Separator } from "@components/ui/separator";
-// import { Tooltip, TooltipContent, TooltipTrigger } from "@components/ui/tooltip";
+// import { Button } from "@/components/ui/button";
+// import { Kbd } from "@/components/ui/kbd";
+// import { Portal } from "@/components/ui/portal";
+// import { Select, SelectContent, SelectGroup, SelectItem } from "@/components/ui/select";
+// import { Separator } from "@/components/ui/separator";
+// import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
-// import { Transaction } from "@lib/models/transaction";
+// import { Transaction } from "@/lib/models/transaction";
 
 // interface TasksTableFloatingBarProps {
 //   table: Table<Transaction>;

@@ -1,4 +1,4 @@
-import { LoginResponse } from "@app/login/models/login-response";
+import { LoginResponse } from "@/app/login/models/login-response";
 
 declare module "next-auth" {
   export interface User extends Result<LogiResponse> {}

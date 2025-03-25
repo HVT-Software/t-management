@@ -1,14 +1,14 @@
 import { z } from "zod";
-import { CLOUD_TRANSACTION_ENDPOINT } from "./../../../lib/constants/cloud-endpoint";
 
-import { baseRouter, procedure } from "@app/_trpc";
+import { baseRouter, procedure } from "@/app/_trpc";
 
-import { filterKeys } from "@lib/constants/cookie-keys";
-import { DEFAULT_ERROR_MESSAGE } from "@lib/constants/messages";
-import { Transaction } from "@lib/models/transaction";
-import { serverInstance } from "@lib/query/server-instance";
-import { saveToCookie } from "@lib/utils/cookie-helper";
-import { TransactionFilter } from "@app/(dashboard)/(money-tracking)/transactions/_lib/transaction-validations";
+import { filterKeys } from "@/lib/constants/cookie-keys";
+import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants/messages";
+import { Transaction } from "@/lib/models/transaction";
+import { serverInstance } from "@/lib/query/server-instance";
+import { saveToCookie } from "@/lib/utils/cookie-helper";
+import { TransactionFilter } from "@/app/(dashboard)/(money-tracking)/transactions/_lib/transaction-validations";
+import { CLOUD_TRANSACTION_ENDPOINT } from "@/lib/constants/cloud-endpoint";
 
 export const transactionApiRouter = baseRouter({
   list: procedure.input(z.custom<TransactionFilter>()).query<WrapList<Transaction>>(async ({ input, ctx }) => {

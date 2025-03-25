@@ -4,10 +4,10 @@ import type { Table } from "@tanstack/react-table";
 import { Check, ChevronsUpDown, Settings2 } from "lucide-react";
 import * as React from "react";
 
-import { Button } from "@components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
-import { cn, toSentenceCase } from "@lib/utils";
+import { Button } from "@/components/ui/button";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn, toSentenceCase } from "@/lib/utils";
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
@@ -28,7 +28,7 @@ export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps
           className="ml-auto hidden h-8 focus:outline-hidden focus:ring-1 focus:ring-ring lg:flex"
           onPointerDown={event => {
             /**
-             * @see https://github.com/radix-ui/primitives/blob/main/packages/react/select/src/select.tsx#L281-L299
+             * @/see https://github.com/radix-ui/primitives/blob/main/packages/react/select/src/select.tsx#L281-L299
              */
 
             // prevent implicit pointer capture

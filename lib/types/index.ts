@@ -1,8 +1,8 @@
 import type { ColumnSort, Row } from "@tanstack/react-table";
 import type { z } from "zod";
 
-import type { DataTableConfig } from "@lib/configs/data-table";
-import type { filterSchema } from "@lib/helpers/parsers";
+import type { DataTableConfig } from "@/lib/configs/data-table";
+import type { filterSchema } from "@/lib/helpers/parsers";
 
 export type Prettify<T> = {
   [K in keyof T]: T[K];

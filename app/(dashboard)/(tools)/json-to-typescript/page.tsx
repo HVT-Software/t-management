@@ -1,6 +1,6 @@
 "use client";
 
-import { useSettings } from "@hooks/useSettings";
+import { useSettings } from "@/hooks/useSettings";
 import { useCallback } from "react";
 import ConversionPanel from "./_components/conversion-panel";
 

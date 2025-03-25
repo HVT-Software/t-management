@@ -1,23 +1,23 @@
 import { type Table as TanstackTable, flexRender } from "@tanstack/react-table";
 import type * as React from "react";
 
-import { DataTablePagination } from "@components/data-table/data-table-pagination";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@components/ui/table";
-import { getCommonPinningStyles } from "@lib/helpers/data-table";
-import { cn } from "@lib/utils";
+import { DataTablePagination } from "@/components/data-table/data-table-pagination";
+import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { getCommonPinningStyles } from "@/lib/helpers/data-table";
+import { cn } from "@/lib/utils";
 
 interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The table instance returned from useDataTable hook with pagination, sorting, filtering, etc.
-   * @type TanstackTable<TData>
+   * @/type TanstackTable<TData>
    */
   table: TanstackTable<TData>;
 
   /**
    * The floating bar to render at the bottom of the table on row selection.
-   * @default null
-   * @type React.ReactNode | null
-   * @example floatingBar={<TasksTableFloatingBar table={table} />}
+   * @/default null
+   * @/type React.ReactNode | null
+   * @/example floatingBar={<TasksTableFloatingBar table={table} />}
    */
   floatingBar?: React.ReactNode | null;
 }

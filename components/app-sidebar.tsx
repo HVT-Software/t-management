@@ -2,11 +2,11 @@
 
 import * as React from "react";
 
-import { NavMain } from "@components/nav-main";
-import { NavUser } from "@components/nav-user";
-import { TeamSwitcher } from "@components/team-switcher";
-import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@components/ui/sidebar";
-import { useActivePath } from "@lib/configs/routers";
+import { NavMain } from "@/components/nav-main";
+import { NavUser } from "@/components/nav-user";
+import { TeamSwitcher } from "@/components/team-switcher";
+import { Sidebar, SidebarContent, SidebarFooter, SidebarHeader, SidebarRail } from "@/components/ui/sidebar";
+import { useActivePath } from "@/lib/configs/routers";
 import { User } from "next-auth";
 
 export function AppSidebar({ user, ...props }: React.ComponentProps<typeof Sidebar> & { user?: User }) {

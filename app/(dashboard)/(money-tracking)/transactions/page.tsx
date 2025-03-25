@@ -1,8 +1,8 @@
-import { HydrateClient, trpcServer } from "@app/_trpc/server";
-import { DataTableSkeleton } from "@components/data-table/data-table-skeleton";
-import { Button } from "@components/ui/button";
-import { Card } from "@components/ui/card";
-import { SearchParams } from "@lib/types";
+import { HydrateClient, trpcServer } from "@/app/_trpc/server";
+import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { SearchParams } from "@/lib/types";
 import { BriefcaseBusiness, HandCoins } from "lucide-react";
 import { Suspense } from "react";
 import { HoTaTooltip } from "../../../../components/shared/hota-tooltip";

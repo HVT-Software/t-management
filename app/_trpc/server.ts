@@ -4,7 +4,7 @@ import "server-only";
 
 import { apiRouter, type ApiRouter } from "./router";
 import { createCallerFactory, createTRPCContext } from "./trpc";
-import { getQueryClient } from "@lib/query/get-query-client";
+import { getQueryClient } from "@/lib/query/get-query-client";
 
 export const getTRPCQueryClient = cache(getQueryClient);
 

@@ -1,15 +1,15 @@
 "use client";
 
-import type { DataTableFilterField } from "@lib/types";
+import type { DataTableFilterField } from "@/lib/types";
 import type { Table } from "@tanstack/react-table";
 import { X } from "lucide-react";
 import * as React from "react";
 
-import { DataTableFacetedFilter } from "@components/data-table/data-table-faceted-filter";
-import { DataTableViewOptions } from "@components/data-table/data-table-view-options";
-import { Button } from "@components/ui/button";
-import { Input } from "@components/ui/input";
-import { cn } from "@lib/utils";
+import { DataTableFacetedFilter } from "@/components/data-table/data-table-faceted-filter";
+import { DataTableViewOptions } from "@/components/data-table/data-table-view-options";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { cn } from "@/lib/utils";
 
 interface DataTableToolbarProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
   table: Table<TData>;
@@ -18,7 +18,7 @@ interface DataTableToolbarProps<TData> extends React.HTMLAttributes<HTMLDivEleme
    * When options are provided, a faceted filter is rendered.
    * Otherwise, a search filter is rendered.
    *
-   * @example
+   * @/example
    * const filterFields = [
    *   {
    *     id: 'name',

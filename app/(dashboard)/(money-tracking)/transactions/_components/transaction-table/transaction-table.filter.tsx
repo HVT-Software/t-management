@@ -1,7 +1,7 @@
-import { getTransactionTypeList } from "@lib/enums/transaction-type";
-import { Category } from "@lib/models/category";
-import { Transaction } from "@lib/models/transaction";
-import { DataTableFilterField, Option } from "@lib/types";
+import { getTransactionTypeList } from "@/lib/enums/transaction-type";
+import { Category } from "@/lib/models/category";
+import { Transaction } from "@/lib/models/transaction";
+import { DataTableFilterField, Option } from "@/lib/types";
 
 type Props = {
   categories: Array<Category>;

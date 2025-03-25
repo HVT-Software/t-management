@@ -1,13 +1,13 @@
 "use client";
 
-import { DataTable } from "@components/data-table/data-table";
-import { useDataTable } from "@hooks/use-data-table";
-import { Transaction } from "@lib/models/transaction";
+import { DataTable } from "@/components/data-table/data-table";
+import { useDataTable } from "@/hooks/use-data-table";
+import { Transaction } from "@/lib/models/transaction";
 import { useQueryTransactions } from "../../_queries/use-query-transactions";
 import { transactionColumns } from "./transaction-table.define";
 import { TransactionFilter } from "../../_lib/transaction-validations";
-import { DataTableToolbar } from "@components/data-table/data-table-toolbar";
-import { trpcClient } from "@app/_trpc/client";
+import { DataTableToolbar } from "@/components/data-table/data-table-toolbar";
+import { trpcClient } from "@/app/_trpc/client";
 import { useMemo } from "react";
 import { transactionFilter } from "./transaction-table.filter";
 

@@ -1,4 +1,4 @@
-import type { inferRouterOutputs } from "@trpc/server";
+import type { inferRouterOutputs } from "@/trpc/server";
 
 import { baseRouter } from "./trpc";
 import { categoryApiRouter } from "./routes/category.api";

@@ -7,7 +7,7 @@ import Logo from "../../public/assets/images/t-management-logo.png";
 export const sideBarItems: SideBarConfig = {
   user: {
     name: "Hồ Văn Toàn",
-    email: "it.vantoan@.com",
+    email: "it.vantoan@/.com",
     avatar: ""
   },
   teams: [

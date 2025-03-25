@@ -1,11 +1,11 @@
 "use client";
 
-import { SelectIcon } from "@radix-ui/react-select";
+import { SelectIcon } from "@/radix-ui/react-select";
 import type { Column } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff, X } from "lucide-react";
 
-import { Select, SelectContent, SelectItem, SelectTrigger } from "@components/ui/select";
-import { cn } from "@lib/utils";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
+import { cn } from "@/lib/utils";
 
 interface DataTableColumnHeaderProps<TData, TValue> extends React.HTMLAttributes<HTMLDivElement> {
   column: Column<TData, TValue>;

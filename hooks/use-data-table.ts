@@ -1,6 +1,6 @@
 "use client";
 
-import type { DataTableFilterField, ExtendedSortingState } from "@lib/types";
+import type { DataTableFilterField, ExtendedSortingState } from "@/lib/types";
 import {
   type ColumnFiltersState,
   type PaginationState,
@@ -21,8 +21,8 @@ import {
 import { type Parser, type UseQueryStateOptions, parseAsArrayOf, parseAsInteger, parseAsString, useQueryState, useQueryStates } from "nuqs";
 import * as React from "react";
 
-import { useDebouncedCallback } from "@hooks/use-debounced-callback";
-import { getSortingStateParser } from "@lib/helpers/parsers";
+import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
+import { getSortingStateParser } from "@/lib/helpers/parsers";
 
 interface UseDataTableProps<TData>
   extends Omit<TableOptions<TData>, "state" | "pageCount" | "getCoreRowModel" | "manualFiltering" | "manualPagination" | "manualSorting">,
@@ -33,9 +33,9 @@ interface UseDataTableProps<TData>
    * - Otherwise, search filters are rendered.
    *
    * The indie filter field `value` represents the corresponding column name in the database table.
-   * @default []
-   * @type { label: string, value: keyof TData, placeholder?: string, options?: { label: string, value: string, icon?: React.ComponentType<{ className?: string }> }[] }[]
-   * @example
+   * @/default []
+   * @/type { label: string, value: keyof TData, placeholder?: string, options?: { label: string, value: string, icon?: React.ComponentType<{ className?: string }> }[] }[]
+   * @/example
    * ```ts
    * // Render a search filter
    * const filterFields = [
@@ -59,33 +59,33 @@ interface UseDataTableProps<TData>
   /**
    * Determines how query updates affect history.
    * `push` creates a new history entry; `replace` (default) updates the current entry.
-   * @default "replace"
+   * @/default "replace"
    */
   history?: "push" | "replace";
 
   /**
    * Indicates whether the page should scroll to the top when the URL changes.
-   * @default false
+   * @/default false
    */
   scroll?: boolean;
 
   /**
    * Shallow mode keeps query states client-side, avoiding server calls.
    * Setting to `false` triggers a network request with the updated querystring.
-   * @default true
+   * @/default true
    */
   shallow?: boolean;
 
   /**
    * Maximum time (ms) to wait between URL query string updates.
    * Helps with browser rate-limiting. Minimum effective value is 50ms.
-   * @default 50
+   * @/default 50
    */
   throttleMs?: number;
 
   /**
    * Debounce time (ms) for filter updates to enhance performance during rapid input.
-   * @default 300
+   * @/default 300
    */
   debounceMs?: number;
 
@@ -94,22 +94,22 @@ interface UseDataTableProps<TData>
    * Pass `startTransition` from `React.useTransition()`.
    * Sets `shallow` to `false` automatically.
    * So shallow: true` and `startTransition` cannot be used at the same time.
-   * @see https://react.dev/reference/react/useTransition
+   * @/see https://react.dev/reference/react/useTransition
    */
   startTransition?: React.TransitionStartFunction;
 
   /**
    * Clear URL query key-value pair when state is set to default.
    * Keep URL meaning consistent when defaults change.
-   * @default false
+   * @/default false
    */
   clearOnDefault?: boolean;
 
   /**
    * Enable notion like column filters.
    * Advanced filters and column filters cannot be used at the same time.
-   * @default false
-   * @type boolean
+   * @/default false
+   * @/type boolean
    */
   enableAdvancedFilter?: boolean;
 

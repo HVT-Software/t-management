@@ -1,21 +1,21 @@
 "use client";
 
-import type { ExtendedColumnSort, ExtendedSortingState, StringKeyOf } from "@lib/types";
+import type { ExtendedColumnSort, ExtendedSortingState, StringKeyOf } from "@/lib/types";
 import type { SortDirection, Table } from "@tanstack/react-table";
 import { ArrowDownUp, Check, ChevronsUpDown, GripVertical, Trash2 } from "lucide-react";
 import { useQueryState } from "nuqs";
 import * as React from "react";
 
-import { Badge } from "@components/ui/badge";
-import { Button } from "@components/ui/button";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
-import { Sortable, SortableContent, SortableItem, SortableItemHandle, SortableOverlay } from "@components/ui/sortable";
-import { dataTableConfig } from "@lib/configs/data-table";
-import { useDebouncedCallback } from "@hooks/use-debounced-callback";
-import { getSortingStateParser } from "@lib/helpers/parsers";
-import { cn, toSentenceCase } from "@lib/utils";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Sortable, SortableContent, SortableItem, SortableItemHandle, SortableOverlay } from "@/components/ui/sortable";
+import { dataTableConfig } from "@/lib/configs/data-table";
+import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
+import { getSortingStateParser } from "@/lib/helpers/parsers";
+import { cn, toSentenceCase } from "@/lib/utils";
 
 interface DataTableSortListProps<TData> {
   table: Table<TData>;
