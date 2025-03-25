@@ -4,6 +4,7 @@ import { SearchParams } from "@lib/types";
 import { Suspense } from "react";
 import { TransactionTable } from "./_components/transaction-table/transaction-table";
 import { searchParamsCache, TransactionFilter } from "./_lib/validations";
+import { Card } from "@components/ui/card";
 
 interface TransactionPageProps {
   searchParams: Promise<SearchParams>;
@@ -17,19 +18,24 @@ const TransactionsPage: React.FC<TransactionPageProps> = async ({ searchParams }
 
   return (
     <HydrateClient>
-      <Suspense
-        fallback={
-          <DataTableSkeleton
-            columnCount={6}
-            searchableColumnCount={1}
-            filterableColumnCount={2}
-            cellWidths={["10rem", "40rem", "12rem", "12rem", "8rem", "8rem"]}
-            shrinkZero
-          />
-        }
-      >
-        <TransactionTable filter={defaultFilter} />
-      </Suspense>
+      <div>
+        <Card></Card>
+        <Card>
+          <Suspense
+            fallback={
+              <DataTableSkeleton
+                columnCount={6}
+                searchableColumnCount={1}
+                filterableColumnCount={2}
+                cellWidths={["10rem", "40rem", "12rem", "12rem", "8rem", "8rem"]}
+                shrinkZero
+              />
+            }
+          >
+            <TransactionTable filter={defaultFilter} />
+          </Suspense>
+        </Card>
+      </div>
     </HydrateClient>
   );
 };
