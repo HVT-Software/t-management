@@ -11,9 +11,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuShortcut,
   DropdownMenuTrigger
-} from "@components/ui/dropdown-menu";
-import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@components/ui/sidebar";
-import { SidebarTeam } from "@lib/models/sidebar";
+} from "@/components/ui/dropdown-menu";
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
+import { SidebarTeam } from "@/lib/models/sidebar";
 import Image from "next/image";
 
 export function TeamSwitcher({ teams }: { teams: SidebarTeam[] }) {

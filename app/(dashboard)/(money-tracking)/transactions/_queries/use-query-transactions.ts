@@ -1,7 +1,7 @@
-import { keepPreviousData } from "@tanstack/react-query";
+import { keepPreviousData } from "@/tanstack/react-query";
 
-import type { ApiRouterOutput } from "@app/_trpc";
-import { trpcClient } from "@app/_trpc/client";
+import type { ApiRouterOutput } from "@/app/_trpc";
+import { trpcClient } from "@/app/_trpc/client";
 import { TransactionFilter } from "../_lib/transaction-validations";
 
 const select = (data: ApiRouterOutput["transaction"]["list"]) => {

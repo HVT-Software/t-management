@@ -18,8 +18,8 @@ import {
   defaultDropAnimationSideEffects,
   useSensor,
   useSensors
-} from "@dnd-kit/core";
-import { restrictToHorizontalAxis, restrictToParentElement, restrictToVerticalAxis } from "@dnd-kit/modifiers";
+} from "@/dnd-kit/core";
+import { restrictToHorizontalAxis, restrictToParentElement, restrictToVerticalAxis } from "@/dnd-kit/modifiers";
 import {
   SortableContext,
   type SortableContextProps,
@@ -28,13 +28,13 @@ import {
   sortableKeyboardCoordinates,
   useSortable,
   verticalListSortingStrategy
-} from "@dnd-kit/sortable";
-import { CSS } from "@dnd-kit/utilities";
-import { Slot, type SlotProps } from "@radix-ui/react-slot";
+} from "@/dnd-kit/sortable";
+import { CSS } from "@/dnd-kit/utilities";
+import { Slot, type SlotProps } from "@/radix-ui/react-slot";
 import * as React from "react";
 
-import { composeEventHandlers, useComposedRefs } from "@lib/helpers/composition";
-import { cn } from "@lib/utils";
+import { composeEventHandlers, useComposedRefs } from "@/lib/helpers/composition";
+import { cn } from "@/lib/utils";
 import * as ReactDOM from "react-dom";
 
 const orientationConfig = {
@@ -94,7 +94,7 @@ function useSortableContext(name: keyof typeof SORTABLE_ERROR) {
 interface GetItemValue<T> {
   /**
    * Callback that returns a unique identifier for each sortable item. Required for array of objects.
-   * @example getItemValue={(item) => item.id}
+   * @/example getItemValue={(item) => item.id}
    */
   getItemValue: (item: T) => UniqueIdentifier;
 }

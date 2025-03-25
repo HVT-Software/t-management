@@ -1,9 +1,9 @@
 "use client";
 
-import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@components/ui/resizable";
+import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from "@/components/ui/resizable";
 import React, { useEffect, useState } from "react";
 import { EditorPannel } from "../../_components/editor-pannel";
-import { useIsMobile } from "@hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ConversionPanelProps {
   transformer: (value: string) => Promise<string>;

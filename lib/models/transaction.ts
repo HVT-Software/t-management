@@ -1,4 +1,4 @@
-import { ETransactionType } from "@lib/enums/transaction-type";
+import { ETransactionType } from "@/lib/enums/transaction-type";
 import { Category } from "./category";
 
 export interface Transaction {

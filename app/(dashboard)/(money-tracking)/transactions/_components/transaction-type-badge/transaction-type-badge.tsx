@@ -1,5 +1,5 @@
-import { Badge } from "@components/ui/badge";
-import { ETransactionType } from "@lib/enums/transaction-type";
+import { Badge } from "@/components/ui/badge";
+import { ETransactionType } from "@/lib/enums/transaction-type";
 
 interface TransactionTypeBadgeProps {
   type: ETransactionType;

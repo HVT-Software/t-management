@@ -1,7 +1,7 @@
 import { type VariantProps, cva } from "class-variance-authority";
 import * as React from "react";
 
-import { cn } from "@lib/utils";
+import { cn } from "@/lib/utils";
 
 const kbdVariants = cva("select-none rounded border px-1.5 py-px font-mono font-normal text-[0.7rem] shadow-xs disabled:opacity-50", {
   variants: {
@@ -18,9 +18,9 @@ const kbdVariants = cva("select-none rounded border px-1.5 py-px font-mono font-
 export interface KbdProps extends React.ComponentPropsWithoutRef<"kbd">, VariantProps<typeof kbdVariants> {
   /**
    * The title of the `abbr` element inside the `kbd` element.
-   * @default undefined
-   * @type string | undefined
-   * @example title="Command"
+   * @/default undefined
+   * @/type string | undefined
+   * @/example title="Command"
    */
   abbrTitle?: string;
 }

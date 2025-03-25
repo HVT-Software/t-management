@@ -1,14 +1,14 @@
 import { z } from "zod";
 
-import { baseRouter, procedure } from "@app/_trpc";
+import { baseRouter, procedure } from "@/app/_trpc";
 
-import { CLOUD_CATEGORY_ENDPOINT } from "@lib/constants/cloud-endpoint";
-import { filterKeys } from "@lib/constants/cookie-keys";
-import { DEFAULT_ERROR_MESSAGE } from "@lib/constants/messages";
-import { Category } from "@lib/models/category";
-import { serverInstance } from "@lib/query/server-instance";
-import { saveToCookie } from "@lib/utils/cookie-helper";
-import { CategoryFilter } from "@app/(dashboard)/(money-tracking)/transactions/_lib/category-validations";
+import { CLOUD_CATEGORY_ENDPOINT } from "@/lib/constants/cloud-endpoint";
+import { filterKeys } from "@/lib/constants/cookie-keys";
+import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants/messages";
+import { Category } from "@/lib/models/category";
+import { serverInstance } from "@/lib/query/server-instance";
+import { saveToCookie } from "@/lib/utils/cookie-helper";
+import { CategoryFilter } from "@/app/(dashboard)/(money-tracking)/transactions/_lib/category-validations";
 
 export const categoryApiRouter = baseRouter({
   all: procedure.query<Array<Category>>(async () => {

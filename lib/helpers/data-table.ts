@@ -1,7 +1,7 @@
-import type { ColumnType, Filter, FilterOperator } from "@lib/types";
+import type { ColumnType, Filter, FilterOperator } from "@/lib/types";
 import type { Column } from "@tanstack/react-table";
 
-import { dataTableConfig } from "@lib/configs/data-table";
+import { dataTableConfig } from "@/lib/configs/data-table";
 
 /**
  * Generate common pinning styles for a table column.
@@ -11,10 +11,10 @@ import { dataTableConfig } from "@lib/configs/data-table";
  * shadows, and z-index. The function also considers whether the column is the last left-pinned
  * or first right-pinned column to apply specific shadow effects.
  *
- * @param options - The options for generating pinning styles.
- * @param options.column - The column object for which to generate styles.
- * @param options.withBorder - Whether to show a box shadow between pinned and scrollable columns.
- * @returns A React.CSSProperties object containing the calculated styles.
+ * @/param options - The options for generating pinning styles.
+ * @/param options.column - The column object for which to generate styles.
+ * @/param options.withBorder - Whether to show a box shadow between pinned and scrollable columns.
+ * @/returns A React.CSSProperties object containing the calculated styles.
  */
 export function getCommonPinningStyles<TData>({
   column,
@@ -23,7 +23,7 @@ export function getCommonPinningStyles<TData>({
   column: Column<TData>;
   /**
    * Show box shadow between pinned and scrollable columns.
-   * @default false
+   * @/default false
    */
   withBorder?: boolean;
 }): React.CSSProperties {
@@ -56,8 +56,8 @@ export function getCommonPinningStyles<TData>({
  * column's data type. For text columns, it returns 'iLike' (case-insensitive like),
  * while for all other types, it returns 'eq' (equality).
  *
- * @param columnType - The type of the column (e.g., 'text', 'number', 'date', etc.).
- * @returns The default FilterOperator for the given column type.
+ * @/param columnType - The type of the column (e.g., 'text', 'number', 'date', etc.).
+ * @/returns The default FilterOperator for the given column type.
  */
 export function getDefaultFilterOperator(columnType: ColumnType): FilterOperator {
   if (columnType === "text") {
@@ -74,8 +74,8 @@ export function getDefaultFilterOperator(columnType: ColumnType): FilterOperator
  * to the specified column type. It uses a predefined mapping of column types to
  * operator lists, falling back to text operators if an unknown column type is provided.
  *
- * @param columnType - The type of the column for which to get filter operators.
- * @returns An array of objects, each containing a label and value for a filter operator.
+ * @/param columnType - The type of the column for which to get filter operators.
+ * @/returns An array of objects, each containing a label and value for a filter operator.
  */
 export function getFilterOperators(columnType: ColumnType) {
   const operatorMap: Record<ColumnType, { label: string; value: FilterOperator }[]> = {
@@ -99,8 +99,8 @@ export function getFilterOperators(columnType: ColumnType) {
  * - Its value is not empty (for array values, at least one element must be present;
  *   for other types, the value must not be an empty string, null, or undefined)
  *
- * @param filters - An array of Filter objects to be validated.
- * @returns A new array containing only the valid filters.
+ * @/param filters - An array of Filter objects to be validated.
+ * @/returns A new array containing only the valid filters.
  */
 export function getValidFilters<TData>(filters: Filter<TData>[]): Filter<TData>[] {
   return filters.filter(

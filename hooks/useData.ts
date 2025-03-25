@@ -1,11 +1,10 @@
-import { useSessionStorage } from "@hooks/useSessionStorage";
+import { useSessionStorage } from "@/hooks/useSessionStorage";
 
 export type Language = string;
 
 export function useData(type: Language) {
   return type ? useSessionStorage(`data:${type}`, json) : [,];
 }
-
 
 export const json = JSON.stringify(
   {

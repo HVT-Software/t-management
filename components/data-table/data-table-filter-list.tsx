@@ -1,16 +1,16 @@
 "use client";
 
 import type { Table } from "@tanstack/react-table";
-import type { DataTableAdvancedFilterField, Filter, FilterOperator, JoinOperator, StringKeyOf } from "@lib/types";
+import type { DataTableAdvancedFilterField, Filter, FilterOperator, JoinOperator, StringKeyOf } from "@/lib/types";
 import { CalendarIcon, Check, ChevronsUpDown, GripVertical, ListFilter, Trash2 } from "lucide-react";
 import { customAlphabet } from "nanoid";
 import { parseAsStringEnum, useQueryState } from "nuqs";
 import * as React from "react";
 
-import { Badge } from "@components/ui/badge";
-import { Button } from "@components/ui/button";
-import { Calendar } from "@components/ui/calendar";
-import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@components/ui/command";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from "@/components/ui/command";
 import {
   Faceted,
   FacetedBadgeList,
@@ -21,16 +21,16 @@ import {
   FacetedItem,
   FacetedList,
   FacetedTrigger
-} from "@components/ui/faceted";
-import { Input } from "@components/ui/input";
-import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@components/ui/select";
-import { Sortable, SortableContent, SortableItem, SortableItemHandle, SortableOverlay } from "@components/ui/sortable";
-import { useDebouncedCallback } from "@hooks/use-debounced-callback";
-import { dataTableConfig } from "@lib/configs/data-table";
-import { getDefaultFilterOperator, getFilterOperators } from "@lib/helpers/data-table";
-import { getFiltersStateParser } from "@lib/helpers/parsers";
-import { cn, formatDate } from "@lib/utils";
+} from "@/components/ui/faceted";
+import { Input } from "@/components/ui/input";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Sortable, SortableContent, SortableItem, SortableItemHandle, SortableOverlay } from "@/components/ui/sortable";
+import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
+import { dataTableConfig } from "@/lib/configs/data-table";
+import { getDefaultFilterOperator, getFilterOperators } from "@/lib/helpers/data-table";
+import { getFiltersStateParser } from "@/lib/helpers/parsers";
+import { cn, formatDate } from "@/lib/utils";
 
 interface DataTableFilterListProps<TData> {
   table: Table<TData>;

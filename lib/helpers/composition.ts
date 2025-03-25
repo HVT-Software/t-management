@@ -19,7 +19,7 @@ function composeEventHandlers<E>(
 }
 
 /**
- * @see https://github.com/radix-ui/primitives/blob/main/packages/react/compose-refs/src/compose-refs.tsx
+ * @/see https://github.com/radix-ui/primitives/blob/main/packages/react/compose-refs/src/compose-refs.tsx
  */
 
 type PossibleRef<T> = React.Ref<T> | undefined;
