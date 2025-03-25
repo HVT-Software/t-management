@@ -34,7 +34,7 @@ export function DataTableFacetedFilter<TData, TValue>({ column, title, options }
               <div className="hidden space-x-1 lg:flex">
                 {selectedValues.size > 2 ? (
                   <Badge variant="secondary" className="rounded-sm px-1 font-normal">
-                    {selectedValues.size} selected
+                    Đã chọn {selectedValues.size}
                   </Badge>
                 ) : (
                   options
@@ -92,7 +92,7 @@ export function DataTableFacetedFilter<TData, TValue>({ column, title, options }
                 <CommandSeparator />
                 <CommandGroup>
                   <CommandItem onSelect={() => column?.setFilterValue(undefined)} className="justify-center text-center">
-                    Clear filters
+                    Xóa tất cả
                   </CommandItem>
                 </CommandGroup>
               </>

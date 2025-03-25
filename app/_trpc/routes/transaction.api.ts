@@ -8,7 +8,7 @@ import { DEFAULT_ERROR_MESSAGE } from "@lib/constants/messages";
 import { Transaction } from "@lib/models/transaction";
 import { serverInstance } from "@lib/query/server-instance";
 import { saveToCookie } from "@lib/utils/cookie-helper";
-import { TransactionFilter } from "@app/(dashboard)/(money-tracking)/transactions/_lib/validations";
+import { TransactionFilter } from "@app/(dashboard)/(money-tracking)/transactions/_lib/transaction-validations";
 
 export const transactionApiRouter = baseRouter({
   list: procedure.input(z.custom<TransactionFilter>()).query<WrapList<Transaction>>(async ({ input, ctx }) => {

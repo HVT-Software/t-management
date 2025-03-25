@@ -84,7 +84,7 @@ export function DataTableToolbar<TData>({ table, filterFields = [], children, cl
           )}
         {isFiltered && (
           <Button aria-label="Reset filters" variant="ghost" className="h-8 px-2 lg:px-3" onClick={() => table.resetColumnFilters()}>
-            Reset
+            Đặt lại
             <X />
           </Button>
         )}

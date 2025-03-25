@@ -14,9 +14,9 @@ export interface SearchParams {
   [key: string]: string | string[] | undefined;
 }
 
-export interface Option {
+export interface Option<T = string> {
   label: string;
-  value: string;
+  value: T;
   icon?: React.ComponentType<{ className?: string }>;
   count?: number;
 }
