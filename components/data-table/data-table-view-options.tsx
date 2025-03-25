@@ -45,15 +45,15 @@ export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps
           }}
         >
           <Settings2 />
-          View
+          Cột
           <ChevronsUpDown className="ml-auto opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-44 p-0" onCloseAutoFocus={() => triggerRef.current?.focus({ preventScroll: true })}>
         <Command>
-          <CommandInput placeholder="Search columns..." />
+          <CommandInput placeholder="Tìm cột..." />
           <CommandList>
-            <CommandEmpty>No columns found.</CommandEmpty>
+            <CommandEmpty>Cột không tồn tại.</CommandEmpty>
             <CommandGroup>
               {table
                 .getAllColumns()
@@ -61,7 +61,7 @@ export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps
                 .map(column => {
                   return (
                     <CommandItem key={column.id} onSelect={() => column.toggleVisibility(!column.getIsVisible())}>
-                      <span className="truncate">{toSentenceCase(column.id)}</span>
+                      <span className="truncate">{column.columnDef.header?.toString() || toSentenceCase(column.id)}</span>
                       <Check className={cn("ml-auto size-4 shrink-0", column.getIsVisible() ? "opacity-100" : "opacity-0")} />
                     </CommandItem>
                   );

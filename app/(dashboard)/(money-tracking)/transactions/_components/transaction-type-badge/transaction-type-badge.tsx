@@ -1,8 +1,8 @@
 import { Badge } from "@components/ui/badge";
-import { TransactionType } from "@lib/models/transaction";
+import { ETransactionType } from "@lib/enums/transaction-type";
 
 interface TransactionTypeBadgeProps {
-  type: TransactionType;
+  type: ETransactionType;
 }
 
 export const TransactionTypeBadge: React.FC<TransactionTypeBadgeProps> = ({ type }) => {
@@ -10,11 +10,11 @@ export const TransactionTypeBadge: React.FC<TransactionTypeBadgeProps> = ({ type
   let badgeVariant: "default" | "outline" | "destructive" = "default";
 
   switch (type) {
-    case TransactionType.INCOME:
+    case ETransactionType.INCOME:
       badgeText = "Thu nhập";
       badgeVariant = "outline";
       break;
-    case TransactionType.EXPENSE:
+    case ETransactionType.EXPENSE:
       badgeText = "Chi phí";
       badgeVariant = "destructive";
       break;

@@ -51,7 +51,7 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
   },
   {
     header: "Nhóm chi tiêu",
-    accessorKey: "category",
+    accessorKey: "categoryId",
     cell: ({ row }) => row.original.category.name
   }
 ];

@@ -1,9 +1,5 @@
+import { ETransactionType } from "@lib/enums/transaction-type";
 import { Category } from "./category";
-
-export enum TransactionType {
-  INCOME,
-  EXPENSE
-}
 
 export interface Transaction {
   id: string;
@@ -11,7 +7,7 @@ export interface Transaction {
   userId: string;
   categoryId: string;
 
-  type: TransactionType;
+  type: ETransactionType;
 
   amount: number;
 

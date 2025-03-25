@@ -7,7 +7,7 @@ import { BriefcaseBusiness, HandCoins } from "lucide-react";
 import { Suspense } from "react";
 import { HoTaTooltip } from "../../../../components/shared/hota-tooltip";
 import { TransactionTable } from "./_components/transaction-table/transaction-table";
-import { searchParamsCache, TransactionFilter } from "./_lib/validations";
+import { transactionParamsCache, TransactionFilter } from "./_lib/transaction-validations";
 
 interface TransactionPageProps {
   searchParams: Promise<SearchParams>;
@@ -15,8 +15,9 @@ interface TransactionPageProps {
 
 const TransactionsPage: React.FC<TransactionPageProps> = async ({ searchParams }) => {
   const searchParamsValue = await searchParams;
-  const defaultFilter: TransactionFilter = searchParamsCache.parse(searchParamsValue);
+  const defaultFilter: TransactionFilter = transactionParamsCache.parse(searchParamsValue);
 
+  await trpcServer.category.all.prefetch();
   await trpcServer.transaction.list.prefetch(defaultFilter);
 
   return (
@@ -25,22 +26,12 @@ const TransactionsPage: React.FC<TransactionPageProps> = async ({ searchParams }
         <Card className="h-10"></Card>
         <Card className="flex flex-col">
           <div className="flex items-center justify-end p-2 gap-2">
-            <HoTaTooltip content="Danh mục">
-              <Button variant="outline" size="icon">
-                <BriefcaseBusiness />
-              </Button>
-            </HoTaTooltip>
             <HoTaTooltip content="Ghi chi tiêu">
               <Button variant="outline" size="icon">
                 <HandCoins />
               </Button>
             </HoTaTooltip>
-            <HoTaTooltip content="Ghi nợ">
-              <Button variant="outline" size="icon">
-                <BriefcaseBusiness />
-              </Button>
-            </HoTaTooltip>
-            <HoTaTooltip content="Ghi có">
+            <HoTaTooltip content="Danh mục">
               <Button variant="outline" size="icon">
                 <BriefcaseBusiness />
               </Button>
