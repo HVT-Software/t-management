@@ -36,6 +36,7 @@ export function DataTable<TData>({ table, floatingBar = null, children, classNam
                     <TableHead
                       key={header.id}
                       colSpan={header.colSpan}
+                      className="text-center"
                       style={{
                         ...getCommonPinningStyles({ column: header.column })
                       }}
@@ -66,7 +67,7 @@ export function DataTable<TData>({ table, floatingBar = null, children, classNam
             ) : (
               <TableRow>
                 <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
-                  No results.
+                  Không có dữ liệu
                 </TableCell>
               </TableRow>
             )}

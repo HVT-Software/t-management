@@ -4,7 +4,7 @@ import { DataTable } from "@components/data-table/data-table";
 import { useDataTable } from "@hooks/use-data-table";
 import { Transaction } from "@lib/models/transaction";
 import { useQueryTransactions } from "../../_queries/use-query-transactions";
-import { transactionCollumns } from "./transaction-table.define";
+import { transactionColumns } from "./transaction-table.define";
 import { TransactionFilter } from "../../_lib/validations";
 
 interface TransactionTableProps {
@@ -16,8 +16,8 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({ filter }) =>
 
   const { table } = useDataTable<Transaction>({
     data: data?.items ?? [],
-    columns: transactionCollumns,
-    pageCount: data?.totalCount ?? 0,
+    columns: transactionColumns,
+    pageCount: data?.totalCount ? Math.ceil(data.totalCount / filter.pageSize) : 0,
     getRowId: originalRow => originalRow.id,
     shallow: false,
     clearOnDefault: true
