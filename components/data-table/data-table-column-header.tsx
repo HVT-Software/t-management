@@ -1,6 +1,6 @@
 "use client";
 
-import { SelectIcon } from "@/radix-ui/react-select";
+import { SelectIcon } from "@radix-ui/react-select";
 import type { Column } from "@tanstack/react-table";
 import { ArrowDown, ArrowUp, ChevronsUpDown, EyeOff, X } from "lucide-react";
 

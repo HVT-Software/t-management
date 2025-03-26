@@ -6,9 +6,8 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { otherKeys } from "@/lib/constants/cookie-keys";
 import { loginPath } from "@/lib/constants/routes";
 import { getQueryClient } from "@/lib/query/get-query-client";
-import { TanstackProvider } from "@/lib/query/providers";
 import { getTimeZone } from "@/lib/utils/get-timezone";
-import { httpLink } from "@/trpc/client";
+import { httpLink } from "@trpc/client";
 import { SessionProvider, signOut } from "next-auth/react";
 import { useCookies } from "next-client-cookies";
 import { useEffect, useState } from "react";
@@ -60,11 +59,11 @@ export function Providers({ children }: ProvidersProps) {
       <trpcClient.Provider client={client} queryClient={queryClient}>
         <QueryProvider queryClient={queryClient}>
           <SessionProvider basePath="/api/auth">
-            <TanstackProvider>
+            <QueryProvider queryClient={queryClient}>
               <NuqsAdapter>{children}</NuqsAdapter>
               <Init />
               <Toaster richColors position="top-right" />
-            </TanstackProvider>
+            </QueryProvider>
           </SessionProvider>
         </QueryProvider>
       </trpcClient.Provider>

@@ -1,4 +1,4 @@
-import { keepPreviousData } from "@/tanstack/react-query";
+import { keepPreviousData } from "@tanstack/react-query";
 
 import type { ApiRouterOutput } from "@/app/_trpc";
 import { trpcClient } from "@/app/_trpc/client";

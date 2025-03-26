@@ -1,6 +1,6 @@
 "use client";
 
-import { createTRPCReact } from "@/trpc/react-query";
+import { createTRPCReact } from "@trpc/react-query";
 
 import { ApiRouter } from "./router";
 

@@ -1,4 +1,4 @@
-// import { SelectTrigger } from "@/radix-ui/react-select";
+// import { SelectTrigger } from "@radix-ui/react-select";
 // import type { Table } from "@tanstack/react-table";
 // import { ArrowUp, CheckCircle2, Download, Loader, Trash2, X } from "lucide-react";
 // import * as React from "react";
