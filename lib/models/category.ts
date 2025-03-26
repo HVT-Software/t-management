@@ -1,11 +1,12 @@
-export interface Category {
-  name: string;
+import { z } from "zod";
 
-  description: string;
+export type Category = z.infer<typeof categorySchema>;
 
-  budget: number;
-
-  createAt: string;
-
-  id: string;
-}
+export const categorySchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(2, {
+    message: "Category name must be at least 2 characters."
+  }),
+  description: z.string().optional(),
+  budget: z.number().optional()
+});
