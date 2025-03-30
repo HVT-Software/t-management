@@ -14,7 +14,7 @@ export const transactionFilter = ({ categories }: Props): DataTableFilterField<T
     placeholder: "Nhóm chi tiêu",
     options: categories.map(item => ({
       label: item.name,
-      value: item.id
+      value: item.id!
     }))
   },
   {

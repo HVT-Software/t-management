@@ -10,7 +10,7 @@ const GoBack: React.FC = () => {
   const handleClick = useCallback(() => {
     router.back();
   }, []);
-  return <AlertDialogCancel onClick={handleClick}>Go Back</AlertDialogCancel>;
+  return <AlertDialogCancel onClick={handleClick}>Trở Lại</AlertDialogCancel>;
 };
 
 export default GoBack;
