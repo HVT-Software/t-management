@@ -7,15 +7,15 @@ export const metadata: Metadata = {
 };
 
 interface Props {
-  category: React.ReactNode;
+  dialog: React.ReactNode;
   children: React.ReactNode;
 }
 
-export default function Layout({ children, category }: Props) {
+export default function Layout({ children, dialog }: Props) {
   return (
-    <div>
+    <>
       {children}
-      {category}
-    </div>
+      {dialog}
+    </>
   );
 }
