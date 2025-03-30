@@ -1,28 +1,17 @@
 "use client";
 
 import { trpcClient } from "@/app/_trpc/client";
-import {
-  AlertDialog,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger
-} from "@/components/ui/alert-dialog";
+import GoBack from "@/components/shared/go-back";
+import { AlertDialog, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Category, categorySchema } from "@/lib/models/category";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 export default function CategoryDialog() {
-  const [open, setOpen] = useState(false);
-
   const form = useForm<Category>({
     resolver: zodResolver(categorySchema),
     defaultValues: {
@@ -34,21 +23,16 @@ export default function CategoryDialog() {
 
   const { mutate } = trpcClient.category.save.useMutation({
     onSuccess: () => {
-      toast.success("Category created successfully!");
+      toast.success("Tạo nhóm chi tiêu thành công!");
       form.reset();
-      setOpen(false);
     }
   });
 
   return (
-    <AlertDialog open={open} onOpenChange={setOpen}>
-      <AlertDialogTrigger asChild>
-        <Button variant="outline">Create Category</Button>
-      </AlertDialogTrigger>
+    <AlertDialog open={true} key="create-category">
       <AlertDialogContent>
         <AlertDialogHeader>
           <AlertDialogTitle>Tạo nhóm chi tiêu</AlertDialogTitle>
-          <AlertDialogDescription>Create a new category to track your transactions.</AlertDialogDescription>
         </AlertDialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(values => mutate(values))} className="space-y-4">
@@ -57,9 +41,9 @@ export default function CategoryDialog() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>Tên nhóm</FormLabel>
                   <FormControl>
-                    <Input placeholder="Category name" {...field} />
+                    <Input placeholder="Tên nhóm" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -70,9 +54,9 @@ export default function CategoryDialog() {
               name="description"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Description</FormLabel>
+                  <FormLabel>Mô tả</FormLabel>
                   <FormControl>
-                    <Input placeholder="Category description" {...field} />
+                    <Input placeholder="Mô tả" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -83,7 +67,7 @@ export default function CategoryDialog() {
               name="budget"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Budget</FormLabel>
+                  <FormLabel>Ngân sách</FormLabel>
                   <FormControl>
                     <Input placeholder="Category budget" type="number" {...field} />
                   </FormControl>
@@ -92,10 +76,8 @@ export default function CategoryDialog() {
               )}
             />
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
-              {/* <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Creating..." : "Create"}
-              </Button> */}
+              <GoBack />
+              <Button type="submit">Tạo</Button>
             </AlertDialogFooter>
           </form>
         </Form>
