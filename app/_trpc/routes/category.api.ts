@@ -2,13 +2,11 @@ import { z } from "zod";
 
 import { baseRouter, procedure } from "@/app/_trpc";
 
+import { CategoryFilter } from "@/app/(dashboard)/(money-tracking)/transactions/_lib/category-validations";
 import { CLOUD_CATEGORY_ENDPOINT } from "@/lib/constants/cloud-endpoint";
-import { filterKeys } from "@/lib/constants/cookie-keys";
 import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants/messages";
 import { Category } from "@/lib/models/category";
 import { serverInstance } from "@/lib/query/server-instance";
-import { saveToCookie } from "@/lib/utils/cookie-helper";
-import { CategoryFilter } from "@/app/(dashboard)/(money-tracking)/transactions/_lib/category-validations";
 
 export const categoryApiRouter = baseRouter({
   all: procedure.query<Array<Category>>(async () => {
@@ -16,13 +14,8 @@ export const categoryApiRouter = baseRouter({
     return res.data.data.items;
   }),
 
-  list: procedure.input(z.custom<CategoryFilter>()).query<WrapList<Category>>(async ({ input, ctx }) => {
-    const res = await serverInstance.post<Result<WrapList<Category>>>(CLOUD_CATEGORY_ENDPOINT, input);
-
-    if (!ctx.isServerCall) {
-      await saveToCookie<CategoryFilter>(filterKeys.CATEGORY_FILTER, input);
-    }
-
+  list: procedure.input(z.custom<CategoryFilter>()).query<WrapList<Category>>(async ({ input }) => {
+    const res = await serverInstance.get<Result<WrapList<Category>>>(CLOUD_CATEGORY_ENDPOINT, { params: input });
     return res.data.data;
   }),
 
