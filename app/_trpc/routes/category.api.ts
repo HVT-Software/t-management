@@ -31,7 +31,10 @@ export const categoryApiRouter = baseRouter({
 
   save: procedure.input(z.custom<Category>()).mutation(async ({ input }) => {
     try {
-      const res = await serverInstance.post<Result<string>>(CLOUD_CATEGORY_ENDPOINT, input);
+      const res = input?.id
+        ? await serverInstance.put<Result<string>>(`${CLOUD_CATEGORY_ENDPOINT}/${input.id}`, input)
+        : await serverInstance.post<Result<string>>(CLOUD_CATEGORY_ENDPOINT, input);
+
       if (res.data.success) {
         return {
           ...res.data,
