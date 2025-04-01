@@ -1,8 +1,8 @@
 import { Book, Hammer } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { dashboardPath, jsonToTypescriptPath, transactionPath } from "../constants/routes";
-import { SideBarConfig } from "../models/sidebar";
 import Logo from "../../public/assets/images/t-management-logo.png";
+import { dashboardPath, jsonToTypescriptPath, transactionPath } from "@/lib/constants/routes";
+import { SideBarConfig } from "@/lib/models/sidebar";
 
 export const sideBarItems: SideBarConfig = {
   user: {

@@ -3,7 +3,7 @@ import type { Row } from "@tanstack/react-table";
 import { createParser } from "nuqs/server";
 import { z } from "zod";
 
-import { dataTableConfig } from "@/lib/configs/data-table";
+import { dataTableConfig } from "@/config/data-table";
 
 export const sortingItemSchema = z.object({
   id: z.string(),
