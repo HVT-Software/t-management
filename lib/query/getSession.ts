@@ -1,5 +1,5 @@
+import { authOptions } from "@/config/auth-options";
 import { type CallbacksOptions, getServerSession, Session } from "next-auth";
-import { authOptions } from "../configs/auth-options";
 
 const serverSessionCallback: CallbacksOptions["session"] = async ({ session, token }) => {
   session.user = token.user;

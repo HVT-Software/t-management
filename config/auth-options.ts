@@ -1,12 +1,12 @@
 import { LoginResponse } from "@/app/login/models/login-response";
+import { CLOUD_AUTH_ENPOINT, CLOUD_AUTH_LOGIN_ENDPOINT } from "@/lib/constants/cloud-endpoint";
+import { loginPath } from "@/lib/constants/routes";
 import axios from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-import { CLOUD_AUTH_ENPOINT, CLOUD_AUTH_LOGIN_ENDPOINT } from "../constants/cloud-endpoint";
-import { loginPath } from "../constants/routes";
 
 export const authOptions: NextAuthOptions = {
   providers: [

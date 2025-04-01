@@ -1,4 +1,4 @@
-import { createTRPCClient, httpBatchLink } from "@/trpc/client";
+import { createTRPCClient, httpBatchLink } from "@trpc/client";
 import { cookies } from "next/headers";
 
 import type { ApiRouter } from "@/app/_trpc/router";
