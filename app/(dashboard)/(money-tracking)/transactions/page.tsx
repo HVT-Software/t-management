@@ -1,17 +1,13 @@
 import { HydrateClient, trpcServer } from "@/app/_trpc/server";
 import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
 import { Card } from "@/components/ui/card";
-import { SearchParams } from "@/lib/types";
+import { Params } from "@/lib/types/common";
 import { Suspense } from "react";
 import { TransactionQuickActions } from "./_components/quick-actions";
 import { TransactionTable } from "./_components/transaction-table/transaction-table";
 import { TransactionFilter, transactionParamsCache } from "./_lib/transaction-validations";
 
-interface TransactionPageProps {
-  searchParams: Promise<SearchParams>;
-}
-
-const TransactionsPage: React.FC<TransactionPageProps> = async ({ searchParams }) => {
+const TransactionsPage: React.FC<Params> = async ({ searchParams }) => {
   const searchParamsValue = await searchParams;
   const defaultFilter: TransactionFilter = transactionParamsCache.parse(searchParamsValue);
 
