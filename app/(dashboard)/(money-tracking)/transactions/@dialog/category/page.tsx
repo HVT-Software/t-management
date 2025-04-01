@@ -1,18 +1,12 @@
-"use client";
-
-import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Card } from "@/components/ui/card";
-import { useSearchParams } from "next/navigation";
-import React, { Suspense } from "react";
-import { CategoryTable } from "../../_components/category-table/category-table";
+import { Params } from "@/lib/types/common";
+import React from "react";
 import { categoryParamsCache } from "../../_lib/category-validations";
-import { CategoryForm } from "../_components/category-form";
+import { CategoryForm } from "../_components/category-form/category-form";
 
-const CategoryDialog: React.FC = () => {
-  const searchParams = useSearchParams();
-  const categoryParams = Object.fromEntries(searchParams.entries());
-  const filter = categoryParamsCache.parse(categoryParams);
+const CategoryDialog: React.FC<Params> = async ({ searchParams }) => {
+  const searchParamsValue = await searchParams;
+  const filter = categoryParamsCache.parse(searchParamsValue);
 
   return (
     <AlertDialog open key="create-category">
@@ -20,24 +14,7 @@ const CategoryDialog: React.FC = () => {
         <AlertDialogHeader>
           <AlertDialogTitle>Tạo nhóm chi tiêu</AlertDialogTitle>
         </AlertDialogHeader>
-        <Card className="p-2">
-          <CategoryForm />
-        </Card>
-        <Card className="w-full overflow-auto">
-          <Suspense
-            fallback={
-              <DataTableSkeleton
-                columnCount={6}
-                searchableColumnCount={1}
-                filterableColumnCount={2}
-                cellWidths={["10rem", "12rem", "12rem", "40rem"]}
-                shrinkZero
-              />
-            }
-          >
-            <CategoryTable filter={filter} />
-          </Suspense>
-        </Card>
+        <CategoryForm filter={filter} />
       </AlertDialogContent>
     </AlertDialog>
   );
