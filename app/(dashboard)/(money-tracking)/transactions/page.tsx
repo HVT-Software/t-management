@@ -1,11 +1,11 @@
 import { HydrateClient, trpcServer } from "@/app/_trpc/server";
-import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
 import { Card } from "@/components/ui/card";
-import { Params } from "@/lib/types/common";
+import { Params } from "@/types/common";
 import { Suspense } from "react";
 import { TransactionQuickActions } from "./_components/quick-actions";
 import { TransactionTable } from "./_components/transaction-table/transaction-table";
 import { TransactionFilter, transactionParamsCache } from "./_lib/transaction-validations";
+import { DataTableSkeleton } from "@/components/data-table-skeleton";
 
 const TransactionsPage: React.FC<Params> = async ({ searchParams }) => {
   const searchParamsValue = await searchParams;
@@ -20,17 +20,7 @@ const TransactionsPage: React.FC<Params> = async ({ searchParams }) => {
         <Card className="h-10"></Card>
         <Card className="flex flex-col">
           <TransactionQuickActions />
-          <Suspense
-            fallback={
-              <DataTableSkeleton
-                columnCount={6}
-                searchableColumnCount={1}
-                filterableColumnCount={2}
-                cellWidths={["10rem", "40rem", "12rem", "12rem", "8rem", "8rem"]}
-                shrinkZero
-              />
-            }
-          >
+          <Suspense fallback={<DataTableSkeleton columnCount={6} cellWidths={["10rem", "40rem", "12rem", "12rem", "8rem", "8rem"]} shrinkZero />}>
             <TransactionTable filter={defaultFilter} />
           </Suspense>
         </Card>

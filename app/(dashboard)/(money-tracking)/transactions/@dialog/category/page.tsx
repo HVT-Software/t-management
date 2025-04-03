@@ -1,5 +1,5 @@
 import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
-import { Params } from "@/lib/types/common";
+import { Params } from "@/types/common";
 import React from "react";
 import { categoryParamsCache } from "../../_lib/category-validations";
 import { CategoryForm } from "../_components/category-form/category-form";
