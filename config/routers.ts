@@ -1,6 +1,6 @@
 import { Book, Hammer } from "lucide-react";
 import { usePathname } from "next/navigation";
-import Logo from "../../public/assets/images/t-management-logo.png";
+import Logo from "@/public/assets/images/t-management-logo.png";
 import { dashboardPath, jsonToTypescriptPath, transactionPath } from "@/lib/constants/routes";
 import { SideBarConfig } from "@/lib/models/sidebar";
 

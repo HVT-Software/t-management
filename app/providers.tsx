@@ -5,7 +5,7 @@ import { QueryProvider } from "@/components/query-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { otherKeys } from "@/lib/constants/cookie-keys";
 import { loginPath } from "@/lib/constants/routes";
-import { getQueryClient } from "@/lib/query/get-query-client";
+import { getQueryClient } from "@/query/get-query-client";
 import { getTimeZone } from "@/lib/utils/get-timezone";
 import { httpLink } from "@trpc/client";
 import { SessionProvider, signOut } from "next-auth/react";

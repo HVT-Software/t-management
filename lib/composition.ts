@@ -19,7 +19,7 @@ function composeEventHandlers<E>(
 }
 
 /**
- * @/see https://github.com/radix-ui/primitives/blob/main/packages/react/compose-refs/src/compose-refs.tsx
+ * @see https://github.com/radix-ui/primitives/blob/main/packages/react/compose-refs/src/compose-refs.tsx
  */
 
 type PossibleRef<T> = React.Ref<T> | undefined;
@@ -77,6 +77,7 @@ function composeRefs<T>(...refs: PossibleRef<T>[]): React.RefCallback<T> {
  * Accepts callback refs and RefObject(s).
  */
 function useComposedRefs<T>(...refs: PossibleRef<T>[]): React.RefCallback<T> {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   return React.useCallback(composeRefs(...refs), refs);
 }
 

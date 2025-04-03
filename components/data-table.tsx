@@ -1,50 +1,36 @@
 import { type Table as TanstackTable, flexRender } from "@tanstack/react-table";
 import type * as React from "react";
 
-import { DataTablePagination } from "@/components/data-table/data-table-pagination";
+import { DataTablePagination } from "@/components/data-table-pagination";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
-import { getCommonPinningStyles } from "@/lib/helpers/data-table";
+import { getCommonPinningStyles } from "@/lib/data-table";
 import { cn } from "@/lib/utils";
 
-interface DataTableProps<TData> extends React.HTMLAttributes<HTMLDivElement> {
-  /**
-   * The table instance returned from useDataTable hook with pagination, sorting, filtering, etc.
-   * @/type TanstackTable<TData>
-   */
+interface DataTableProps<TData> extends React.ComponentProps<"div"> {
   table: TanstackTable<TData>;
-
-  /**
-   * The floating bar to render at the bottom of the table on row selection.
-   * @/default null
-   * @/type React.ReactNode | null
-   * @/example floatingBar={<TasksTableFloatingBar table={table} />}
-   */
-  floatingBar?: React.ReactNode | null;
+  actionBar?: React.ReactNode;
 }
 
-export function DataTable<TData>({ table, floatingBar = null, children, className, ...props }: DataTableProps<TData>) {
+export function DataTable<TData>({ table, actionBar, children, className, ...props }: DataTableProps<TData>) {
   return (
-    <div className={cn("w-full space-y-2.5 overflow-auto", className)} {...props}>
+    <div className={cn("flex w-full flex-col gap-2.5 overflow-auto", className)} {...props}>
       {children}
       <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map(headerGroup => (
               <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map(header => {
-                  return (
-                    <TableHead
-                      key={header.id}
-                      colSpan={header.colSpan}
-                      className="text-center"
-                      style={{
-                        ...getCommonPinningStyles({ column: header.column })
-                      }}
-                    >
-                      {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
-                    </TableHead>
-                  );
-                })}
+                {headerGroup.headers.map(header => (
+                  <TableHead
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    style={{
+                      ...getCommonPinningStyles({ column: header.column })
+                    }}
+                  >
+                    {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+                  </TableHead>
+                ))}
               </TableRow>
             ))}
           </TableHeader>
@@ -67,7 +53,7 @@ export function DataTable<TData>({ table, floatingBar = null, children, classNam
             ) : (
               <TableRow>
                 <TableCell colSpan={table.getAllColumns().length} className="h-24 text-center">
-                  Không có dữ liệu
+                  No results.
                 </TableCell>
               </TableRow>
             )}
@@ -76,7 +62,7 @@ export function DataTable<TData>({ table, floatingBar = null, children, classNam
       </div>
       <div className="flex flex-col gap-2.5">
         <DataTablePagination table={table} />
-        {table.getFilteredSelectedRowModel().rows.length > 0 && floatingBar}
+        {actionBar && table.getFilteredSelectedRowModel().rows.length > 0 && actionBar}
       </div>
     </div>
   );

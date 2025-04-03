@@ -4,39 +4,13 @@ import { Check, ChevronsUpDown } from "lucide-react";
 import * as React from "react";
 
 import { Badge } from "@/components/ui/badge";
-import { Command, CommandEmpty, CommandGroup, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
+import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList, CommandSeparator } from "@/components/ui/command";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { useComposedRefs } from "@/lib/helpers/composition";
-import { cn, composeEventHandlers } from "@/lib/utils";
-
-const FACETED_NAME = "Faceted";
-const TRIGGER_NAME = "FacetedTrigger";
-const BADGE_LIST_NAME = "FacetedBadgeList";
-const CONTENT_NAME = "FacetedContent";
-const INPUT_NAME = "FacetedInput";
-const LIST_NAME = "FacetedList";
-const EMPTY_NAME = "FacetedEmpty";
-const GROUP_NAME = "FacetedGroup";
-const ITEM_NAME = "FacetedItem";
-const SEPARATOR_NAME = "FacetedSeparator";
-
-const ERRORS = {
-  [FACETED_NAME]: `\`${FACETED_NAME}\` must be used as root component`,
-  [TRIGGER_NAME]: `\`${TRIGGER_NAME}\` must be within \`${FACETED_NAME}\``,
-  [BADGE_LIST_NAME]: `\`${BADGE_LIST_NAME}\` must be within \`${FACETED_NAME}\``,
-  [CONTENT_NAME]: `\`${CONTENT_NAME}\` must be within \`${FACETED_NAME}\``,
-  [INPUT_NAME]: `\`${INPUT_NAME}\` must be within \`${FACETED_NAME}\``,
-  [LIST_NAME]: `\`${LIST_NAME}\` must be within \`${FACETED_NAME}\``,
-  [EMPTY_NAME]: `\`${EMPTY_NAME}\` must be within \`${FACETED_NAME}\``,
-  [GROUP_NAME]: `\`${GROUP_NAME}\` must be within \`${FACETED_NAME}\``,
-  [ITEM_NAME]: `\`${ITEM_NAME}\` must be within \`${FACETED_NAME}\``,
-  [SEPARATOR_NAME]: `\`${SEPARATOR_NAME}\` must be within \`${FACETED_NAME}\``
-};
+import { cn } from "@/lib/utils";
 
 type FacetedValue<Multiple extends boolean> = Multiple extends true ? string[] : string;
 
 interface FacetedContextValue<Multiple extends boolean = boolean> {
-  triggerRef: React.RefObject<HTMLButtonElement | null>;
   value?: FacetedValue<Multiple>;
   onItemSelect?: (value: string) => void;
   multiple?: Multiple;
@@ -44,15 +18,15 @@ interface FacetedContextValue<Multiple extends boolean = boolean> {
 
 const FacetedContext = React.createContext<FacetedContextValue<boolean> | null>(null);
 
-function useFacetedContext(name: keyof typeof ERRORS) {
+function useFacetedContext(name: string) {
   const context = React.useContext(FacetedContext);
   if (!context) {
-    throw new Error(ERRORS[name]);
+    throw new Error(`\`${name}\` must be within Faceted`);
   }
   return context;
 }
 
-interface FacetedProps<Multiple extends boolean = false> extends React.ComponentPropsWithoutRef<typeof Popover> {
+interface FacetedProps<Multiple extends boolean = false> extends React.ComponentProps<typeof Popover> {
   value?: FacetedValue<Multiple>;
   onValueChange?: (value: FacetedValue<Multiple> | undefined) => void;
   children?: React.ReactNode;
@@ -60,9 +34,22 @@ interface FacetedProps<Multiple extends boolean = false> extends React.Component
 }
 
 function Faceted<Multiple extends boolean = false>(props: FacetedProps<Multiple>) {
-  const { value, onValueChange, children, multiple = false as Multiple, ...facetedProps } = props;
-  const [open, setOpen] = React.useState(false);
-  const triggerRef = React.useRef<HTMLButtonElement>(null);
+  const { open: openProp, onOpenChange: onOpenChangeProp, value, onValueChange, children, multiple = false, ...facetedProps } = props;
+
+  const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false);
+  const isControlled = openProp !== undefined;
+  const open = isControlled ? openProp : uncontrolledOpen;
+
+  const onOpenChange = React.useCallback(
+    (newOpen: boolean) => {
+      if (!isControlled) {
+        setUncontrolledOpen(newOpen);
+      }
+      onOpenChangeProp?.(newOpen);
+    },
+    [isControlled, onOpenChangeProp]
+  );
+
   const onItemSelect = React.useCallback(
     (selectedValue: string) => {
       if (!onValueChange) return;
@@ -78,79 +65,51 @@ function Faceted<Multiple extends boolean = false>(props: FacetedProps<Multiple>
           onValueChange(selectedValue as FacetedValue<Multiple>);
         }
 
-        requestAnimationFrame(() => {
-          setOpen(false);
-        });
+        requestAnimationFrame(() => onOpenChange(false));
       }
     },
-    [multiple, onValueChange, value]
+    [multiple, value, onValueChange, onOpenChange]
   );
 
-  const contextValue = React.useMemo<FacetedContextValue<Multiple>>(
-    () => ({ value, onItemSelect, multiple, triggerRef }),
+  const contextValue = React.useMemo<FacetedContextValue<typeof multiple>>(
+    () => ({ value, onItemSelect, multiple }),
     [value, onItemSelect, multiple]
   );
 
   return (
     <FacetedContext.Provider value={contextValue}>
-      <Popover open={open} onOpenChange={setOpen} {...facetedProps}>
+      <Popover open={open} onOpenChange={onOpenChange} {...facetedProps}>
         {children}
       </Popover>
     </FacetedContext.Provider>
   );
 }
-Faceted.displayName = FACETED_NAME;
 
-const FacetedTrigger = React.forwardRef<React.ComponentRef<typeof PopoverTrigger>, React.ComponentPropsWithoutRef<typeof PopoverTrigger>>(
-  (props, forwardedRef) => {
-    const { className, children, ...triggerProps } = props;
+function FacetedTrigger(props: React.ComponentProps<typeof PopoverTrigger>) {
+  const { className, children, ...triggerProps } = props;
 
-    const context = useFacetedContext(TRIGGER_NAME);
-    const composedRef = useComposedRefs(forwardedRef, context.triggerRef);
+  return (
+    <PopoverTrigger {...triggerProps} className={cn("justify-between text-left", className)}>
+      {children}
+    </PopoverTrigger>
+  );
+}
 
-    return (
-      <PopoverTrigger
-        {...triggerProps}
-        ref={composedRef}
-        className={cn("justify-between text-left focus:outline-none focus:ring-1 focus:ring-ring", className)}
-        onPointerDown={composeEventHandlers(triggerProps.onPointerDown, event => {
-          // prevent implicit pointer capture
-          const target = event.target;
-          if (!(target instanceof Element)) return;
-          if (target.hasPointerCapture(event.pointerId)) {
-            target.releasePointerCapture(event.pointerId);
-          }
-
-          // Only prevent default if we're not clicking on the input
-          // This allows text selection in the input while still preventing focus stealing elsewhere
-          if (event.button === 0 && event.ctrlKey === false && event.pointerType === "mouse" && !(event.target instanceof HTMLInputElement)) {
-            event.preventDefault();
-          }
-        })}
-      >
-        {children}
-      </PopoverTrigger>
-    );
-  }
-);
-
-FacetedTrigger.displayName = TRIGGER_NAME;
-
-export interface FacetedBadgeListProps extends React.ComponentPropsWithoutRef<"div"> {
+interface FacetedBadgeListProps extends React.ComponentProps<"div"> {
   options?: { label: string; value: string }[];
   max?: number;
   badgeClassName?: string;
   placeholder?: string;
 }
 
-const FacetedBadgeList = React.forwardRef<HTMLDivElement, FacetedBadgeListProps>((props, forwardedRef) => {
+function FacetedBadgeList(props: FacetedBadgeListProps) {
   const { options = [], max = 2, placeholder = "Select options...", className, badgeClassName, ...badgeListProps } = props;
 
-  const context = useFacetedContext(BADGE_LIST_NAME);
-  const values = Array.isArray(context.value) ? context.value : [context.value].filter(Boolean);
+  const context = useFacetedContext("FacetedBadgeList");
+  const values = Array.isArray(context.value) ? context.value : ([context.value].filter(Boolean) as string[]);
 
   const getLabel = React.useCallback(
-    (value: string | undefined) => {
+    (value: string) => {
       const option = options.find(opt => opt.value === value);
       return option?.label ?? value;
     },
@@ -159,7 +118,7 @@ const FacetedBadgeList = React.forwardRef<HTMLDivElement, FacetedBadgeListProps>
 
   if (!values || values.length === 0) {
     return (
-      <div {...badgeListProps} ref={forwardedRef} className="flex w-full items-center gap-1 text-muted-foreground">
+      <div {...badgeListProps} className="flex w-full items-center gap-1 text-muted-foreground">
         {placeholder}
         <ChevronsUpDown className="ml-auto size-4 shrink-0 opacity-50" />
       </div>
@@ -167,7 +126,7 @@ const FacetedBadgeList = React.forwardRef<HTMLDivElement, FacetedBadgeListProps>
   }
 
   return (
-    <div {...badgeListProps} ref={forwardedRef} className={cn("flex flex-wrap items-center gap-1", className)}>
+    <div {...badgeListProps} className={cn("flex flex-wrap items-center gap-1", className)}>
       {values.length > max ? (
         <Badge variant="secondary" className={cn("rounded-sm px-1 font-normal", badgeClassName)}>
           {values.length} selected
@@ -181,43 +140,33 @@ const FacetedBadgeList = React.forwardRef<HTMLDivElement, FacetedBadgeListProps>
       )}
     </div>
   );
-});
-FacetedBadgeList.displayName = BADGE_LIST_NAME;
+}
 
-const FacetedContent = React.forwardRef<React.ComponentRef<typeof PopoverContent>, React.ComponentPropsWithoutRef<typeof PopoverContent>>(
-  (props, forwardedRef) => {
-    const { className, children, ...contentProps } = props;
+function FacetedContent(props: React.ComponentProps<typeof PopoverContent>) {
+  const { className, children, ...contentProps } = props;
 
-    const context = useFacetedContext(CONTENT_NAME);
+  return (
+    <PopoverContent {...contentProps} align="start" className={cn("w-[200px] origin-(--radix-popover-content-transform-origin) p-0", className)}>
+      <Command>{children}</Command>
+    </PopoverContent>
+  );
+}
 
-    return (
-      <PopoverContent
-        {...contentProps}
-        ref={forwardedRef}
-        align="start"
-        className={cn("w-[200px] origin-(--radix-popover-content-transform-origin) p-0", className)}
-        onCloseAutoFocus={composeEventHandlers(contentProps.onCloseAutoFocus, () => context.triggerRef.current?.focus({ preventScroll: true }))}
-      >
-        <Command>{children}</Command>
-      </PopoverContent>
-    );
-  }
-);
-FacetedContent.displayName = CONTENT_NAME;
+const FacetedInput = CommandInput;
 
-const FacetedInput = CommandList;
 const FacetedList = CommandList;
-const FacetedEmpty = CommandEmpty;
-const FacetedGroup = CommandGroup;
-const FacetedSeparator = CommandSeparator;
 
-interface FacetedItemProps extends React.ComponentPropsWithoutRef<typeof CommandItem> {
+const FacetedEmpty = CommandEmpty;
+
+const FacetedGroup = CommandGroup;
+
+interface FacetedItemProps extends React.ComponentProps<typeof CommandItem> {
   value: string;
 }
 
-const FacetedItem = React.forwardRef<React.ComponentRef<typeof CommandItem>, FacetedItemProps>((props, ref) => {
-  const { className, children, value, onSelect, ...itemProps } = props;
-  const context = useFacetedContext(ITEM_NAME);
+function FacetedItem(props: FacetedItemProps) {
+  const { value, onSelect, className, children, ...itemProps } = props;
+  const context = useFacetedContext("FacetedItem");
 
   const isSelected = context.multiple ? Array.isArray(context.value) && context.value.includes(value) : context.value === value;
 
@@ -229,7 +178,7 @@ const FacetedItem = React.forwardRef<React.ComponentRef<typeof CommandItem>, Fac
         context.onItemSelect(currentValue);
       }
     },
-    [onSelect, context.onItemSelect, context]
+    [onSelect, context.onItemSelect]
   );
 
   return (
@@ -239,7 +188,6 @@ const FacetedItem = React.forwardRef<React.ComponentRef<typeof CommandItem>, Fac
       className={cn("gap-2", className)}
       onSelect={() => onItemSelect(value)}
       {...itemProps}
-      ref={ref}
     >
       <span
         className={cn(
@@ -252,8 +200,9 @@ const FacetedItem = React.forwardRef<React.ComponentRef<typeof CommandItem>, Fac
       {children}
     </CommandItem>
   );
-});
-FacetedItem.displayName = ITEM_NAME;
+}
+
+const FacetedSeparator = CommandSeparator;
 
 export {
   Faceted,
