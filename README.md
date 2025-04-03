@@ -1,15 +1,18 @@
 ## Project Summary
 
-This project is a [Next.js](https://nextjs.org) application bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-It provides a foundation for building modern web applications with features like server-side rendering, routing, and optimized performance.
+This project is a comprehensive [Next.js](https://nextjs.org) application designed to manage and track various tasks efficiently. It is built with modern web development practices, offering a robust foundation for scalable and maintainable applications.
 
 ## Features
 
-- **Built with Next.js:** Utilizes the Next.js framework for server-side rendering, routing, and API endpoints.
-- **Optimized Font Loading:** Employs [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load the [Geist](https://vercel.com/font) font family for improved performance and visual appeal.
-- **File-based Routing:** Leverages Next.js's file-based routing system for easy navigation and page management.
-- **Component-Based Architecture:** Uses React components to build a modular and maintainable user interface.
+- **Next.js Framework:** Utilizes Next.js for server-side rendering, routing, and API endpoints.
+- **Component-Based Architecture:** Modular and reusable components built with React and Shadcn UI.
+- **Responsive Design:** Tailwind CSS ensures a mobile-first, responsive user interface.
+- **Data Management:** Efficient data fetching and caching using `@tanstack/react-query`.
+- **Form Handling:** Robust form validation and management with Zod and React Hook Form.
+- **Dynamic Tables:** Interactive and customizable tables powered by `@tanstack/react-table`.
+- **Authentication:** Secure authentication flows with server-side logic.
+- **Error Handling:** Comprehensive error boundaries and user-friendly error messages.
+- **Optimized Performance:** Lazy loading, optimized images, and adherence to Web Vitals.
 
 ## How to Run
 
@@ -58,7 +61,11 @@ It provides a foundation for building modern web applications with features like
 
 ## Tech Stack
 
-- [Next.js](https://nextjs.org)
-- React
-- JavaScript/TypeScript
-- [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts)
+- **Framework:** [Next.js](https://nextjs.org)
+- **Styling:** Tailwind CSS, Shadcn UI
+- **Validation:** Zod
+- **Forms:** React Hook Form
+- **Data Fetching:** `@tanstack/react-query`
+- **Tables:** `@tanstack/react-table`
+- **State Management:** `nuqs` for URL search parameter state
+- **Utilities:** TypeScript, React, and modern web development tools
