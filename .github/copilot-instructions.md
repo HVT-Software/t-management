@@ -1,106 +1,200 @@
-Code Style and Structure:
+# T-Management Project Guidelines
 
-- Write concise, technical TypeScript code with accurate examples
-- Use functional and declarative programming patterns; avoid classes
-- Prefer iteration and modularization over code duplication
-- Use descriptive variable names with auxiliary verbs (e.g., isLoading, hasError)
-- Structure files: exported component, subcomponents, helpers, static content, types
-- Create components used in the page in the ./\_components directory at the same level as the initialized page.js
+## 1. Technical Stack
 
-Naming Conventions:
+### Core Technologies (2024 Q2)
 
-- Use lowercase with dashes for directories (e.g., components/auth-wizard)
-- Favor named exports for components
+- **Frontend Framework**: Next.js 14.x
+- **Language**: TypeScript 5.x
+- **State Management**:
+  - Server State: @tanstack/react-query v5
+  - URL State: nuqs
+  - Form State: react-hook-form
+- **UI Components**:
+  - Shadcn UI (Base components)
+  - Radix UI (Accessibility)
+  - TailwindCSS (Styling)
+- **Data Display**: @tanstack/react-table
+- **Validation**: Zod
+- **Routing**: Next.js App Router with Parallel Routes
 
-TypeScript Usage:
+### Required Development Tools
 
-- Use TypeScript for all code; prefer interfaces over types
-- Avoid enums; use maps instead
-- Use functional components with TypeScript interfaces
-- Use React.FC for functional components
-- Use next.config.ts for Next.js configuration
+- Node.js ≥ 18.17
+- pnpm (for package management)
+- VS Code with recommended extensions
+- Git ≥ 2.40
 
-Syntax and Formatting:
+## 2. Architecture & Design Principles
 
-- Use the "function" keyword for pure functions
-- Avoid unnecessary curly braces in conditionals; use concise syntax for simple statements
-- Use declarative JSX
+### Frontend Architecture
 
-Error Handling and Validation:
+- Server-First Approach
+  - Prefer React Server Components (RSC)
+  - Minimize client-side JavaScript
+  - Use Server Actions for data mutations
+- Component Architecture
+  - Atomic Design Principles
+  - Clear separation of concerns
+  - Composition over inheritance
 
-- Prioritize error handling: handle errors and edge cases early
-- Use early returns and guard clauses
-- Implement proper error logging and user-friendly messages
-- Use Zod for form validation
-- Model expected errors as return values in Server Actions
-- Use error boundaries for unexpected errors
+### State Management Strategy
 
-UI and Styling:
+- Server State: React Query for all API data
+- URL State: Use URL parameters for shareable state
+- Form State: React Hook Form + Zod validation
+- Local State: React useState (minimal usage)
 
-- Use Shadcn UI, Radix, and Tailwind Aria for components and styling
-- Implement responsive design with Tailwind CSS; use a mobile-first approach
+### Performance Requirements
 
-Performance Optimization:
+- Core Web Vitals targets:
+  - LCP (Largest Contentful Paint) < 2.5s
+  - FID (First Input Delay) < 100ms
+  - CLS (Cumulative Layout Shift) < 0.1
+- Bundle size limits:
+  - Initial JS < 150KB (compressed)
+  - Initial CSS < 50KB (compressed)
 
-- Minimize 'use client', 'useEffect', and 'setState'; favor React Server Components (RSC)
-- Wrap client components in Suspense with fallback
-- Use dynamic loading for non-critical components
-- Optimize images: use WebP format, include size data, implement lazy loading
+## 3. Code Standards
 
-Key Conventions:
+### TypeScript Best Practices
 
-- Use 'nuqs' for URL search parameter state management
-- Optimize Web Vitals (LCP, CLS, FID)
-- Limit 'use client':
-  - Favor server components and Next.js SSR
-  - Use only for Web API access in small components
-  - Avoid for data fetching or state management
+- Strong typing with no 'any'
+- Interfaces over types for object definitions
+- Const assertions for literals
+- Discriminated unions for complex states
+- Example:
 
-Follow Next.js docs for Data Fetching, Rendering, and App Router
+```typescript
+interface User {
+  id: string;
+  name: string;
+  email: string;
+}
 
-- Use Next.js App Router
-- Use Next.js Server Actions
-- Use Next.js Image Component
-- Use Next.js Metadata
-- Use Next.js Link Component
-- Use Next.js Head Component
-- Use Next.js Layouts
-- Use Next.js Error Pages
-- Use Next.js Loading UI
+type RequestState<T> = { status: "idle" } | { status: "loading" } | { status: "success"; data: T } | { status: "error"; error: Error };
+```
 
-Follow Tech Stack:
+### Component Standards
 
-- Next.js
-- Use TypeScript for all code
-- Use Tailwind CSS for styling
-- Use Shadcn UI for all components
-- Use Zod for validation
-- Use React Hook Form for forms
-- Use @tanstack/react-query for data fetching and caching
-- Use @tanstack/react-table for tables
-- Use Parallel router for popups
+- Functional components only
+- Props interface for every component
+- Early returns for conditional rendering
+- Error boundaries for error handling
+- Example:
 
-## Project Structure Guidelines
+```typescript
+interface UserProfileProps {
+  userId: string;
+}
 
-### Directory Purposes
+export function UserProfile({ userId }: UserProfileProps) {
+  const { data, error } = useQuery({
+    queryKey: ['user', userId],
+    queryFn: () => fetchUser(userId)
+  });
 
-- **\_components/** - Components that are only used within a specific page
-- **app/api/** - API routes for server-side logic
-- **components/** - Components shared across the entire project
-  - **ui/** - Reusable UI components built with Shadcn
-- **hooks/** - Custom React hooks
-- **lib/** - Utility libraries and modules
-  - **configs/** - Configuration files
-  - **constants/** - Application constants and static values
-  - **models/** - Data models and schemas
-  - **query/** - Query-related files (React Query configuration)
-  - **types/** - TypeScript type definitions
-  - **utils/** - Helper functions and utilities
+  if (error) return <ErrorComponent error={error} />;
+  if (!data) return <LoadingSpinner />;
 
-### Component Organization
+  return <ProfileContent user={data} />;
+}
+```
 
-Components should be organized based on their scope:
+### Naming Conventions
 
-- Place page-specific components in `_components` directory at the page level
-- Place shared/global components in the root `components` directory
-- Follow the directory structure outlined in the project structure above
+- Files/Directories: kebab-case
+- Components: PascalCase
+- Functions/Variables: camelCase
+- Constants: SCREAMING_SNAKE_CASE
+- Types/Interfaces: PascalCase
+
+## 4. Project Structure
+
+### Directory Organization
+
+```plaintext
+├── app/
+│   ├── api/            # API routes
+│   ├── (dashboard)/    # Dashboard routes group
+│   └── _components/    # Page-specific components
+├── components/
+│   ├── ui/            # Shadcn components
+│   └── shared/        # Shared components
+├── lib/
+│   ├── utils/         # Utility functions
+│   ├── config/        # Configuration
+│   └── types/         # TypeScript types
+├── hooks/             # Custom React hooks
+└── public/            # Static assets
+```
+
+### File Organization Rules
+
+1. Co-locate related files
+2. Keep components close to where they're used
+3. Shared code goes up the tree
+4. Maximum file size: 300 lines
+5. Maximum function size: 50 lines
+
+## 5. Development Workflow
+
+### Git Workflow
+
+- Branch naming: `type/description`
+  - Types: feature, fix, refactor, docs
+- Commit messages: Conventional Commits
+- PR size limit: 400 lines of code
+
+### Testing Requirements
+
+- Unit tests for utils and hooks
+- Integration tests for complex flows
+- E2E tests for critical paths
+- Testing coverage: minimum 80%
+
+### Documentation
+
+- JSDoc for public APIs
+- README for each directory
+- Storybook for UI components
+- API documentation with OpenAPI
+
+### Quality Checks
+
+- ESLint for code quality
+- Prettier for formatting
+- TypeScript strict mode
+- Husky pre-commit hooks
+
+## 6. Performance & Security
+
+### Performance Guidelines
+
+- Use Image component for all images
+- Dynamic imports for large components
+- Route segments for code splitting
+- Proper key usage in lists
+
+### Security Practices
+
+- Input validation with Zod
+- CSRF protection
+- Content Security Policy
+- Regular dependency updates
+
+## 7. Monitoring & Error Handling
+
+### Error Handling Strategy
+
+- Use error boundaries
+- Structured error responses
+- Proper error logging
+- User-friendly error messages
+
+### Monitoring Requirements
+
+- Performance monitoring
+- Error tracking
+- Usage analytics
+- User session recording
