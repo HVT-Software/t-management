@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { trpcClient } from "@/app/_trpc/client";
-import { DataTableSkeleton } from "@/components/data-table/data-table-skeleton";
+import { DataTableSkeleton } from "@/components/data-table-skeleton";
 import GoBack from "@/components/shared/go-back";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -64,17 +64,7 @@ export function CategoryForm({ filter }: CategoryFormProps) {
         </form>
       </Card>
       <Card className="w-full overflow-auto">
-        <Suspense
-          fallback={
-            <DataTableSkeleton
-              columnCount={6}
-              searchableColumnCount={1}
-              filterableColumnCount={2}
-              cellWidths={["10rem", "12rem", "12rem", "40rem"]}
-              shrinkZero
-            />
-          }
-        >
+        <Suspense fallback={<DataTableSkeleton columnCount={6} filterCount={2} cellWidths={["10rem", "12rem", "12rem", "40rem"]} shrinkZero />}>
           <CategoryTable filter={filter} />
         </Suspense>
       </Card>
