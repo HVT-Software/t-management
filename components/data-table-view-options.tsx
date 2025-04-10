@@ -24,15 +24,15 @@ export function DataTableViewOptions<TData>({ table }: DataTableViewOptionsProps
       <PopoverTrigger asChild>
         <Button aria-label="Toggle columns" role="combobox" variant="outline" size="sm" className="ml-auto hidden h-8 lg:flex">
           <Settings2 />
-          View
+          Hiển thị
           <ChevronsUpDown className="ml-auto opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent align="end" className="w-44 p-0">
         <Command>
-          <CommandInput placeholder="Search columns..." />
+          <CommandInput placeholder="Tìm cột..." />
           <CommandList>
-            <CommandEmpty>No columns found.</CommandEmpty>
+            <CommandEmpty>Không có cột nào.</CommandEmpty>
             <CommandGroup>
               {columns.map(column => (
                 <CommandItem key={column.id} onSelect={() => column.toggleVisibility(!column.getIsVisible())}>

@@ -8,7 +8,7 @@ import Link from "next/link";
 
 export const TransactionQuickActions = () => {
   return (
-    <div className="flex items-center justify-end p-2 gap-2">
+    <div className="flex items-center justify-end py-2 gap-2">
       <HoTaTooltip content="Ghi chi tiêu">
         <Button variant="outline" size="icon">
           <HandCoins />

@@ -40,7 +40,7 @@ export function NavProjects({
               <DropdownMenuTrigger asChild>
                 <SidebarMenuAction showOnHover>
                   <MoreHorizontal />
-                  <span className="sr-only">More</span>
+                  <span className="sr-only">Thêm</span>
                 </SidebarMenuAction>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-48 rounded-lg" side={isMobile ? "bottom" : "right"} align={isMobile ? "end" : "start"}>

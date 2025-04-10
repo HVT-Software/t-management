@@ -17,8 +17,7 @@ const TransactionsPage: React.FC<Params> = async ({ searchParams }) => {
   return (
     <HydrateClient>
       <div className="flex flex-col gap-2 ">
-        <Card className="h-10"></Card>
-        <Card className="flex flex-col">
+        <Card className="flex flex-col p-2">
           <TransactionQuickActions />
           <Suspense fallback={<DataTableSkeleton columnCount={6} cellWidths={["10rem", "40rem", "12rem", "12rem", "8rem", "8rem"]} shrinkZero />}>
             <TransactionTable filter={defaultFilter} />

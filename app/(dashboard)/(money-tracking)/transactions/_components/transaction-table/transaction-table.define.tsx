@@ -3,11 +3,17 @@ import { ColumnDef } from "@tanstack/react-table";
 import { TransactionTypeBadge } from "../transaction-type-badge/transaction-type-badge";
 import { Category } from "@/lib/models/category";
 import { Option } from "@/types/data-table";
+import { getTransactionTypeList } from "@/lib/enums/transaction-type";
+import clsx from "clsx";
+import { formatCurrency } from "@/lib/utils/format";
 
 export const transactionColumns = (categories: Array<Category>): ColumnDef<Transaction>[] => [
   {
     header: "Ngày",
     accessorKey: "date",
+    meta: {
+      label: "Ngày"
+    },
     cell: ({ row }) => {
       const date = new Date(row.original.date);
       return (
@@ -15,24 +21,25 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
           {date.toLocaleDateString("vi-VN", {
             year: "numeric",
             month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit"
+            day: "2-digit"
           })}
         </span>
       );
     }
   },
   {
-    header: "Loại",
-    accessorKey: "type",
-    cell: ({ row }) => (
-      <span className="flex items-center">
-        <TransactionTypeBadge type={row.original.type} />
-      </span>
-    ),
+    header: "Mô tả",
     meta: {
-      label: "Status",
+      label: "Mô tả"
+    },
+    accessorKey: "description"
+  },
+  {
+    header: "Danh mục",
+    accessorKey: "categoryId",
+    cell: ({ row }) => row.original.category.name,
+    meta: {
+      label: "Danh mục",
       variant: "multiSelect",
       options:
         categories.map(o => {
@@ -45,27 +52,34 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     enableColumnFilter: true
   },
   {
-    header: "Số tiền",
+    header: "Loại",
+    accessorKey: "type",
+    cell: ({ row }) => (
+      <span className="flex items-center">
+        <TransactionTypeBadge type={row.original.type} />
+      </span>
+    ),
+    meta: {
+      label: "Loại",
+      variant: "multiSelect",
+      options: getTransactionTypeList()
+    },
+    enableColumnFilter: true
+  },
+  {
+    header: () => <span className="text-right w-full block">Số tiền</span>,
     accessorKey: "amount",
+    meta: {
+      label: "Số tiền"
+    },
     cell: ({ row }) => {
       const amount = row.original.amount;
       return (
-        <span className="text-right w-full block">
-          {amount.toLocaleString("vi-VN", {
-            style: "currency",
-            currency: "VND"
-          })}
+        <span className={clsx("text-right w-full block", row.original.type === 1 ? "text-destructive" : "text-green-600")}>
+          {row.original.type === 1 ? "-" : ""}
+          {formatCurrency(Math.abs(amount))}
         </span>
       );
     }
-  },
-  {
-    header: "Mô tả",
-    accessorKey: "description"
-  },
-  {
-    header: "Nhóm chi tiêu",
-    accessorKey: "categoryId",
-    cell: ({ row }) => row.original.category.name
   }
 ];
