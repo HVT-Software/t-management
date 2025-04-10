@@ -16,12 +16,9 @@ export function DataTablePagination<TData>({ table, pageSizeOptions = [10, 20, 3
       className={cn("flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8", className)}
       {...props}
     >
-      <div className="flex-1 whitespace-nowrap text-muted-foreground text-sm">
-        {table.getFilteredSelectedRowModel().rows.length} of {table.getFilteredRowModel().rows.length} row(s) selected.
-      </div>
-      <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
-        <div className="flex items-center space-x-2">
-          <p className="whitespace-nowrap font-medium text-sm">Rows per page</p>
+      <div className="flex-1 whitespace-nowrap text-muted-foreground text-sm"></div>
+      <div className="flex flex-col-reverse items-center gap-2 sm:flex-row sm:gap-4 lg:gap-6">
+        <div className="flex items-center space-x-1">
           <Select
             value={`${table.getState().pagination.pageSize}`}
             onValueChange={value => {
@@ -41,9 +38,9 @@ export function DataTablePagination<TData>({ table, pageSizeOptions = [10, 20, 3
           </Select>
         </div>
         <div className="flex items-center justify-center font-medium text-sm">
-          Page {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
+          Trang {table.getState().pagination.pageIndex + 1} / {table.getPageCount()}
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center space-x-1">
           <Button
             aria-label="Go to first page"
             variant="outline"
