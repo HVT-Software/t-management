@@ -6,15 +6,13 @@ export const categoryColumns: ColumnDef<Category>[] = [
     header: "Ngày tạo",
     accessorKey: "createdAt",
     cell: ({ row }) => {
-      const date = new Date(row.original.createdAt!);
+      const date = row.original.createdAt ? new Date(row.original.createdAt) : new Date();
       return (
         <span className="flex items-center justify-center">
           {date?.toLocaleDateString("vi-VN", {
             year: "numeric",
             month: "2-digit",
-            day: "2-digit",
-            hour: "2-digit",
-            minute: "2-digit"
+            day: "2-digit"
           })}
         </span>
       );

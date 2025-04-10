@@ -2,7 +2,7 @@ import { AlertDialog, AlertDialogContent, AlertDialogHeader, AlertDialogTitle } 
 import { Params } from "@/types/common";
 import React from "react";
 import { categoryParamsCache } from "../../_lib/category-validations";
-import { CategoryForm } from "../_components/category-form/category-form";
+import { CategoryForm } from "../../_components/category-form/category-form";
 
 const CategoryDialog: React.FC<Params> = async ({ searchParams }) => {
   const searchParamsValue = await searchParams;
@@ -10,7 +10,7 @@ const CategoryDialog: React.FC<Params> = async ({ searchParams }) => {
 
   return (
     <AlertDialog open key="create-category">
-      <AlertDialogContent className="sm:max-w-2xl lg:max-w-3xl xl:max-w-4xl">
+      <AlertDialogContent className="sm:max-w-4xl lg:max-w-3xl xl:max-w-4xl sm:max-h-[80svh] overflow-auto" aria-describedby={undefined}>
         <AlertDialogHeader>
           <AlertDialogTitle>Tạo nhóm chi tiêu</AlertDialogTitle>
         </AlertDialogHeader>

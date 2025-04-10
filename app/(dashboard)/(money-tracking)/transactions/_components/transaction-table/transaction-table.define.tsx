@@ -14,6 +14,7 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     meta: {
       label: "Ngày"
     },
+    size: 100,
     cell: ({ row }) => {
       const date = new Date(row.original.date);
       return (
@@ -37,6 +38,7 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
   {
     header: "Danh mục",
     accessorKey: "categoryId",
+    size: 100,
     cell: ({ row }) => row.original.category.name,
     meta: {
       label: "Danh mục",
@@ -54,6 +56,7 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
   {
     header: "Loại",
     accessorKey: "type",
+    size: 100,
     cell: ({ row }) => (
       <span className="flex items-center">
         <TransactionTypeBadge type={row.original.type} />
@@ -72,6 +75,7 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     meta: {
       label: "Số tiền"
     },
+    size: 200,
     cell: ({ row }) => {
       const amount = row.original.amount;
       return (

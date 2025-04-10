@@ -13,9 +13,9 @@ import { Card } from "@/components/ui/card";
 import { Form } from "@/components/ui/form";
 import { Category, categorySchema } from "@/lib/models/category";
 import { Suspense } from "react";
-import { CategoryTable } from "../../../_components/category-table/category-table";
+import { CategoryFilter } from "../../_lib/category-validations";
+import { CategoryTable } from "../category-table/category-table";
 import { CategoryFormFields } from "./category-form.define";
-import { CategoryFilter } from "../../../_lib/category-validations";
 
 interface CategoryFormProps {
   filter: CategoryFilter;
