@@ -5,7 +5,13 @@ import { trpcClient } from "@/app/_trpc/client";
 import { TransactionFilter } from "../_lib/transaction-validations";
 
 const select = (data: ApiRouterOutput["transaction"]["list"]) => {
-  return { ...data, items: data.items };
+  return {
+    ...data,
+    items: data.items.map(item => ({
+      ...item,
+      date: new Date(item.date)
+    }))
+  };
 };
 
 export const useQueryTransactions = (filter: TransactionFilter) => {

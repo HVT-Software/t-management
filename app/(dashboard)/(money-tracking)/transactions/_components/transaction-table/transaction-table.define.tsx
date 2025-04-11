@@ -16,7 +16,7 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     },
     size: 100,
     cell: ({ row }) => {
-      const date = new Date(row.original.date);
+      const date = row.original.date;
       return (
         <span className="flex items-center">
           {date.toLocaleDateString("vi-VN", {
@@ -33,13 +33,14 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     meta: {
       label: "Mô tả"
     },
-    accessorKey: "description"
+    accessorKey: "description",
+    size: 150
   },
   {
     header: "Danh mục",
     accessorKey: "categoryId",
     size: 100,
-    cell: ({ row }) => row.original.category.name,
+    cell: ({ row }) => row.original.category!.name,
     meta: {
       label: "Danh mục",
       variant: "multiSelect",
