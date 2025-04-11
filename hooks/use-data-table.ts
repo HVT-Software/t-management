@@ -25,8 +25,8 @@ import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
 import { getSortingStateParser } from "@/lib/parsers";
 import type { ExtendedColumnSort } from "@/types/data-table";
 
-const PAGE_KEY = "page";
-const PER_PAGE_KEY = "perPage";
+const PAGE_KEY = "pageIndex";
+const PER_PAGE_KEY = "pageSize";
 const SORT_KEY = "sort";
 const ARRAY_SEPARATOR = ",";
 const DEBOUNCE_MS = 300;

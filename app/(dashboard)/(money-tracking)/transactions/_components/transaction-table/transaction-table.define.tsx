@@ -6,15 +6,19 @@ import { Option } from "@/types/data-table";
 import { getTransactionTypeList } from "@/lib/enums/transaction-type";
 import clsx from "clsx";
 import { formatCurrency } from "@/lib/utils/format";
+import { DataTableColumnHeader } from "@/components/data-table-column-header";
 
 export const transactionColumns = (categories: Array<Category>): ColumnDef<Transaction>[] => [
   {
-    header: "Ngày",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Tôi nè" />,
     accessorKey: "date",
     meta: {
-      label: "Ngày"
+      label: "Thời gian",
+      variant: "dateRange",
+      placeholder: "Từ ngày - Đến ngày"
     },
     size: 100,
+    enableColumnFilter: true,
     cell: ({ row }) => {
       const date = row.original.date;
       return (

@@ -2,10 +2,10 @@ export function formatDate(date: Date | string | number | undefined, opts: Intl.
   if (!date) return "";
 
   try {
-    return new Intl.DateTimeFormat("en-US", {
-      month: opts.month ?? "long",
-      day: opts.day ?? "numeric",
-      year: opts.year ?? "numeric",
+    return new Intl.DateTimeFormat("vi-VN", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
       ...opts
     }).format(new Date(date));
   } catch {

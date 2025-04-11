@@ -2,7 +2,7 @@ import { createSearchParamsCache, parseAsBoolean, parseAsInteger, parseAsString 
 
 export const categoryParamsCache = createSearchParamsCache({
   pageIndex: parseAsInteger.withDefault(1),
-  pageSize: parseAsInteger.withDefault(10),
+  pageSize: parseAsInteger.withDefault(5),
   isCount: parseAsBoolean.withDefault(true),
   searchText: parseAsString.withDefault("")
 });

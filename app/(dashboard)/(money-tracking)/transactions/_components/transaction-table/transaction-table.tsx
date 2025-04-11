@@ -25,7 +25,8 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({ filter }) =>
     pageCount: data?.totalCount ? Math.ceil(data.totalCount / filter.pageSize) : 0,
     getRowId: originalRow => originalRow.id,
     shallow: false,
-    clearOnDefault: true
+    clearOnDefault: true,
+    enableColumnFilters: true
   });
 
   return (

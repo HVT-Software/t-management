@@ -7,12 +7,12 @@ interface TransactionTypeBadgeProps {
 
 export const TransactionTypeBadge: React.FC<TransactionTypeBadgeProps> = ({ type }) => {
   let badgeText: string = "";
-  let badgeVariant: "default" | "outline" | "destructive" = "default";
+  let badgeVariant: "default" | "outline" | "destructive" | "success" = "default";
 
   switch (type) {
     case ETransactionType.INCOME:
       badgeText = "Thu nhập";
-      badgeVariant = "outline";
+      badgeVariant = "success";
       break;
     case ETransactionType.EXPENSE:
       badgeText = "Chi phí";
@@ -22,5 +22,9 @@ export const TransactionTypeBadge: React.FC<TransactionTypeBadgeProps> = ({ type
       badgeText = "Unknown";
   }
 
-  return <Badge variant={badgeVariant}>{badgeText}</Badge>;
+  return (
+    <Badge className="w-[80px]" variant={badgeVariant}>
+      {badgeText}
+    </Badge>
+  );
 };

@@ -14,7 +14,6 @@ export const transactionSchema = z.object({
     .refine(
       date => {
         const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0); // Compare only dates, not times
         return date <= currentDate;
       },
       {

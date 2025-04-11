@@ -52,9 +52,8 @@ export function CategoryForm({ filter }: CategoryFormProps) {
   return (
     <Form {...form}>
       <Card className="p-2">
-        <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-4">
+        <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-2">
           <CategoryFormFields form={form} />
-
           <div className="flex justify-end gap-2">
             <GoBack />
             <Button type="submit" disabled={isFormDisabled} className="min-w-[100px]">

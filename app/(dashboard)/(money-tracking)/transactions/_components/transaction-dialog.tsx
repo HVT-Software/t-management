@@ -1,15 +1,16 @@
 "use client";
 import { trpcClient } from "@/app/_trpc/client";
+import { HoTaTooltip } from "@/components/shared/hota-tooltip";
+import MoneyInput from "@/components/shared/money-input";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { ETransactionType } from "@/lib/enums/transaction-type";
+import { ETransactionType, getTransactionTypeList } from "@/lib/enums/transaction-type";
 import { Transaction, transactionSchema } from "@/lib/models/transaction";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -17,6 +18,7 @@ import { DialogTrigger } from "@radix-ui/react-dialog";
 import { format } from "date-fns";
 import { CalendarIcon, HandCoins } from "lucide-react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 interface QuickEntryDialogProps {
   onTransactionAdded: () => void;
@@ -28,6 +30,7 @@ export function QuickEditTransactionDialog({ onTransactionAdded }: QuickEntryDia
     onSuccess: () => {
       reset();
       onTransactionAdded();
+      toast.success("Giao dịch đã được lưu thành công!");
     },
     onError: error => {
       console.error("Error saving transaction:", error);
@@ -39,7 +42,6 @@ export function QuickEditTransactionDialog({ onTransactionAdded }: QuickEntryDia
     defaultValues: {
       type: ETransactionType.EXPENSE,
       amount: 0,
-      categoryId: "",
       description: "",
       date: new Date()
     }
@@ -48,72 +50,55 @@ export function QuickEditTransactionDialog({ onTransactionAdded }: QuickEntryDia
   const { control, handleSubmit, reset } = form;
   const isLoading = saveTransaction.isPending || isLoadingCategories;
 
-  // Handle form submission
-  const onSubmit = (data: Transaction) => {
-    console.log(data);
-    // saveTransaction.mutateAsync(data);
-  };
-
+  const onSubmit = (data: Transaction) => saveTransaction.mutateAsync(data);
   return (
-    <Dialog open>
-      <DialogTrigger asChild>
-        <Button variant="outline" size="icon">
-          <HandCoins />
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="sm:max-w-lg sm:max-h-[80vh] overflow-auto">
+    <Dialog>
+      <HoTaTooltip content="Thêm giao dịch nhanh">
+        <DialogTrigger asChild>
+          <Button variant="outline" size="icon">
+            <HandCoins />
+          </Button>
+        </DialogTrigger>
+      </HoTaTooltip>
+      <DialogContent className="sm:max-w-lg sm:max-h-[80vh] overflow-auto" onInteractOutside={e => e.preventDefault()}>
         <DialogHeader>
           <DialogTitle>Thêm giao dịch nhanh</DialogTitle>
           <DialogDescription>Nhập thông tin giao dịch mới của bạn. Nhấn lưu khi hoàn tất.</DialogDescription>
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-2 gap-4 py-4">
               <FormField
                 control={control}
                 name="type"
                 render={({ field }) => (
-                  <Tabs defaultValue="expense" className="w-full">
-                    <TabsList className="w-full" onChange={field.onChange} defaultValue={field.value}>
-                      <TabsTrigger value="expense">Chi tiêu</TabsTrigger>
-                      <TabsTrigger value="income">Thu nhập</TabsTrigger>
-                    </TabsList>
-                  </Tabs>
-                )}
-              />
-
-              <FormField
-                control={control}
-                name="amount"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Số tiền</FormLabel>
+                  <FormItem className="col-span-2">
                     <FormControl>
-                      <Input
-                        type="number"
-                        placeholder="Nhập số tiền"
-                        {...field}
-                        value={field.value}
-                        onChange={e => field.onChange(Number(e.target.value))}
-                      />
+                      <Tabs value={field.value?.toString()} onValueChange={value => field.onChange(Number(value))} className="w-full">
+                        <TabsList className="w-full" defaultValue={field.value?.toString()}>
+                          {getTransactionTypeList().map(type => (
+                            <TabsTrigger key={type.value} value={type.value.toString()}>
+                              {type.label}
+                            </TabsTrigger>
+                          ))}
+                        </TabsList>
+                      </Tabs>
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={control}
                 name="categoryId"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem className="col-span-2">
                     <FormLabel>Danh mục</FormLabel>
                     <FormControl>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <SelectTrigger>
+                        <SelectTrigger className="w-full">
                           <SelectValue placeholder="Chọn danh mục" />
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent className="w-full">
                           {categories?.map(category => (
                             <SelectItem key={category.id} value={category.id!}>
                               {category.name}
@@ -128,38 +113,24 @@ export function QuickEditTransactionDialog({ onTransactionAdded }: QuickEntryDia
               />
               <FormField
                 control={control}
-                name="description"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Mô tả</FormLabel>
-                    <FormControl>
-                      <Textarea id="description" placeholder="Nhập mô tả chi tiêu" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={control}
                 name="date"
                 render={({ field }) => {
                   return (
                     <FormItem className="flex flex-col">
                       <FormLabel>Ngày</FormLabel>
-                      <Popover>
+                      <Popover modal>
                         <PopoverTrigger asChild>
                           <FormControl>
                             <Button
                               variant={"outline"}
                               className={cn("w-[240px] pl-3 text-left font-normal", !field.value && "text-muted-foreground")}
                             >
-                              {field.value ? format(field.value, "PPP") : <span>Pick a date</span>}
+                              {field.value ? format(field.value, "dd/MM/yyyy") : <span>Chọn ngày</span>}
                               <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
                             </Button>
                           </FormControl>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
+                        <PopoverContent className="w-auto p-0 z-[100]" align="start">
                           <Calendar
                             mode="single"
                             selected={field.value}
@@ -173,6 +144,20 @@ export function QuickEditTransactionDialog({ onTransactionAdded }: QuickEntryDia
                     </FormItem>
                   );
                 }}
+              />
+              <MoneyInput form={form} label="Số tiền" name="amount" />
+              <FormField
+                control={control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="col-span-2">
+                    <FormLabel>Mô tả</FormLabel>
+                    <FormControl>
+                      <Textarea id="description" placeholder="Nhập mô tả chi tiêu" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
               />
             </div>
 

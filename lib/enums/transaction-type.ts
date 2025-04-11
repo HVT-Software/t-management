@@ -1,8 +1,8 @@
 import { Option } from "@/types/data-table";
 
 export enum ETransactionType {
-  INCOME,
-  EXPENSE
+  INCOME = 0,
+  EXPENSE = 1
 }
 
 export const TRANSACTION_TYPE_LABELS: Record<ETransactionType, string> = {
@@ -10,14 +10,10 @@ export const TRANSACTION_TYPE_LABELS: Record<ETransactionType, string> = {
   [ETransactionType.EXPENSE]: "Chi phí"
 };
 
-export function getTransactionTypeLabel(type: ETransactionType): string {
-  return TRANSACTION_TYPE_LABELS[type] || "Unknown";
-}
-
 // Get list type of enum
 export function getTransactionTypeList(): Array<Option> {
   return Object.entries(TRANSACTION_TYPE_LABELS).map(([key, label]) => ({
     label: label,
-    value: ETransactionType[key as keyof typeof ETransactionType].toString()
+    value: key
   }));
 }
