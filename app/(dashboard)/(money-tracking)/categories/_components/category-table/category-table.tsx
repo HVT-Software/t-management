@@ -3,8 +3,8 @@
 import { DataTable } from "@/components/data-table";
 import { useDataTable } from "@/hooks/use-data-table";
 import { Category } from "@/lib/models/category";
-import { CategoryFilter } from "../../_lib/category-validations";
-import { useQueryCategories } from "../../_queries/use-query-categories";
+import { CategoryFilter } from "../../../transactions/_lib/category-validations";
+import { useQueryCategories } from "../../../transactions/_queries/use-query-categories";
 import { categoryColumns } from "./category-table.define";
 
 interface CategoryTableProps {
@@ -20,7 +20,7 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ filter }) => {
     pageCount: data?.totalCount ? Math.ceil(data.totalCount / filter.pageSize) : 0,
     getRowId: originalRow => originalRow.id!,
     shallow: false,
-    clearOnDefault: true
+    scroll: true
   });
 
   return <DataTable table={table} />;

@@ -17,25 +17,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { format } from "date-fns";
 import { CalendarIcon, HandCoins } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-interface QuickEntryDialogProps {
-  onTransactionAdded: () => void;
-}
-
-export function QuickEditTransactionDialog({ onTransactionAdded }: QuickEntryDialogProps) {
-  const { data: categories, isLoading: isLoadingCategories } = trpcClient.category.all.useQuery();
-  const saveTransaction = trpcClient.transaction.save.useMutation({
-    onSuccess: () => {
-      reset();
-      onTransactionAdded();
-      toast.success("Giao dịch đã được lưu thành công!");
-    },
-    onError: error => {
-      console.error("Error saving transaction:", error);
-    }
-  });
+export function QuickEditTransactionDialog() {
+  const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<Transaction>({
     resolver: zodResolver(transactionSchema),
@@ -48,11 +35,20 @@ export function QuickEditTransactionDialog({ onTransactionAdded }: QuickEntryDia
   });
 
   const { control, handleSubmit, reset } = form;
-  const isLoading = saveTransaction.isPending || isLoadingCategories;
 
+  const { data: categories, isLoading: isLoadingCategories } = trpcClient.category.all.useQuery();
+  const saveTransaction = trpcClient.transaction.save.useMutation({
+    onSuccess: () => {
+      reset();
+      toast.success("Giao dịch đã được lưu thành công!");
+    }
+  });
+
+  const isLoading = saveTransaction.isPending || isLoadingCategories;
   const onSubmit = (data: Transaction) => saveTransaction.mutateAsync(data);
+
   return (
-    <Dialog>
+    <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <HoTaTooltip content="Thêm giao dịch nhanh">
         <DialogTrigger asChild>
           <Button variant="outline" size="icon">

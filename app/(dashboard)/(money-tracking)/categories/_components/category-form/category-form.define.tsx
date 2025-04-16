@@ -1,3 +1,4 @@
+import MoneyInput from "@/components/shared/money-input";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -25,27 +26,7 @@ export function CategoryFormFields({ form }: CategoryFormFieldsProps) {
             </FormItem>
           )}
         />
-
-        <FormField
-          control={form.control}
-          name="budget"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Ngân sách</FormLabel>
-              <FormControl>
-                <Input
-                  placeholder="Ngân sách"
-                  type="number"
-                  inputMode="numeric"
-                  {...field}
-                  onChange={e => field.onChange(Number(e.target.value) || 0)}
-                  value={field.value || 0}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <MoneyInput form={form} label="Số tiền" name="budget" />
       </div>
 
       <FormField

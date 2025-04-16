@@ -1,24 +1,20 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 import { trpcClient } from "@/app/_trpc/client";
-import { DataTableSkeleton } from "@/components/data-table-skeleton";
-import GoBack from "@/components/shared/go-back";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { DialogClose } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { Category, categorySchema } from "@/lib/models/category";
-import { Suspense } from "react";
-import { CategoryFilter } from "../../_lib/category-validations";
-import { CategoryTable } from "../category-table/category-table";
 import { CategoryFormFields } from "./category-form.define";
 
 interface CategoryFormProps {
-  filter: CategoryFilter;
+  categoryId?: string;
+  onSuccess?: () => void;
 }
 
 const DEFAULT_CATEGORY: Category = {
@@ -27,9 +23,7 @@ const DEFAULT_CATEGORY: Category = {
   budget: 0
 };
 
-export function CategoryForm({ filter }: CategoryFormProps) {
-  const router = useRouter();
-
+export const CategoryForm: React.FC<CategoryFormProps> = ({ onSuccess }) => {
   const form = useForm<Category>({
     resolver: zodResolver(categorySchema),
     defaultValues: DEFAULT_CATEGORY
@@ -38,7 +32,7 @@ export function CategoryForm({ filter }: CategoryFormProps) {
   const { mutateAsync, isPending, isError } = trpcClient.category.save.useMutation({
     onSuccess: data => {
       toast.success(data.message);
-      router.refresh();
+      onSuccess?.();
     },
     onError: error => {
       console.error("Failed to save category:", error);
@@ -55,18 +49,17 @@ export function CategoryForm({ filter }: CategoryFormProps) {
         <form onSubmit={form.handleSubmit(handleSubmit)} className="flex flex-col gap-2">
           <CategoryFormFields form={form} />
           <div className="flex justify-end gap-2">
-            <GoBack />
+            <DialogClose asChild>
+              <Button variant="outline" disabled={isFormDisabled}>
+                Hủy
+              </Button>
+            </DialogClose>
             <Button type="submit" disabled={isFormDisabled} className="min-w-[100px]">
               {isPending ? "Đang lưu..." : "Lưu"}
             </Button>
           </div>
         </form>
       </Card>
-      <Card className="w-full overflow-auto">
-        <Suspense fallback={<DataTableSkeleton columnCount={6} filterCount={2} cellWidths={["10rem", "12rem", "12rem", "40rem"]} shrinkZero />}>
-          <CategoryTable filter={filter} />
-        </Suspense>
-      </Card>
     </Form>
   );
-}
+};
