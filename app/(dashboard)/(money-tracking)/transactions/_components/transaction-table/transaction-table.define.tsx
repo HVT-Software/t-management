@@ -1,16 +1,15 @@
-import { Transaction } from "@/lib/models/transaction";
-import { ColumnDef } from "@tanstack/react-table";
-import { TransactionTypeBadge } from "../transaction-type-badge/transaction-type-badge";
-import { Category } from "@/lib/models/category";
-import { Option } from "@/types/data-table";
 import { getTransactionTypeList } from "@/lib/enums/transaction-type";
+import { Category } from "@/lib/models/category";
+import { Transaction } from "@/lib/models/transaction";
+import { toCurrency, formatDate } from "@/lib/utils/format";
+import { Option } from "@/types/data-table";
+import { ColumnDef } from "@tanstack/react-table";
 import clsx from "clsx";
-import { formatCurrency } from "@/lib/utils/format";
-import { DataTableColumnHeader } from "@/components/data-table-column-header";
+import { TransactionTypeBadge } from "../transaction-type-badge/transaction-type-badge";
 
 export const transactionColumns = (categories: Array<Category>): ColumnDef<Transaction>[] => [
   {
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Tôi nè" />,
+    header: "Ngày tạo",
     accessorKey: "date",
     meta: {
       label: "Thời gian",
@@ -19,17 +18,10 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     },
     size: 100,
     enableColumnFilter: true,
+    enableSorting: false,
     cell: ({ row }) => {
       const date = row.original.date;
-      return (
-        <span className="flex items-center">
-          {date.toLocaleDateString("vi-VN", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit"
-          })}
-        </span>
-      );
+      return <span className="flex items-center">{formatDate(date)}</span>;
     }
   },
   {
@@ -85,8 +77,8 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
       const amount = row.original.amount;
       return (
         <span className={clsx("text-right w-full block", row.original.type === 1 ? "text-destructive" : "text-green-600")}>
-          {row.original.type === 1 ? "-" : ""}
-          {formatCurrency(Math.abs(amount))}
+          {row.original.type === 1 ? "-" : row.original.type === 0 ? "+" : ""}
+          {toCurrency(Math.abs(amount))}
         </span>
       );
     }

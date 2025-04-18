@@ -6,7 +6,12 @@ import { BadgePlus } from "lucide-react";
 import { useState } from "react";
 import { CategoryForm } from "./category-form/category-form";
 
-export const CategoryDialog = () => {
+type CategoryDialogProps = {
+  categoryId?: string;
+  refetch?: () => void;
+};
+
+export const CategoryDialog: React.FC<CategoryDialogProps> = ({ refetch, categoryId }) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -20,7 +25,9 @@ export const CategoryDialog = () => {
           <DialogTitle>Thêm danh mục</DialogTitle>
         </DialogHeader>
         <CategoryForm
+          categoryId={categoryId}
           onSuccess={() => {
+            refetch?.();
             setIsOpen(false);
           }}
         />

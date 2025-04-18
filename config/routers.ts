@@ -1,8 +1,8 @@
+import { categoryPath, dashboardPath, jsonToTypescriptPath, transactionPath } from "@/lib/constants/routes";
+import { SideBarConfig } from "@/lib/models/sidebar";
+import Logo from "@/public/assets/images/t-management-logo.png";
 import { Book, Hammer } from "lucide-react";
 import { usePathname } from "next/navigation";
-import Logo from "@/public/assets/images/t-management-logo.png";
-import { dashboardPath, jsonToTypescriptPath, transactionPath } from "@/lib/constants/routes";
-import { SideBarConfig } from "@/lib/models/sidebar";
 
 export const sideBarItems: SideBarConfig = {
   user: {
@@ -54,6 +54,10 @@ export const sideBarItems: SideBarConfig = {
         {
           title: "Giao dịch",
           url: transactionPath
+        },
+        {
+          title: "Danh mục",
+          url: categoryPath
         }
       ]
     }
