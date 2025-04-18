@@ -1,20 +1,20 @@
 import { getTransactionTypeList } from "@/lib/enums/transaction-type";
 import { Category } from "@/lib/models/category";
 import { Transaction } from "@/lib/models/transaction";
-import { toCurrency, formatDate } from "@/lib/utils/format";
+import { formatDate } from "@/lib/utils/format";
 import { Option } from "@/types/data-table";
 import { ColumnDef } from "@tanstack/react-table";
-import clsx from "clsx";
+import { TransactionCurrencyDisplay } from "../transaction-currency-display/transaction-currency-display";
 import { TransactionTypeBadge } from "../transaction-type-badge/transaction-type-badge";
 
 export const transactionColumns = (categories: Array<Category>): ColumnDef<Transaction>[] => [
   {
+    id: "date",
     header: "Ngày tạo",
     accessorKey: "date",
     meta: {
       label: "Thời gian",
-      variant: "dateRange",
-      placeholder: "Từ ngày - Đến ngày"
+      variant: "dateRange"
     },
     size: 100,
     enableColumnFilter: true,
@@ -33,6 +33,7 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     size: 150
   },
   {
+    id: "categoryIds",
     header: "Danh mục",
     accessorKey: "categoryId",
     size: 100,
@@ -51,6 +52,7 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     enableColumnFilter: true
   },
   {
+    id: "types",
     header: "Loại",
     accessorKey: "type",
     size: 100,
@@ -75,12 +77,7 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     size: 200,
     cell: ({ row }) => {
       const amount = row.original.amount;
-      return (
-        <span className={clsx("text-right w-full block", row.original.type === 1 ? "text-destructive" : "text-green-600")}>
-          {row.original.type === 1 ? "-" : row.original.type === 0 ? "+" : ""}
-          {toCurrency(Math.abs(amount))}
-        </span>
-      );
+      return <TransactionCurrencyDisplay type={row.original.type} amount={amount} />;
     }
   }
 ];

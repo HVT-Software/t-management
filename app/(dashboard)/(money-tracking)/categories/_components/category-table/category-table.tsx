@@ -23,8 +23,7 @@ export const CategoryTable: React.FC<CategoryTableProps> = ({ filter }) => {
     pageCount: data?.totalCount ? Math.ceil(data.totalCount / filter.pageSize) : 0,
     getRowId: originalRow => originalRow.id!,
     shallow: false,
-    scroll: true,
-    enableColumnFilters: true
+    clearOnDefault: true
   });
 
   return (

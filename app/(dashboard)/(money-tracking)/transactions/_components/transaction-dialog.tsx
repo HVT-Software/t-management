@@ -21,7 +21,12 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
-export function QuickEditTransactionDialog() {
+interface QuickEditTransactionDialogProps {
+  transactionId?: string;
+  onSuccess: () => void;
+}
+
+export function QuickEditTransactionDialog({ onSuccess }: QuickEditTransactionDialogProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const form = useForm<Transaction>({
@@ -40,6 +45,8 @@ export function QuickEditTransactionDialog() {
   const saveTransaction = trpcClient.transaction.save.useMutation({
     onSuccess: () => {
       reset();
+      onSuccess();
+      setIsOpen(false);
       toast.success("Giao dịch đã được lưu thành công!");
     }
   });

@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 
 export const categoryColumns: ColumnDef<Category>[] = [
   {
+    id: "createdAt",
     header: "Ngày tạo",
     accessorKey: "createdAt",
     enableColumnFilter: true,

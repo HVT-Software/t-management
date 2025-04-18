@@ -120,7 +120,7 @@ export function DataTableDateFilter<TData>({ column, title, multiple }: DataTabl
       if (!getIsDateRange(selectedDates)) return null;
 
       const hasSelectedDates = selectedDates.from || selectedDates.to;
-      const dateText = hasSelectedDates ? formatDateRange(selectedDates) : "Select date range";
+      const dateText = hasSelectedDates ? formatDateRange(selectedDates) : "Chọn ngày";
 
       return (
         <span className="flex items-center gap-2">
@@ -138,7 +138,7 @@ export function DataTableDateFilter<TData>({ column, title, multiple }: DataTabl
     if (getIsDateRange(selectedDates)) return null;
 
     const hasSelectedDate = selectedDates.length > 0;
-    const dateText = hasSelectedDate ? formatDate(selectedDates[0]) : "Select date";
+    const dateText = hasSelectedDate ? formatDate(selectedDates[0]) : "Chọn ngày";
 
     return (
       <span className="flex items-center gap-2">

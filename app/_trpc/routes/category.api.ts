@@ -16,6 +16,7 @@ export const categoryApiRouter = baseRouter({
 
   list: procedure.input(z.custom<CategoryFilter>()).query<WrapList<Category>>(async ({ input }) => {
     const res = await serverInstance.get<Result<WrapList<Category>>>(CLOUD_CATEGORY_ENDPOINT, { params: input });
+
     return res.data.data;
   }),
 

@@ -7,7 +7,7 @@ interface TransactionTypeBadgeProps {
 
 export const TransactionTypeBadge: React.FC<TransactionTypeBadgeProps> = ({ type }) => {
   let badgeText: string = "";
-  let badgeVariant: "default" | "outline" | "destructive" | "success" = "default";
+  let badgeVariant: "default" | "outline" | "destructive" | "success" | "warning" = "default";
 
   switch (type) {
     case ETransactionType.INCOME:
@@ -17,6 +17,11 @@ export const TransactionTypeBadge: React.FC<TransactionTypeBadgeProps> = ({ type
     case ETransactionType.EXPENSE:
       badgeText = "Chi phí";
       badgeVariant = "destructive";
+      break;
+
+    case ETransactionType.DEBT:
+      badgeText = "Nợ";
+      badgeVariant = "warning";
       break;
     default:
       badgeText = "Unknown";

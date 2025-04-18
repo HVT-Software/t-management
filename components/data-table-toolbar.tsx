@@ -32,7 +32,7 @@ export function DataTableToolbar<TData>({ table, children, className, ...props }
           <DataTableToolbarFilter key={column.id} column={column} />
         ))}
         {isFiltered && (
-          <Button aria-label="Reset filters" variant="outline" size="sm" className="border-dashed" onClick={onReset}>
+          <Button aria-label="Đặt lại" variant="outline" size="sm" className="border-dashed" onClick={onReset}>
             <X />
             Đặt lại
           </Button>
