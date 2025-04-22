@@ -6,7 +6,7 @@ import { Edit, Trash2 } from "lucide-react";
 
 export const categoryColumns = (onEdit: (id: string) => void, onDelete: (id: string) => void): ColumnDef<Category>[] => [
   {
-    id: "createdAt",
+    id: "date",
     header: "Ngày tạo",
     accessorKey: "createdAt",
     enableColumnFilter: true,
@@ -23,11 +23,7 @@ export const categoryColumns = (onEdit: (id: string) => void, onDelete: (id: str
   {
     header: "Tên danh mục",
     accessorKey: "name",
-    enableColumnFilter: true,
-    meta: {
-      label: "Tên danh mục",
-      variant: "text"
-    }
+    enableColumnFilter: true
   },
   {
     header: "Mô tả",

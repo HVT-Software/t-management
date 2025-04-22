@@ -6,8 +6,9 @@ export const categoryParamsCache = createSearchParamsCache({
   pageSize: parseAsInteger.withDefault(20),
   isCount: parseAsBoolean.withDefault(true),
   searchText: parseAsString.withDefault(""),
-  createdAt: parseAsArrayOf(z.coerce.number()).withDefault([]),
-  categoryId: parseAsArrayOf(z.coerce.string()).withDefault([])
+  date: parseAsArrayOf(z.coerce.number()).withDefault([])
 });
 
-export interface CategoryFilter extends ListRequest {}
+export interface CategoryFilter extends ListRequest {
+  date?: number[];
+}
