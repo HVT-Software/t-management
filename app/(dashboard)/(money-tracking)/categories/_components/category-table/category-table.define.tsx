@@ -1,8 +1,10 @@
+import { Button } from "@/components/ui/button";
 import { Category } from "@/lib/models/category";
-import { formatDate } from "@/lib/utils/format";
+import { formatDate, toCurrency } from "@/lib/utils/format";
 import { ColumnDef } from "@tanstack/react-table";
+import { Edit, Trash2 } from "lucide-react";
 
-export const categoryColumns: ColumnDef<Category>[] = [
+export const categoryColumns = (onEdit: (id: string) => void, onDelete: (id: string) => void): ColumnDef<Category>[] => [
   {
     id: "createdAt",
     header: "Ngày tạo",
@@ -12,6 +14,7 @@ export const categoryColumns: ColumnDef<Category>[] = [
       label: "Ngày tạo",
       variant: "dateRange"
     },
+    size: 30,
     cell: ({ row }) => {
       const date = row.original.createdAt ? new Date(row.original.createdAt) : new Date();
       return <span>{formatDate(date)}</span>;
@@ -22,19 +25,39 @@ export const categoryColumns: ColumnDef<Category>[] = [
     accessorKey: "name",
     enableColumnFilter: true,
     meta: {
-      label: "Tên danh mục"
-    }
-  },
-  {
-    header: () => <span className="text-right w-full block">Số tiền</span>,
-    accessorKey: "budget",
-    cell: ({ row }) => {
-      const budget = row.original.budget;
-      return <span className="text-right w-full block">{budget}</span>;
+      label: "Tên danh mục",
+      variant: "text"
     }
   },
   {
     header: "Mô tả",
     accessorKey: "description"
+  },
+  {
+    header: () => <span className="text-right w-full block">Số tiền</span>,
+    accessorKey: "budget",
+    size: 100,
+    cell: ({ row }) => {
+      const budget = row.original.budget;
+      return <span className="text-right w-full block">{toCurrency(budget || 0)}</span>;
+    }
+  },
+  {
+    id: "actions",
+    header: () => <span className="text-center w-full block">Thao tác</span>,
+    size: 50,
+    cell: ({ row }) => {
+      const category = row.original;
+      return (
+        <div className="flex items-center justify-center">
+          <Button variant="ghost" size="icon" onClick={() => onEdit(category.id!)}>
+            <Edit className="text-blue-400" />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={() => onDelete(category.id!)}>
+            <Trash2 className="text-red-400" />
+          </Button>
+        </div>
+      );
+    }
   }
 ];

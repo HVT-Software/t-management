@@ -68,6 +68,7 @@ export const categoryApiRouter = baseRouter({
           message: "Xóa nhóm chi tiêu thành công!"
         };
       }
+
       return {
         success: false,
         data: res.data.data,

@@ -10,6 +10,7 @@ import { Card } from "@/components/ui/card";
 import { DialogClose } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
 import { Category, categorySchema } from "@/lib/models/category";
+import { useEffect } from "react";
 import { CategoryFormFields } from "./category-form.define";
 
 interface CategoryFormProps {
@@ -23,11 +24,26 @@ const DEFAULT_CATEGORY: Category = {
   budget: 0
 };
 
-export const CategoryForm: React.FC<CategoryFormProps> = ({ onSuccess }) => {
+export const CategoryForm: React.FC<CategoryFormProps> = ({ onSuccess, categoryId }) => {
+  const { data: categories, isFetching } = trpcClient.category.get.useQuery(categoryId!, { enabled: !!categoryId });
+
   const form = useForm<Category>({
     resolver: zodResolver(categorySchema),
     defaultValues: DEFAULT_CATEGORY
   });
+
+  const { reset } = form;
+
+  useEffect(() => {
+    if (categories) {
+      reset({
+        id: categories.id,
+        name: categories.name,
+        description: categories.description,
+        budget: categories.budget
+      });
+    }
+  }, [categories, reset]);
 
   const { mutateAsync, isPending, isError } = trpcClient.category.save.useMutation({
     onSuccess: data => {
@@ -42,6 +58,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ onSuccess }) => {
 
   const handleSubmit = async (data: Category) => await mutateAsync(data);
   const isFormDisabled = isPending || isError;
+  const isLoading = isFetching || isPending;
 
   return (
     <Form {...form}>
@@ -55,7 +72,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({ onSuccess }) => {
               </Button>
             </DialogClose>
             <Button type="submit" disabled={isFormDisabled} className="min-w-[100px]">
-              {isPending ? "Đang lưu..." : "Lưu"}
+              {isLoading ? "Đang lưu..." : "Lưu"}
             </Button>
           </div>
         </form>

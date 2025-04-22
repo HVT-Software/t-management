@@ -18,7 +18,7 @@ import { DialogTrigger } from "@radix-ui/react-dialog";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
 import { format } from "date-fns";
-import { CalendarIcon, HandCoins } from "lucide-react";
+import { BadgePlus, CalendarIcon } from "lucide-react";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
@@ -62,9 +62,7 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
   const onSubmit = async (data: Transaction) => await saveTransaction.mutateAsync(data);
 
   useEffect(() => {
-    console.log("transactionId", transactionId);
     if (transaction && transactionId) {
-      console.log(transaction);
       reset({
         ...transaction,
         date: transaction.date ? new Date(transaction.date) : new Date()
@@ -77,7 +75,7 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
       <HoTaTooltip content="Thêm giao dịch nhanh">
         <DialogTrigger asChild>
           <Button variant="outline" size="icon">
-            <HandCoins />
+            <BadgePlus className="text-green-600" />
           </Button>
         </DialogTrigger>
       </HoTaTooltip>
