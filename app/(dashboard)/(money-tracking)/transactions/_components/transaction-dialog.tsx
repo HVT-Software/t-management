@@ -15,6 +15,8 @@ import { Transaction, transactionSchema } from "@/lib/models/transaction";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTrigger } from "@radix-ui/react-dialog";
+import { useQueryClient } from "@tanstack/react-query";
+import { getQueryKey } from "@trpc/react-query";
 import { format } from "date-fns";
 import { CalendarIcon, HandCoins } from "lucide-react";
 import { useEffect } from "react";
@@ -30,6 +32,8 @@ interface QuickEditTransactionDialogProps {
 }
 
 export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, onSuccess }: QuickEditTransactionDialogProps) {
+  const queryClient = useQueryClient();
+
   const { data: transaction, isFetching: isLoadTransaction } = trpcClient.transaction.get.useQuery(transactionId!, { enabled: !!transactionId });
   const form = useForm<Transaction>({
     resolver: zodResolver(transactionSchema),
@@ -45,7 +49,8 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
 
   const { data: categories, isLoading: isLoadingCategories } = trpcClient.category.all.useQuery();
   const saveTransaction = trpcClient.transaction.save.useMutation({
-    onSuccess: () => {
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: getQueryKey(trpcClient.transaction.get) });
       reset();
       onSuccess();
       setIsOpen(false);
@@ -54,7 +59,7 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
   });
 
   const isLoading = saveTransaction.isPending || isLoadingCategories || isLoadTransaction;
-  const onSubmit = (data: Transaction) => saveTransaction.mutateAsync(data);
+  const onSubmit = async (data: Transaction) => await saveTransaction.mutateAsync(data);
 
   useEffect(() => {
     console.log("transactionId", transactionId);

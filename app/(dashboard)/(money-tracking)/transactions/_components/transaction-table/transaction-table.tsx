@@ -1,6 +1,5 @@
 "use client";
 
-import { trpcClient } from "@/app/_trpc/client";
 import { DataTable } from "@/components/data-table";
 import { DataTableToolbar } from "@/components/data-table-toolbar";
 import { Card } from "@/components/ui/card";
@@ -12,6 +11,7 @@ import { TransactionFilter } from "../../_lib/transaction-validations";
 import { useQueryTransactions } from "../../_queries/use-query-transactions";
 import { QuickEditTransactionDialog } from "../transaction-dialog";
 import { transactionColumns } from "./transaction-table.define";
+import { trpcClient } from "@/app/_trpc/client";
 
 interface TransactionTableProps {
   filter: TransactionFilter;
@@ -53,7 +53,10 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({ filter }) =>
         <QuickEditTransactionDialog
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          onSuccess={() => refetch()}
+          onSuccess={() => {
+            refetch();
+            setTransactionId(undefined);
+          }}
           transactionId={transactionId}
           setTransactionId={setTransactionId}
         />
