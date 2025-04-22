@@ -1,200 +1,107 @@
-# T-Management Project Guidelines
+Next.js 14 Project Guidelines
 
-## 1. Technical Stack
+### **Code Style and Structure**
 
-### Core Technologies (2024 Q2)
+- Write clean, concise **TypeScript** code using functional programming (avoid classes).
+- Avoid code duplication by favoring **iteration** and **modularization**.
+- Use descriptive variable names like `isLoading` or `hasError` for clarity.
+- Organize files logically:
+  - Main exported component
+  - Subcomponents
+  - Helper functions
+  - Static content
+  - Type definitions
+- Store page-specific components in a `./_components` folder at the page level.
 
-- **Frontend Framework**: Next.js 14.x
-- **Language**: TypeScript 5.x
-- **State Management**:
-  - Server State: @tanstack/react-query v5
-  - URL State: nuqs
-  - Form State: react-hook-form
-- **UI Components**:
-  - Shadcn UI (Base components)
-  - Radix UI (Accessibility)
-  - TailwindCSS (Styling)
-- **Data Display**: @tanstack/react-table
-- **Validation**: Zod
-- **Routing**: Next.js App Router with Parallel Routes
+---
 
-### Required Development Tools
+### **Naming Conventions**
 
-- Node.js ≥ 18.17
-- pnpm (for package management)
-- VS Code with recommended extensions
-- Git ≥ 2.40
+- Use **lowercase with dashes** for directory names (e.g., `components/auth-wizard`).
+- Prefer **named exports** for components (e.g., `export { MyComponent }`).
 
-## 2. Architecture & Design Principles
+---
 
-### Frontend Architecture
+### **Project Structure**
 
-- Server-First Approach
-  - Prefer React Server Components (RSC)
-  - Minimize client-side JavaScript
-  - Use Server Actions for data mutations
-- Component Architecture
-  - Atomic Design Principles
-  - Clear separation of concerns
-  - Composition over inheritance
+- **`_components/`**: Components specific to a page.
+- **`app/api/`**: API routes for Next.js.
+- **`components/`**: Reusable shared components.
+  - Includes a `ui/` subfolder for **Shadcn UI** components.
+- **`hooks/`**: Custom React hooks.
+- **`lib/`**: Utility files, including:
+  - Configuration files
+  - Constants
+  - Models
+  - Query utilities
+  - Type definitions
+  - General utilities
 
-### State Management Strategy
+---
 
-- Server State: React Query for all API data
-- URL State: Use URL parameters for shareable state
-- Form State: React Hook Form + Zod validation
-- Local State: React useState (minimal usage)
+### **UI and Styling**
 
-### Performance Requirements
+- Use **Shadcn UI**, **Radix**, and **Tailwind Aria** for UI components.
+- Style with **Tailwind CSS**, following a **mobile-first** approach for responsive design.
 
-- Core Web Vitals targets:
-  - LCP (Largest Contentful Paint) < 2.5s
-  - FID (First Input Delay) < 100ms
-  - CLS (Cumulative Layout Shift) < 0.1
-- Bundle size limits:
-  - Initial JS < 150KB (compressed)
-  - Initial CSS < 50KB (compressed)
+---
 
-## 3. Code Standards
+### **Performance Optimization**
 
-### TypeScript Best Practices
+- Minimize client-side code (e.g., `use client`, `useEffect`, `setState`); prioritize **React Server Components**.
+- Wrap client components in **Suspense** with fallback UIs.
+- Dynamically load non-critical components to improve load times.
+- Optimize images using the **Next.js Image** component with **WebP** format and **lazy loading**.
 
-- Strong typing with no 'any'
-- Interfaces over types for object definitions
-- Const assertions for literals
-- Discriminated unions for complex states
-- Example:
+---
 
-```typescript
-interface User {
-  id: string;
-  name: string;
-  email: string;
-}
+### **Key Conventions**
 
-type RequestState<T> = { status: "idle" } | { status: "loading" } | { status: "success"; data: T } | { status: "error"; error: Error };
-```
+- Manage URL state with **`nuqs`** (Next.js URL Query State).
+- Focus on optimizing **Web Vitals** (e.g., LCP, CLS, FID).
+- Limit client-side code to **Web API access**; avoid using it for data fetching or state management.
 
-### Component Standards
+---
 
-- Functional components only
-- Props interface for every component
-- Early returns for conditional rendering
-- Error boundaries for error handling
-- Example:
+### **Next.js Features**
 
-```typescript
-interface UserProfileProps {
-  userId: string;
-}
+- Leverage these Next.js features:
+  - **App Router**
+  - **Server Actions**
+  - **Image Component**
+  - **Metadata**
+  - **Link Component**
+  - **Head Management**
+  - **Layouts**
+  - **Error Pages**
+  - **Loading UI**
 
-export function UserProfile({ userId }: UserProfileProps) {
-  const { data, error } = useQuery({
-    queryKey: ['user', userId],
-    queryFn: () => fetchUser(userId)
-  });
+---
 
-  if (error) return <ErrorComponent error={error} />;
-  if (!data) return <LoadingSpinner />;
+### **Tech Stack**
 
-  return <ProfileContent user={data} />;
-}
-```
+- Core technologies:
+  - **Next.js**
+  - **TypeScript**
+  - **Tailwind CSS**
+  - **Shadcn UI**
+- Additional tools:
+  - **Webpack**
+  - **Web Workers**
+  - **Monaco Editor**
+  - **Prettier** (code formatting)
+  - **Zod** (schema validation)
+  - **React Hook Form**
+  - **React Query** / **Tanstack Query**
+  - **Tanstack Table**
+  - **Parallel Router** (for popup functionality)
 
-### Naming Conventions
+---
 
-- Files/Directories: kebab-case
-- Components: PascalCase
-- Functions/Variables: camelCase
-- Constants: SCREAMING_SNAKE_CASE
-- Types/Interfaces: PascalCase
+### **Additional Tools**
 
-## 4. Project Structure
+- **ESLint** (linting)
+- **Husky** (git hooks)
+- **Commitlint** (commit message linting)
 
-### Directory Organization
-
-```plaintext
-├── app/
-│   ├── api/            # API routes
-│   ├── (dashboard)/    # Dashboard routes group
-│   └── _components/    # Page-specific components
-├── components/
-│   ├── ui/            # Shadcn components
-│   └── shared/        # Shared components
-├── lib/
-│   ├── utils/         # Utility functions
-│   ├── config/        # Configuration
-│   └── types/         # TypeScript types
-├── hooks/             # Custom React hooks
-└── public/            # Static assets
-```
-
-### File Organization Rules
-
-1. Co-locate related files
-2. Keep components close to where they're used
-3. Shared code goes up the tree
-4. Maximum file size: 300 lines
-5. Maximum function size: 50 lines
-
-## 5. Development Workflow
-
-### Git Workflow
-
-- Branch naming: `type/description`
-  - Types: feature, fix, refactor, docs
-- Commit messages: Conventional Commits
-- PR size limit: 400 lines of code
-
-### Testing Requirements
-
-- Unit tests for utils and hooks
-- Integration tests for complex flows
-- E2E tests for critical paths
-- Testing coverage: minimum 80%
-
-### Documentation
-
-- JSDoc for public APIs
-- README for each directory
-- Storybook for UI components
-- API documentation with OpenAPI
-
-### Quality Checks
-
-- ESLint for code quality
-- Prettier for formatting
-- TypeScript strict mode
-- Husky pre-commit hooks
-
-## 6. Performance & Security
-
-### Performance Guidelines
-
-- Use Image component for all images
-- Dynamic imports for large components
-- Route segments for code splitting
-- Proper key usage in lists
-
-### Security Practices
-
-- Input validation with Zod
-- CSRF protection
-- Content Security Policy
-- Regular dependency updates
-
-## 7. Monitoring & Error Handling
-
-### Error Handling Strategy
-
-- Use error boundaries
-- Structured error responses
-- Proper error logging
-- User-friendly error messages
-
-### Monitoring Requirements
-
-- Performance monitoring
-- Error tracking
-- Usage analytics
-- User session recording
+This summary covers the essentials of the guidelines. If you need more details on any specific section or help applying these to a project, just let me know—I’m here to assist!
