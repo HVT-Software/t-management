@@ -38,12 +38,15 @@ export const authOptions: NextAuthOptions = {
       authorize: async credentials => {
         try {
           const payload = { ...credentials };
+          console.log("process.env.API_URL", process.env.API_URL);
           const res = await axios.post<Result<LoginResponse> & { id: string }>(CLOUD_AUTH_LOGIN_ENDPOINT, payload, {
             baseURL: process.env.API_URL
           });
+          console.log(res);
 
           return res.data;
-        } catch {
+        } catch (e) {
+          console.log(e);
           return null;
         }
       }

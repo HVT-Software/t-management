@@ -45,3 +45,15 @@ export function toDatetime(date: Date): string {
     hour12: false
   }).format(date);
 }
+
+/**
+ * Converts an array of numbers (each a timestamp) to an array of Date objects.
+ * Returns undefined if input is invalid.
+ * @param timestamps - Array of numbers (timestamps in ms)
+ */
+export function parseDatesFromNumberList(timestamps: number[]): Date[] | undefined {
+  if (!Array.isArray(timestamps) || timestamps.some(n => typeof n !== "number" || Number.isNaN(n))) {
+    return undefined;
+  }
+  return timestamps.filter(ts => ts > 0).map(ts => new Date(ts));
+}

@@ -8,8 +8,8 @@ declare type ListRequest = {
   pageSize: number;
   isCount?: boolean;
   searchText?: string;
-  startDate?: string;
-  endDate?: string;
+  from?: string;
+  to?: string;
   sort?: Sorting;
   isAll?: boolean;
 };

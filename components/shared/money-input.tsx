@@ -1,8 +1,8 @@
 "use client";
 import { useReducer } from "react";
-import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form"; // Shadcn UI import
-import { Input } from "../ui/input"; // Shandcn UI Input
 import { UseFormReturn } from "react-hook-form";
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
+import { Input } from "../ui/input";
 
 type TextInputProps = {
   form: UseFormReturn<any>;

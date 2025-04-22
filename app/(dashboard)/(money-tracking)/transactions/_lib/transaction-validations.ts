@@ -7,9 +7,13 @@ export const transactionParamsCache = createSearchParamsCache({
   pageSize: parseAsInteger.withDefault(10),
   isCount: parseAsBoolean.withDefault(true),
   searchText: parseAsString.withDefault(""),
-  types: parseAsArrayOf(z.nativeEnum(ETransactionType)).withDefault([]),
+  types: parseAsArrayOf(z.coerce.number()).withDefault([]),
   categoryIds: parseAsArrayOf(z.coerce.string()).withDefault([]),
   date: parseAsArrayOf(z.coerce.number()).withDefault([])
 });
 
-export interface TransactionFilter extends ListRequest {}
+export interface TransactionFilter extends ListRequest {
+  types: ETransactionType[];
+  categoryIds: string[];
+  date: number[];
+}

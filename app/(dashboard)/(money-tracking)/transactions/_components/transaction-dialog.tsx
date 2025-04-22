@@ -17,18 +17,20 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { format } from "date-fns";
 import { CalendarIcon, HandCoins } from "lucide-react";
-import { useState } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
 interface QuickEditTransactionDialogProps {
+  isOpen: boolean;
+  setIsOpen: (open: boolean) => void;
   transactionId?: string;
+  setTransactionId: (id?: string) => void;
   onSuccess: () => void;
 }
 
-export function QuickEditTransactionDialog({ onSuccess }: QuickEditTransactionDialogProps) {
-  const [isOpen, setIsOpen] = useState(false);
-
+export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, onSuccess }: QuickEditTransactionDialogProps) {
+  const { data: transaction, isFetching: isLoadTransaction } = trpcClient.transaction.get.useQuery(transactionId!, { enabled: !!transactionId });
   const form = useForm<Transaction>({
     resolver: zodResolver(transactionSchema),
     defaultValues: {
@@ -51,8 +53,19 @@ export function QuickEditTransactionDialog({ onSuccess }: QuickEditTransactionDi
     }
   });
 
-  const isLoading = saveTransaction.isPending || isLoadingCategories;
+  const isLoading = saveTransaction.isPending || isLoadingCategories || isLoadTransaction;
   const onSubmit = (data: Transaction) => saveTransaction.mutateAsync(data);
+
+  useEffect(() => {
+    if (transaction && transactionId) {
+      console.log(transaction);
+      reset({
+        ...transaction,
+        date: transaction.date ? new Date(transaction.date) : new Date()
+      });
+      setIsOpen(true);
+    }
+  }, [transaction, transactionId, reset]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>

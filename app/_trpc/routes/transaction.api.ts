@@ -7,10 +7,16 @@ import { CLOUD_TRANSACTION_ENDPOINT } from "@/lib/constants/cloud-endpoint";
 import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants/messages";
 import { Transaction } from "@/lib/models/transaction";
 import { serverInstance } from "@/query/server-instance";
+import { parseDatesFromNumberList } from "@/lib/utils/format";
 
 export const transactionApiRouter = baseRouter({
   list: procedure.input(z.custom<TransactionFilter>()).query<WrapList<Transaction>>(async ({ input }) => {
-    const res = await serverInstance.get<Result<WrapList<Transaction>>>(CLOUD_TRANSACTION_ENDPOINT, { params: input });
+    const dates = parseDatesFromNumberList(input.date);
+    const res = await serverInstance.post<Result<WrapList<Transaction>>>(`${CLOUD_TRANSACTION_ENDPOINT}/list`, {
+      ...input,
+      from: dates?.[0],
+      to: dates?.[1]
+    });
     return res.data.data;
   }),
 
