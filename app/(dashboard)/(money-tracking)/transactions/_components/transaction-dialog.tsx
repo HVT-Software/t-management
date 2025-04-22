@@ -1,7 +1,7 @@
 "use client";
 import { trpcClient } from "@/app/_trpc/client";
 import { HoTaTooltip } from "@/components/shared/hota-tooltip";
-import MoneyInput from "@/components/shared/money-input";
+import { MoneyInput } from "@/components/shared/money-input";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -57,13 +57,13 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
   const onSubmit = (data: Transaction) => saveTransaction.mutateAsync(data);
 
   useEffect(() => {
+    console.log("transactionId", transactionId);
     if (transaction && transactionId) {
       console.log(transaction);
       reset({
         ...transaction,
         date: transaction.date ? new Date(transaction.date) : new Date()
       });
-      setIsOpen(true);
     }
   }, [transaction, transactionId, reset]);
 

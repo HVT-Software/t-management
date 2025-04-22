@@ -1,58 +1,83 @@
 "use client";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { UseFormReturn } from "react-hook-form";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "../ui/form";
 import { Input } from "../ui/input";
 
-type TextInputProps = {
+/**
+ * Props for the MoneyInput component
+ * @interface MoneyInputProps
+ */
+interface MoneyInputProps {
+  /** Form instance from react-hook-form */
   form: UseFormReturn<any>;
+  /** Field name in the form */
   name: string;
+  /** Label text for the input */
   label: string;
+  /** Placeholder text for the input */
   placeholder?: string;
+  /** Additional CSS classes */
   className?: string;
-};
+}
 
-// Brazilian currency config
-const moneyFormatter = new Intl.NumberFormat("vi-VN", {
+/**
+ * Vietnamese currency formatter
+ * Formats numbers as Vietnamese currency without decimal places
+ */
+const MONEY_FORMATTER = new Intl.NumberFormat("vi-VN", {
   style: "decimal",
   minimumFractionDigits: 0,
   maximumFractionDigits: 0
 });
 
-export default function MoneyInput(props: TextInputProps) {
-  const initialValue = props.form.getValues()[props.name] ? moneyFormatter.format(props.form.getValues()[props.name]) : "";
-
-  const [value, setValue] = useReducer((_: any, next: string) => {
+/**
+ * MoneyInput component
+ * A form input specifically designed for monetary values in Vietnamese Dong
+ */
+export function MoneyInput({ form, name, label, placeholder, className }: MoneyInputProps) {
+  const initialValue = form.getValues()[name] ? MONEY_FORMATTER.format(form.getValues()[name] as number) : "0";
+  const [value, setValue] = useReducer((_: string, next: string) => {
     const digits = next.replace(/\D/g, "");
-    return moneyFormatter.format(Number(digits));
+    return MONEY_FORMATTER.format(Number(digits)) || "0";
   }, initialValue);
 
+  useEffect(() => {
+    if (initialValue !== value) {
+      console.log(initialValue, value);
+      setValue(initialValue);
+    }
+  }, [initialValue, value]);
+
+  /**
+   * Handles the input change, converting formatted value to number
+   */
   function handleChange(realChangeFn: (value: number) => void, formattedValue: string): void {
     const digits = formattedValue.replace(/\D/g, "");
     const realValue = Number(digits);
-    realChangeFn(realValue);
+    realChangeFn(realValue || 0);
   }
 
   return (
     <FormField
-      control={props.form.control}
-      name={props.name}
+      control={form.control}
+      name={name}
       render={({ field }) => {
         field.value = value;
-        const _change = field.onChange;
+        const originalOnChange = field.onChange;
 
         return (
-          <div className={props.className}>
+          <div className={className}>
             <FormItem>
-              <FormLabel>{props.label}</FormLabel>
+              <FormLabel>{label}</FormLabel>
               <FormControl>
                 <Input
-                  placeholder={props.placeholder}
+                  placeholder={placeholder}
                   type="text"
                   {...field}
-                  onChange={ev => {
-                    setValue(ev.target.value);
-                    handleChange(_change, ev.target.value);
+                  onChange={event => {
+                    setValue(event.target.value);
+                    handleChange(originalOnChange, event.target.value);
                   }}
                   value={value}
                   endIcon="₫"

@@ -1,4 +1,4 @@
-import MoneyInput from "@/components/shared/money-input";
+import { MoneyInput } from "@/components/shared/money-input";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
