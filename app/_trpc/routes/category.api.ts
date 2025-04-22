@@ -10,12 +10,12 @@ import { serverInstance } from "@/query/server-instance";
 
 export const categoryApiRouter = baseRouter({
   all: procedure.query<Array<Category>>(async () => {
-    const res = await serverInstance.get<Result<WrapList<Category>>>(CLOUD_CATEGORY_ENDPOINT, { params: { isAll: true } });
+    const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, { isAll: true });
     return res.data.data.items;
   }),
 
   list: procedure.input(z.custom<CategoryFilter>()).query<WrapList<Category>>(async ({ input }) => {
-    const res = await serverInstance.get<Result<WrapList<Category>>>(CLOUD_CATEGORY_ENDPOINT, { params: input });
+    const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, input);
 
     return res.data.data;
   }),
