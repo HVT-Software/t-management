@@ -4,4 +4,4 @@ export const dashboardPath = "/dashboard";
 export const jsonToTypescriptPath = "/json-to-typescript";
 
 export const transactionPath = "/transactions";
-export const transactionCategoryPath = "/transactions/category";
+export const categoryPath = "/categories";

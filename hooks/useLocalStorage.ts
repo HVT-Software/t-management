@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { version } from "../package.json";
+import packageJson from "../package.json";
 
-const prefix = `transform:${version}:`;
+const prefix = `transform:${packageJson.version}:`;
 
 export function useLocalStorage<T>(key: string, initialValue: T) {
   // State to store our value

@@ -28,11 +28,11 @@ import { Sortable, SortableContent, SortableItem, SortableItemHandle, SortableOv
 import { dataTableConfig } from "@/config/data-table";
 import { useDebouncedCallback } from "@/hooks/use-debounced-callback";
 import { getDefaultFilterOperator, getFilterOperators } from "@/lib/data-table";
-import { formatDate } from "@/lib/format";
 import { generateId } from "@/lib/id";
 import { getFiltersStateParser } from "@/lib/parsers";
 import { cn } from "@/lib/utils";
 import type { ExtendedColumnFilter, FilterOperator, JoinOperator } from "@/types/data-table";
+import { formatDate } from "@/lib/utils/format";
 
 const FILTERS_KEY = "filters";
 const JOIN_OPERATOR_KEY = "joinOperator";
@@ -562,7 +562,7 @@ function onFilterInputRender<TData>({
           ? `${formatDate(new Date(Number(dateValue[0])))} - ${formatDate(new Date(Number(dateValue[1])))}`
           : dateValue[0]
             ? formatDate(new Date(Number(dateValue[0])))
-            : "Pick a date";
+            : "Chọn ngày";
 
       return (
         <Popover open={showValueSelector} onOpenChange={setShowValueSelector}>

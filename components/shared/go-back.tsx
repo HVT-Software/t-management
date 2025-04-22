@@ -2,7 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useCallback } from "react";
-import { AlertDialogCancel } from "../ui/alert-dialog";
+import { DialogClose } from "../ui/dialog";
 
 const GoBack: React.FC = () => {
   const router = useRouter();
@@ -10,7 +10,7 @@ const GoBack: React.FC = () => {
   const handleClick = useCallback(() => {
     router.back();
   }, []);
-  return <AlertDialogCancel onClick={handleClick}>Trở Lại</AlertDialogCancel>;
+  return <DialogClose onClick={handleClick}>Trở Lại</DialogClose>;
 };
 
 export default GoBack;

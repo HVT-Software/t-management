@@ -7,15 +7,22 @@ import { CLOUD_CATEGORY_ENDPOINT } from "@/lib/constants/cloud-endpoint";
 import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants/messages";
 import { Category } from "@/lib/models/category";
 import { serverInstance } from "@/query/server-instance";
+import { parseDatesFromNumberList } from "@/lib/utils/format";
 
 export const categoryApiRouter = baseRouter({
   all: procedure.query<Array<Category>>(async () => {
-    const res = await serverInstance.get<Result<WrapList<Category>>>(CLOUD_CATEGORY_ENDPOINT, { params: { isAll: true } });
+    const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, { isAll: true });
     return res.data.data.items;
   }),
 
   list: procedure.input(z.custom<CategoryFilter>()).query<WrapList<Category>>(async ({ input }) => {
-    const res = await serverInstance.get<Result<WrapList<Category>>>(CLOUD_CATEGORY_ENDPOINT, { params: input });
+    const dates = parseDatesFromNumberList(input.date ?? []);
+    const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, {
+      ...input,
+      from: dates?.[0],
+      to: dates?.[1]
+    });
+
     return res.data.data;
   }),
 
@@ -67,6 +74,7 @@ export const categoryApiRouter = baseRouter({
           message: "Xóa nhóm chi tiêu thành công!"
         };
       }
+
       return {
         success: false,
         data: res.data.data,

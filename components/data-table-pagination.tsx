@@ -10,7 +10,12 @@ interface DataTablePaginationProps<TData> extends React.ComponentProps<"div"> {
   pageSizeOptions?: number[];
 }
 
-export function DataTablePagination<TData>({ table, pageSizeOptions = [10, 20, 30, 40, 50], className, ...props }: DataTablePaginationProps<TData>) {
+export function DataTablePagination<TData>({
+  table,
+  pageSizeOptions = [5, 10, 20, 30, 40, 50],
+  className,
+  ...props
+}: DataTablePaginationProps<TData>) {
   return (
     <div
       className={cn("flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8", className)}
@@ -42,7 +47,7 @@ export function DataTablePagination<TData>({ table, pageSizeOptions = [10, 20, 3
         </div>
         <div className="flex items-center space-x-1">
           <Button
-            aria-label="Go to first page"
+            aria-label="Đi đến trang đầu"
             variant="outline"
             size="icon"
             className="hidden size-8 lg:flex"
@@ -52,7 +57,7 @@ export function DataTablePagination<TData>({ table, pageSizeOptions = [10, 20, 3
             <ChevronsLeft />
           </Button>
           <Button
-            aria-label="Go to previous page"
+            aria-label="Đi đến trang trước"
             variant="outline"
             size="icon"
             className="size-8"
@@ -62,7 +67,7 @@ export function DataTablePagination<TData>({ table, pageSizeOptions = [10, 20, 3
             <ChevronLeft />
           </Button>
           <Button
-            aria-label="Go to next page"
+            aria-label="Đi đến trang tiếp theo"
             variant="outline"
             size="icon"
             className="size-8"
@@ -72,7 +77,7 @@ export function DataTablePagination<TData>({ table, pageSizeOptions = [10, 20, 3
             <ChevronRight />
           </Button>
           <Button
-            aria-label="Go to last page"
+            aria-label="Đi đến trang cuối"
             variant="outline"
             size="icon"
             className="hidden size-8 lg:flex"

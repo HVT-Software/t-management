@@ -1,30 +1,33 @@
-import { Transaction } from "@/lib/models/transaction";
-import { ColumnDef } from "@tanstack/react-table";
-import { TransactionTypeBadge } from "../transaction-type-badge/transaction-type-badge";
-import { Category } from "@/lib/models/category";
-import { Option } from "@/types/data-table";
+import { Button } from "@/components/ui/button";
 import { getTransactionTypeList } from "@/lib/enums/transaction-type";
-import clsx from "clsx";
-import { formatCurrency } from "@/lib/utils/format";
+import { Category } from "@/lib/models/category";
+import { Transaction } from "@/lib/models/transaction";
+import { formatDate } from "@/lib/utils/format";
+import { Option } from "@/types/data-table";
+import { ColumnDef } from "@tanstack/react-table";
+import { Edit, Trash2 } from "lucide-react";
+import { TransactionCurrencyDisplay } from "../transaction-currency-display/transaction-currency-display";
+import { TransactionTypeBadge } from "../transaction-type-badge/transaction-type-badge";
 
-export const transactionColumns = (categories: Array<Category>): ColumnDef<Transaction>[] => [
+export const transactionColumns = (
+  categories: Array<Category>,
+  onEdit: (id: string) => void,
+  onDelete: (id: string) => void
+): ColumnDef<Transaction>[] => [
   {
-    header: "Ngày",
+    id: "date",
+    header: "Ngày tạo",
     accessorKey: "date",
     meta: {
-      label: "Ngày"
+      label: "Thời gian",
+      variant: "dateRange"
     },
+    size: 100,
+    enableColumnFilter: true,
+    enableSorting: false,
     cell: ({ row }) => {
-      const date = new Date(row.original.date);
-      return (
-        <span className="flex items-center">
-          {date.toLocaleDateString("vi-VN", {
-            year: "numeric",
-            month: "2-digit",
-            day: "2-digit"
-          })}
-        </span>
-      );
+      const date = row.original.date;
+      return <span className="flex items-center">{formatDate(date)}</span>;
     }
   },
   {
@@ -32,12 +35,15 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     meta: {
       label: "Mô tả"
     },
-    accessorKey: "description"
+    accessorKey: "description",
+    size: 150
   },
   {
+    id: "categoryIds",
     header: "Danh mục",
     accessorKey: "categoryId",
-    cell: ({ row }) => row.original.category.name,
+    size: 100,
+    cell: ({ row }) => row.original.category!.name,
     meta: {
       label: "Danh mục",
       variant: "multiSelect",
@@ -52,8 +58,10 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     enableColumnFilter: true
   },
   {
+    id: "types",
     header: "Loại",
     accessorKey: "type",
+    size: 100,
     cell: ({ row }) => (
       <span className="flex items-center">
         <TransactionTypeBadge type={row.original.type} />
@@ -72,13 +80,27 @@ export const transactionColumns = (categories: Array<Category>): ColumnDef<Trans
     meta: {
       label: "Số tiền"
     },
+    size: 200,
     cell: ({ row }) => {
       const amount = row.original.amount;
+      return <TransactionCurrencyDisplay type={row.original.type} amount={amount} />;
+    }
+  },
+  {
+    id: "actions",
+    header: () => <span className="text-center w-full block">Thao tác</span>,
+    size: 50,
+    cell: ({ row }) => {
+      const transaction = row.original;
       return (
-        <span className={clsx("text-right w-full block", row.original.type === 1 ? "text-destructive" : "text-green-600")}>
-          {row.original.type === 1 ? "-" : ""}
-          {formatCurrency(Math.abs(amount))}
-        </span>
+        <div className="flex items-center justify-center">
+          <Button variant="ghost" size="icon" onClick={() => onEdit(transaction.id)}>
+            <Edit className="text-blue-400" />
+          </Button>
+          <Button variant="ghost" size="icon" onClick={() => onDelete(transaction.id)}>
+            <Trash2 className="text-red-400" />
+          </Button>
+        </div>
       );
     }
   }

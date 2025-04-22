@@ -38,7 +38,7 @@ export function DataTableColumnHeader<TData, TValue>({ column, title, className,
               onClick={() => column.toggleSorting(false)}
             >
               <ChevronUp />
-              Asc
+              Tăng
             </DropdownMenuCheckboxItem>
             <DropdownMenuCheckboxItem
               className="relative pr-8 pl-2 [&>span:first-child]:right-2 [&>span:first-child]:left-auto [&_svg]:text-muted-foreground"
@@ -46,12 +46,12 @@ export function DataTableColumnHeader<TData, TValue>({ column, title, className,
               onClick={() => column.toggleSorting(true)}
             >
               <ChevronDown />
-              Desc
+              Giảm
             </DropdownMenuCheckboxItem>
             {column.getIsSorted() && (
               <DropdownMenuItem className="pl-2 [&_svg]:text-muted-foreground" onClick={() => column.clearSorting()}>
                 <X />
-                Reset
+                Đặt lại
               </DropdownMenuItem>
             )}
           </>
@@ -63,7 +63,7 @@ export function DataTableColumnHeader<TData, TValue>({ column, title, className,
             onClick={() => column.toggleVisibility(false)}
           >
             <EyeOff />
-            Hide
+            Ẩn
           </DropdownMenuCheckboxItem>
         )}
       </DropdownMenuContent>
