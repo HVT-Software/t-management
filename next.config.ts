@@ -5,23 +5,24 @@ const nextConfig: NextConfig = {
   images: {
     domains: ["lh3.googleusercontent.com"]
   },
-  experimental: {
-    turbo: {
-      rules: {
-        "*.svg": {
-          as: "*.tsx",
-          loaders: ["@svgr/webpack"]
-        }
-      },
-      resolveAlias: {
-        canvas: "./empty-module.ts"
+  turbopack: {
+    rules: {
+      "*.svg": {
+        as: "*.tsx",
+        loaders: ["@svgr/webpack"]
       }
+    },
+    resolveAlias: {
+      canvas: "./empty-module.ts"
     }
   },
   webpack: config => {
     config.experiments = { ...config.experiments, asyncWebAssembly: true };
     return config;
-  }
+  },
+  reactStrictMode: false,
+  distDir: "build",
+  output: "standalone"
 };
 
 export default nextConfig;
