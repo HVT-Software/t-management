@@ -60,4 +60,4 @@ ENV API_URL=${API_URL} \
 
 USER nextjs
 EXPOSE 3000
-CMD ["dumb-init", "node", "./app/server.js"]
+CMD ["dumb-init", "node", "./server.js"]
