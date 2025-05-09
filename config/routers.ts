@@ -19,22 +19,22 @@ export const sideBarItems: SideBarConfig = {
   ],
   navMain: [
     { title: "Thống kê", url: dashboardPath, icon: Book },
-    {
-      title: "Học tập",
-      url: "#",
-      icon: Book,
-      isActive: true,
-      items: [
-        {
-          title: "Từ vựng",
-          url: "#"
-        },
-        {
-          title: "Listening",
-          url: "#"
-        }
-      ]
-    },
+    // {
+    //   title: "Học tập",
+    //   url: "#",
+    //   icon: Book,
+    //   isActive: true,
+    //   items: [
+    //     {
+    //       title: "Từ vựng",
+    //       url: "#"
+    //     },
+    //     {
+    //       title: "Listening",
+    //       url: "#"
+    //     }
+    //   ]
+    // },
     {
       title: "Công cụ",
       url: "",
