@@ -66,8 +66,6 @@ export const authOptions: NextAuthOptions = {
             }
           };
 
-          console.log(axiosConfig);
-
           const payload = { ...user, username: user?.id };
           const res = await axios.post<Result<LoginResponse>>(`${CLOUD_AUTH_ENPOINT}/${account.provider}`, payload, axiosConfig);
 
