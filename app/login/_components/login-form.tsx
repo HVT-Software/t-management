@@ -33,7 +33,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
       toast.error(`Đăng nhập không thành công.`);
       router.replace("/login");
     }
-  });
+  }, [searchParams, router]);
 
   // Initialize form with react-hook-form and zod validation
   const form = useForm<LoginFormValues>({
@@ -71,7 +71,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
   const handleProviderSignIn = (provider: string) => {
     setIsLoading(true);
-    signIn(provider, { callbackUrl: "/", popup: provider === "google" }).catch(error => {
+    signIn(provider, { popup: true }).catch(error => {
       setIsLoading(false);
       toast.error(`Đăng nhập với ${provider} không thành công.`);
       console.error(error);
