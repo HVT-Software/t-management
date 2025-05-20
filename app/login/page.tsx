@@ -12,7 +12,7 @@ async function LoginPage() {
   const session = await getSession();
 
   if (session) {
-    redirect("/dashboard");
+    redirect("/transactions");
   }
 
   return (
