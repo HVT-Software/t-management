@@ -43,7 +43,7 @@ export const transactionColumns = (
     header: "Danh mục",
     accessorKey: "categoryId",
     size: 100,
-    cell: ({ row }) => row.original.category!.name,
+    cell: ({ row }) => row.original.category?.name || "Chưa chọn",
     meta: {
       label: "Danh mục",
       variant: "multiSelect",
