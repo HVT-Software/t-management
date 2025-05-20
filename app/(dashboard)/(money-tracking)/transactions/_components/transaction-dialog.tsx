@@ -2,6 +2,7 @@
 import { trpcClient } from "@/app/_trpc/client";
 import { HoTaTooltip } from "@/components/shared/hota-tooltip";
 import { MoneyInput } from "@/components/shared/money-input";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
@@ -13,6 +14,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { ETransactionType, getTransactionTypeList } from "@/lib/enums/transaction-type";
 import { Transaction, transactionSchema } from "@/lib/models/transaction";
 import { cn } from "@/lib/utils";
+import { toCurrency } from "@/lib/utils/format";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { useQueryClient } from "@tanstack/react-query";
@@ -47,7 +49,7 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
 
   const { control, handleSubmit, reset } = form;
 
-  const { data: categories, isLoading: isLoadingCategories } = trpcClient.category.all.useQuery();
+  const { data: categories, isLoading: isLoadingCategories, refetch } = trpcClient.category.all.useQuery();
   const saveTransaction = trpcClient.transaction.save.useMutation({
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: getQueryKey(trpcClient.transaction.get) });
@@ -55,6 +57,7 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
       onSuccess();
       setIsOpen(false);
       toast.success("Giao dịch đã được lưu thành công!");
+      refetch();
     }
   });
 
@@ -134,11 +137,15 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
                             <SelectValue placeholder="Chọn danh mục" />
                           </SelectTrigger>
                           <SelectContent className="w-full">
-                            {categories?.map(category => (
-                              <SelectItem key={category.id} value={category.id!}>
-                                {category.name}
-                              </SelectItem>
-                            ))}
+                            {categories?.map(category => {
+                              const variant = (category.remaining || 0) > 0 ? "success" : "destructive";
+                              return (
+                                <SelectItem key={category.id} value={category.id!}>
+                                  <Badge variant={variant}>{toCurrency(category.remaining || 0)}</Badge>
+                                  {category.name}
+                                </SelectItem>
+                              );
+                            })}
                           </SelectContent>
                         </Select>
                       </FormControl>
@@ -172,7 +179,7 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
                             selected={field.value}
                             onSelect={field.onChange}
                             disabled={date => date > new Date() || date < new Date("1900-01-01")}
-                            initialFocus
+                            autoFocus
                           />
                         </PopoverContent>
                       </Popover>

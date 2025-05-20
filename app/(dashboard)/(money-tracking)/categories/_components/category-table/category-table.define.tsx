@@ -29,6 +29,7 @@ export const categoryColumns = (onEdit: (id: string) => void, onDelete: (id: str
     header: "Mô tả",
     accessorKey: "description"
   },
+
   {
     header: () => <span className="text-right w-full block">Số tiền</span>,
     accessorKey: "budget",
@@ -36,6 +37,15 @@ export const categoryColumns = (onEdit: (id: string) => void, onDelete: (id: str
     cell: ({ row }) => {
       const budget = row.original.budget;
       return <span className="text-right w-full block">{toCurrency(budget || 0)}</span>;
+    }
+  },
+  {
+    header: () => <span className="text-right w-full block">Còn lại</span>,
+    accessorKey: "remaining",
+    size: 100,
+    cell: ({ row }) => {
+      const remaining = row.original.remaining;
+      return <span className="text-right w-full block">{toCurrency(remaining || 0)}</span>;
     }
   },
   {

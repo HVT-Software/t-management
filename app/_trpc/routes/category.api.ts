@@ -11,7 +11,7 @@ import { parseDatesFromNumberList } from "@/lib/utils/format";
 
 export const categoryApiRouter = baseRouter({
   all: procedure.query<Array<Category>>(async () => {
-    const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, { isAll: true });
+    const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, { isAll: true, hasRemaining: true });
     return res.data.data.items;
   }),
 
@@ -20,7 +20,8 @@ export const categoryApiRouter = baseRouter({
     const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, {
       ...input,
       from: dates?.[0],
-      to: dates?.[1]
+      to: dates?.[1],
+      hasRemaining: true
     });
 
     return res.data.data;

@@ -9,5 +9,6 @@ export const categorySchema = z.object({
   }),
   description: z.string().optional(),
   budget: z.number().optional(),
-  createdAt: z.string().optional()
+  createdAt: z.string().optional(),
+  remaining: z.number().optional()
 });
