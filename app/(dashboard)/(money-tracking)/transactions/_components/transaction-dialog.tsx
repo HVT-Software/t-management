@@ -20,7 +20,7 @@ import { getQueryKey } from "@trpc/react-query";
 import { format } from "date-fns";
 import { BadgePlus, CalendarIcon } from "lucide-react";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { toast } from "sonner";
 
 interface QuickEditTransactionDialogProps {
@@ -68,7 +68,16 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
         date: transaction.date ? new Date(transaction.date) : new Date()
       });
     }
-  }, [transaction, transactionId, reset]);
+  }, [transaction, transactionId]);
+
+  useEffect(() => {
+    return reset({
+      type: ETransactionType.EXPENSE,
+      amount: 0,
+      description: "",
+      date: new Date()
+    });
+  }, [isOpen]);
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
@@ -90,45 +99,53 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
               <FormField
                 control={control}
                 name="type"
-                render={({ field }) => (
-                  <FormItem className="col-span-2">
-                    <FormControl>
-                      <Tabs value={field.value?.toString()} onValueChange={value => field.onChange(Number(value))} className="w-full">
-                        <TabsList className="w-full" defaultValue={field.value?.toString()}>
-                          {getTransactionTypeList().map(type => (
-                            <TabsTrigger key={type.value} value={type.value.toString()}>
-                              {type.label}
-                            </TabsTrigger>
-                          ))}
-                        </TabsList>
-                      </Tabs>
-                    </FormControl>
-                  </FormItem>
-                )}
+                render={({ field: { value, onChange } }) => {
+                  const id = useWatch({ control, name: "id" });
+
+                  return (
+                    <FormItem className="col-span-2">
+                      <FormControl>
+                        <Tabs value={value?.toString()} onValueChange={value => onChange(Number(value))} className="w-full">
+                          <TabsList className="w-full" defaultValue={value?.toString()}>
+                            {getTransactionTypeList().map(type => (
+                              <TabsTrigger key={type.value} value={type.value.toString()} disabled={Boolean(id)}>
+                                {type.label}
+                              </TabsTrigger>
+                            ))}
+                          </TabsList>
+                        </Tabs>
+                      </FormControl>
+                    </FormItem>
+                  );
+                }}
               />
               <FormField
                 control={control}
                 name="categoryId"
-                render={({ field }) => (
-                  <FormItem className="col-span-2">
-                    <FormLabel>Danh mục</FormLabel>
-                    <FormControl>
-                      <Select onValueChange={field.onChange} defaultValue={field.value}>
-                        <SelectTrigger className="w-full">
-                          <SelectValue placeholder="Chọn danh mục" />
-                        </SelectTrigger>
-                        <SelectContent className="w-full">
-                          {categories?.map(category => (
-                            <SelectItem key={category.id} value={category.id!}>
-                              {category.name}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
+                render={({ field }) => {
+                  const type = useWatch({ control, name: "type" });
+                  if (type !== ETransactionType.EXPENSE) return <></>;
+                  return (
+                    <FormItem className="col-span-2">
+                      <FormLabel>Danh mục</FormLabel>
+                      <FormControl>
+                        <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <SelectTrigger className="w-full">
+                            <SelectValue placeholder="Chọn danh mục" />
+                          </SelectTrigger>
+                          <SelectContent className="w-full">
+                            {categories?.map(category => (
+                              <SelectItem key={category.id} value={category.id!}>
+                                {category.name}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
               />
               <FormField
                 control={control}
@@ -181,15 +198,14 @@ export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, o
             </div>
 
             <DialogFooter>
+              <Button type="submit" disabled={isLoading}>
+                {isLoading ? "Đang lưu..." : "Lưu"}
+              </Button>
               <DialogClose asChild>
                 <Button variant="outline" onClick={() => reset()} disabled={isLoading}>
                   Hủy
                 </Button>
               </DialogClose>
-
-              <Button type="submit" disabled={isLoading}>
-                {isLoading ? "Đang lưu..." : "Lưu"}
-              </Button>
             </DialogFooter>
           </form>
         </Form>

@@ -8,23 +8,32 @@ import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
 
 // Define form validation schema
 const loginFormSchema = z.object({
-  username: z.string().min(1, "Vui lòng nhập tên đăng nhập"),
-  password: z.string().min(1, "Vui lòng nhập mật khẩu")
+  username: z.string().min(1, "Vui lòng nhập Tên đăng nhập"),
+  password: z.string().min(1, "Vui lòng nhập Mật khẩu")
 });
 
 type LoginFormValues = z.infer<typeof loginFormSchema>;
 
 export function LoginForm({ className, ...props }: React.ComponentProps<"div">) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const error = searchParams.get("error");
+    if (error) {
+      toast.error(`Đăng nhập không thành công.`);
+      router.replace("/login");
+    }
+  }, [searchParams, router]);
 
   // Initialize form with react-hook-form and zod validation
   const form = useForm<LoginFormValues>({
@@ -62,7 +71,7 @@ export function LoginForm({ className, ...props }: React.ComponentProps<"div">) 
 
   const handleProviderSignIn = (provider: string) => {
     setIsLoading(true);
-    signIn(provider, { callbackUrl: "/" }).catch(error => {
+    signIn(provider, { popup: true }).catch(error => {
       setIsLoading(false);
       toast.error(`Đăng nhập với ${provider} không thành công.`);
       console.error(error);

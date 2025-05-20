@@ -7,7 +7,7 @@ export const transactionSchema = z.object({
   userId: z.string().optional(),
   type: z.nativeEnum(ETransactionType),
   amount: z.number({ message: "Số tiền không được để trống" }).refine(val => val > 0, { message: "Số tiền phải lớn hơn 0" }),
-  categoryId: z.string({ message: "Vui lòng chọn danh mục" }),
+  categoryId: z.string().optional(),
   description: z.string().max(2000, "Tối đa 2000 ký tự").optional(),
   date: z
     .date()

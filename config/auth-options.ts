@@ -3,7 +3,6 @@ import { CLOUD_AUTH_ENPOINT, CLOUD_AUTH_LOGIN_ENDPOINT } from "@/lib/constants/c
 import { loginPath } from "@/lib/constants/routes";
 import axios from "axios";
 import { NextAuthOptions } from "next-auth";
-import { AxiosResponse } from "axios";
 import CredentialsProvider from "next-auth/providers/credentials";
 import DiscordProvider from "next-auth/providers/discord";
 import GitHubProvider from "next-auth/providers/github";
@@ -45,7 +44,7 @@ export const authOptions: NextAuthOptions = {
 
           return res.data;
         } catch (error: any) {
-          console.error("Authentication error:", error);
+          console.error("Authentication error:", error.message, error);
           throw new Error(error.response?.data?.message || "Invalid credentials");
         }
       }
@@ -54,6 +53,7 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: loginPath
   },
+  debug: false,
   callbacks: {
     jwt: async ({ user, trigger, token, account }) => {
       try {
@@ -67,9 +67,7 @@ export const authOptions: NextAuthOptions = {
           };
 
           const payload = { ...user, username: user?.id };
-          const res = (await axios.post<Result<LoginResponse>>(`${CLOUD_AUTH_ENPOINT}/${account.provider}`, payload, axiosConfig)) as AxiosResponse<
-            Result<LoginResponse>
-          >;
+          const res = await axios.post<Result<LoginResponse>>(`${CLOUD_AUTH_ENPOINT}/${account.provider}`, payload, axiosConfig);
 
           if (res?.status === 200 && res.data?.data && trigger === "signIn") {
             const data = res.data.data;
@@ -106,9 +104,9 @@ export const authOptions: NextAuthOptions = {
         }
 
         return token;
-      } catch (error) {
-        console.error("JWT callback error:", error);
-        throw new Error(error.response?.data?.message || "Authentication failed");
+      } catch (error: any) {
+        console.error("JWT callback error:", error.message, error);
+        throw new Error(error.response?.data?.message || "Invalid credentials");
       }
     },
     session: async ({ session, token }) => {

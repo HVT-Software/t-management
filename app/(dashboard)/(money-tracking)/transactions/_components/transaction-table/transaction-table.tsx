@@ -61,6 +61,33 @@ export const TransactionTable: React.FC<TransactionTableProps> = ({ filter }) =>
           setTransactionId={setTransactionId}
         />
       </div>
+      {/* Add keyboard shortcut for Alt+N */}
+      <div
+        className="sr-only"
+        tabIndex={-1}
+        onKeyDown={e => {
+          if (e.altKey && e.key === "n") {
+            e.preventDefault();
+            setTransactionId(undefined);
+            setIsOpen(true);
+          }
+        }}
+        ref={el => {
+          // Add global event listener on mount
+          if (el) {
+            const handleKeyDown = (e: KeyboardEvent) => {
+              if (e.altKey && e.key === "n") {
+                e.preventDefault();
+                setTransactionId(undefined);
+                setIsOpen(true);
+              }
+            };
+            window.addEventListener("keydown", handleKeyDown);
+            // Clean up on unmount
+            return () => window.removeEventListener("keydown", handleKeyDown);
+          }
+        }}
+      />
       <DataTable table={table}>
         <DataTableToolbar table={table} />
       </DataTable>
