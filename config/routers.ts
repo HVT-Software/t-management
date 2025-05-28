@@ -1,7 +1,7 @@
-import { categoryPath, dashboardPath, jsonToTypescriptPath, transactionPath } from "@/lib/constants/routes";
+import { categoryPath, jsonToTypescriptPath, reminderSetting, transactionPath } from "@/lib/constants/routes";
 import { SideBarConfig } from "@/lib/models/sidebar";
 import Logo from "@/public/assets/images/t-management-logo.png";
-import { Book, Hammer } from "lucide-react";
+import { Coins, Hammer, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 
 export const sideBarItems: SideBarConfig = {
@@ -18,23 +18,6 @@ export const sideBarItems: SideBarConfig = {
     }
   ],
   navMain: [
-    { title: "Thống kê", url: dashboardPath, icon: Book },
-    // {
-    //   title: "Học tập",
-    //   url: "#",
-    //   icon: Book,
-    //   isActive: true,
-    //   items: [
-    //     {
-    //       title: "Từ vựng",
-    //       url: "#"
-    //     },
-    //     {
-    //       title: "Listening",
-    //       url: "#"
-    //     }
-    //   ]
-    // },
     {
       title: "Công cụ",
       url: "",
@@ -49,7 +32,7 @@ export const sideBarItems: SideBarConfig = {
     {
       title: "Quản lý chi tiêu",
       url: "",
-      icon: Hammer,
+      icon: Coins,
       items: [
         {
           title: "Giao dịch",
@@ -58,6 +41,17 @@ export const sideBarItems: SideBarConfig = {
         {
           title: "Danh mục",
           url: categoryPath
+        }
+      ]
+    },
+    {
+      title: "Cài đặt",
+      url: "",
+      icon: Settings,
+      items: [
+        {
+          title: "Thông báo email",
+          url: reminderSetting
         }
       ]
     }
