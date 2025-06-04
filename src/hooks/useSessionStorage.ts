@@ -1,5 +1,5 @@
 import { useState } from "react";
-import pkg from "../package.json";
+import pkg from "../../package.json";
 
 const prefix = `transform:${pkg.version}:`;
 
@@ -10,10 +10,7 @@ export function useSessionStorage(key: string, initialValue: any) {
   const [storedValue, setStoredValue] = useState(() => {
     try {
       // Get from local storage by key
-      const item =
-        typeof window !== "undefined"
-          ? window.sessionStorage.getItem(prefix + key) || initialValue
-          : initialValue;
+      const item = typeof window !== "undefined" ? window.sessionStorage.getItem(prefix + key) || initialValue : initialValue;
       // Parse stored json or if none return initialValue
       return key.startsWith("data:") ? item : JSON.parse(item);
     } catch {
@@ -27,16 +24,12 @@ export function useSessionStorage(key: string, initialValue: any) {
   const setValue = (value: string | number | boolean | object) => {
     try {
       // Allow value to be a function so we have same API as useState
-      const valueToStore =
-        value instanceof Function ? value(storedValue) : value;
+      const valueToStore = value instanceof Function ? value(storedValue) : value;
       // Save state
       setStoredValue(valueToStore);
       // Save to local storage
       if (typeof window !== "undefined")
-        window.sessionStorage.setItem(
-          prefix + key,
-          key.startsWith("data:") ? valueToStore : JSON.stringify(valueToStore)
-        );
+        window.sessionStorage.setItem(prefix + key, key.startsWith("data:") ? valueToStore : JSON.stringify(valueToStore));
     } catch (error) {
       // A more advanced implementation would handle the error case
       console.log(error);

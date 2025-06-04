@@ -23,7 +23,7 @@
         "name": "@styled/typescript-styled-plugin"
       }
     ],
-    "baseUrl": ".",
+    "baseUrl": "src",
     "paths": {
       "@/*": ["./*"]
     }

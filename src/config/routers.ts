@@ -1,6 +1,6 @@
 import { categoryPath, jsonToTypescriptPath, reminderSetting, transactionPath } from "@/lib/constants/routes";
 import { SideBarConfig } from "@/lib/models/sidebar";
-import Logo from "@/public/assets/images/t-management-logo.png";
+import Logo from "@/assets/images/t-management-logo.png";
 import { Coins, Hammer, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 

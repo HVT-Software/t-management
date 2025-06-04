@@ -8,16 +8,7 @@ import parserYaml from "prettier/parser-yaml";
 import prettier from "prettier/standalone";
 import { prettierParsers, supportedLanguages } from "./prettier";
 
-
-const plugins = [
-  parserHtml,
-  parserPostcss,
-  parserGraphql,
-  parserMarkdown,
-  parserYaml,
-  parserFlow,
-  parserTypescript
-];
+const plugins = [parserHtml, parserPostcss, parserGraphql, parserMarkdown, parserYaml, parserFlow, parserTypescript];
 
 export async function prettify(language: string, value: string) {
   let result;
