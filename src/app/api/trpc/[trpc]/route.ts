@@ -4,7 +4,7 @@ import { AxiosError } from "axios";
 
 import { apiRouter } from "@/app/_trpc/router";
 import { createTRPCContext } from "@/app/_trpc/trpc";
-import { logger } from "@/lib/utils/logger";
+import { logger } from "@/utils/logger";
 
 export const dynamic = "force-dynamic";
 

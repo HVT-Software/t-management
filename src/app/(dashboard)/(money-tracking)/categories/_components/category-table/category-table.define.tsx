@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Category } from "@/lib/models/category";
-import { formatDate, toCurrency } from "@/lib/utils/format";
+import { formatDate, toCurrency } from "@/utils/format";
+import { Category } from "@/types/category/category";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Trash2 } from "lucide-react";
 

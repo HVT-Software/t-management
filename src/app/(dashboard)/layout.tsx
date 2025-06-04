@@ -1,7 +1,7 @@
 import { AppSidebar } from "@/components/app-sidebar";
 import { AppHeader } from "@/components/shared/app-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
-import { getSession } from "@/query/getSession";
+import { getSession } from "@/app/_queries/base/getSession";
 
 export default async function Layout({ children }: { children: React.ReactNode }) {
   const session = await getSession();

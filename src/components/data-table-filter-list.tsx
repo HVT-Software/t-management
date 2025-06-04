@@ -32,7 +32,7 @@ import { generateId } from "@/lib/id";
 import { getFiltersStateParser } from "@/lib/parsers";
 import { cn } from "@/lib/utils";
 import type { ExtendedColumnFilter, FilterOperator, JoinOperator } from "@/types/data-table";
-import { formatDate } from "@/lib/utils/format";
+import { formatDate } from "@/utils/format";
 
 const FILTERS_KEY = "filters";
 const JOIN_OPERATOR_KEY = "joinOperator";

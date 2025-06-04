@@ -5,7 +5,7 @@ import { DataTable } from "@/components/data-table";
 import { DataTableToolbar } from "@/components/data-table-toolbar";
 import { Card } from "@/components/ui/card";
 import { useDataTable } from "@/hooks/use-data-table";
-import { Category } from "@/lib/models/category";
+import { Category } from "@/types/category/category";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { CategoryFilter } from "../../../transactions/_lib/category-validations";

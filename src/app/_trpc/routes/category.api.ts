@@ -3,11 +3,11 @@ import { z } from "zod";
 import { baseRouter, procedure } from "@/app/_trpc";
 
 import { CategoryFilter } from "@/app/(dashboard)/(money-tracking)/transactions/_lib/category-validations";
-import { CLOUD_CATEGORY_ENDPOINT } from "@/lib/constants/cloud-endpoint";
-import { DEFAULT_ERROR_MESSAGE } from "@/lib/constants/messages";
-import { Category } from "@/lib/models/category";
-import { serverInstance } from "@/query/server-instance";
-import { parseDatesFromNumberList } from "@/lib/utils/format";
+import { serverInstance } from "@/app/_queries/base/server-instance";
+import { CLOUD_CATEGORY_ENDPOINT } from "@/config/cloud-endpoint";
+import { DEFAULT_ERROR_MESSAGE } from "@/config/messages";
+import { parseDatesFromNumberList } from "@/utils/format";
+import { Category } from "@/types/category/category";
 
 export const categoryApiRouter = baseRouter({
   all: procedure.query<Array<Category>>(async () => {

@@ -1,7 +1,7 @@
 "use client";
 
-import * as React from "react";
 import { ChevronsUpDown, Plus } from "lucide-react";
+import * as React from "react";
 
 import {
   DropdownMenu,
@@ -13,7 +13,7 @@ import {
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
-import { SidebarTeam } from "@/lib/models/sidebar";
+import { SidebarTeam } from "@/types/sidebar";
 import Image from "next/image";
 
 export function TeamSwitcher({ teams }: { teams: SidebarTeam[] }) {

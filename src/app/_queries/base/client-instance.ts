@@ -1,6 +1,6 @@
 import axios, { type AxiosError } from "axios";
 import { signOut } from "next-auth/react";
-import { loginPath } from "../lib/constants/routes";
+import { loginPath } from "../../../config/routes";
 
 export const clientInstance = axios.create({
   baseURL: `/api`,

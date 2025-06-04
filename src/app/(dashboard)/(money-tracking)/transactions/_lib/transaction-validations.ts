@@ -1,4 +1,4 @@
-import { ETransactionType } from "@/lib/enums/transaction-type";
+import { ETransactionType } from "@/types/transaction/transaction-type";
 import { createSearchParamsCache, parseAsArrayOf, parseAsBoolean, parseAsInteger, parseAsString } from "nuqs/server";
 import { z } from "zod";
 

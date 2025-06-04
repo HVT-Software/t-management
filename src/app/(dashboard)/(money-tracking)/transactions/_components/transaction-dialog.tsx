@@ -11,11 +11,11 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Textarea } from "@/components/ui/textarea";
-import { ETransactionType, getTransactionTypeList } from "@/lib/enums/transaction-type";
-import { Transaction, transactionSchema } from "@/lib/models/transaction";
 import { cn } from "@/lib/utils";
-import { toCurrency } from "@/lib/utils/format";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Transaction } from "@/types/transaction/transaction";
+import { ETransactionType, getTransactionTypeList } from "@/types/transaction/transaction-type";
+import { toCurrency } from "@/utils/format";
+import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import { useQueryClient } from "@tanstack/react-query";
 import { getQueryKey } from "@trpc/react-query";
@@ -33,12 +33,13 @@ interface QuickEditTransactionDialogProps {
   onSuccess: () => void;
 }
 
+const resolver = classValidatorResolver(Transaction);
 export function QuickEditTransactionDialog({ isOpen, setIsOpen, transactionId, onSuccess }: QuickEditTransactionDialogProps) {
   const queryClient = useQueryClient();
 
   const { data: transaction, isFetching: isLoadTransaction } = trpcClient.transaction.get.useQuery(transactionId!, { enabled: !!transactionId });
   const form = useForm<Transaction>({
-    resolver: zodResolver(transactionSchema),
+    resolver,
     defaultValues: {
       type: ETransactionType.EXPENSE,
       amount: 0,

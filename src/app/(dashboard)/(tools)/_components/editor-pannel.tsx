@@ -6,7 +6,7 @@ import { Copy, FileUp, Settings, Trash2 } from "lucide-react";
 import * as React from "react";
 import Monaco, { MonacoProps } from "./monaco";
 import { HoTaTooltip } from "@/components/shared/hota-tooltip";
-import { toastComingSoon } from "@/lib/utils/toast-comming-soon";
+import { toastComingSoon } from "@/utils/toast-comming-soon";
 import { toast } from "sonner";
 
 interface EditorPannelProps extends MonacoProps {

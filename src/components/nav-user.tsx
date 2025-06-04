@@ -15,7 +15,7 @@ import {
 import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "@/components/ui/sidebar";
 import { User } from "next-auth";
 import { signOut } from "next-auth/react";
-import { loginPath } from "@/lib/constants/routes";
+import { loginPath } from "@/config/routes";
 
 interface NavUserProps {
   user?: User;

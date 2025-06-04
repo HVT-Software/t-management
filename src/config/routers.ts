@@ -1,8 +1,8 @@
-import { categoryPath, jsonToTypescriptPath, reminderSetting, transactionPath } from "@/lib/constants/routes";
-import { SideBarConfig } from "@/lib/models/sidebar";
+import { categoryPath, jsonToTypescriptPath, reminderSetting, transactionPath } from "@/config/routes";
 import Logo from "@/assets/images/t-management-logo.png";
 import { Coins, Hammer, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
+import { SideBarConfig } from "@/types/sidebar";
 
 export const sideBarItems: SideBarConfig = {
   user: {

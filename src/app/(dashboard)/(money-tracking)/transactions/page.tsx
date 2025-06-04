@@ -1,6 +1,6 @@
 import { HydrateClient, trpcServer } from "@/app/_trpc/server";
 import { DataTableSkeleton } from "@/components/data-table-skeleton";
-import { Params } from "@/types/common";
+import { Params } from "@/types/base/common";
 import { Suspense } from "react";
 import { TransactionTable } from "./_components/transaction-table/transaction-table";
 import { transactionParamsCache } from "./_lib/transaction-validations";

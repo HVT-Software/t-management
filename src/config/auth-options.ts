@@ -1,6 +1,6 @@
 import { LoginResponse } from "@/app/login/models/login-response";
-import { CLOUD_AUTH_ENPOINT, CLOUD_AUTH_LOGIN_ENDPOINT } from "@/lib/constants/cloud-endpoint";
-import { loginPath } from "@/lib/constants/routes";
+import { CLOUD_AUTH_ENPOINT, CLOUD_AUTH_LOGIN_ENDPOINT } from "@/config/cloud-endpoint";
+import { loginPath } from "@/config/routes";
 import axios from "axios";
 import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";

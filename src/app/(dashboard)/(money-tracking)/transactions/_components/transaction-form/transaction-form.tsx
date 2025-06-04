@@ -10,8 +10,8 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
-import { Transaction, transactionSchema } from "@/lib/models/transaction";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Transaction } from "@/types/transaction/transaction";
+import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
@@ -37,7 +37,7 @@ export function TransactionForm() {
     reset,
     formState: { errors, isSubmitting }
   } = useForm<Transaction>({
-    resolver: zodResolver(transactionSchema)
+    resolver: classValidatorResolver(Transaction)
   });
 
   // Handle form submission

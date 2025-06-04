@@ -1,17 +1,17 @@
 "use client";
 
+import { trpcClient } from "@/app/_trpc/client";
 import { DataTable } from "@/components/data-table";
 import { DataTableToolbar } from "@/components/data-table-toolbar";
 import { Card } from "@/components/ui/card";
 import { useDataTable } from "@/hooks/use-data-table";
-import { Transaction } from "@/lib/models/transaction";
+import { Transaction } from "@/types/transaction/transaction";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
 import { TransactionFilter } from "../../_lib/transaction-validations";
 import { useQueryTransactions } from "../../_queries/use-query-transactions";
 import { QuickEditTransactionDialog } from "../transaction-dialog";
 import { transactionColumns } from "./transaction-table.define";
-import { trpcClient } from "@/app/_trpc/client";
 
 interface TransactionTableProps {
   filter: TransactionFilter;

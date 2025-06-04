@@ -1,6 +1,5 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 
@@ -9,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { DialogClose } from "@/components/ui/dialog";
 import { Form } from "@/components/ui/form";
-import { Category, categorySchema } from "@/lib/models/category";
+import { Category } from "@/types/category/category";
+import { classValidatorResolver } from "@hookform/resolvers/class-validator";
 import { useEffect } from "react";
 import { CategoryFormFields } from "./category-form.define";
 
@@ -24,11 +24,13 @@ const DEFAULT_CATEGORY: Category = {
   budget: 0
 };
 
+const resolver = classValidatorResolver(Category);
+
 export const CategoryForm: React.FC<CategoryFormProps> = ({ onSuccess, categoryId }) => {
   const { data: categories, isFetching } = trpcClient.category.get.useQuery(categoryId!, { enabled: !!categoryId });
 
   const form = useForm<Category>({
-    resolver: zodResolver(categorySchema),
+    resolver,
     defaultValues: DEFAULT_CATEGORY
   });
 

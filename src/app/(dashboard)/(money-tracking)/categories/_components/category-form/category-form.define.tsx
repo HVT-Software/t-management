@@ -2,7 +2,7 @@ import { MoneyInput } from "@/components/shared/money-input";
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Category } from "@/lib/models/category";
+import { Category } from "@/types/category/category";
 import { useForm } from "react-hook-form";
 
 interface CategoryFormFieldsProps {

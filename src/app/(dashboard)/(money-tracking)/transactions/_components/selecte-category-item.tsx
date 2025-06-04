@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import { toCurrency } from "@/lib/utils/format";
+import { toCurrency } from "@/utils/format";
 import * as SelectPrimitive from "@radix-ui/react-select";
 
 interface SelectCategoryItemProps extends React.ComponentProps<typeof SelectPrimitive.Item> {

@@ -1,4 +1,4 @@
-import { toCurrency } from "@/lib/utils/format";
+import { toCurrency } from "@/utils/format";
 import { cva } from "class-variance-authority";
 
 interface TransactionCurrencyDisplayProps {

@@ -1,5 +1,5 @@
 import { HydrateClient, trpcServer } from "@/app/_trpc/server";
-import { Params } from "@/types/common";
+import { Params } from "@/types/base/common";
 import { categoryParamsCache } from "../transactions/_lib/category-validations";
 import { CategoryTable } from "./_components/category-table/category-table";
 

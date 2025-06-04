@@ -1,13 +1,13 @@
 import { Button } from "@/components/ui/button";
-import { getTransactionTypeList } from "@/lib/enums/transaction-type";
-import { Category } from "@/lib/models/category";
-import { Transaction } from "@/lib/models/transaction";
-import { formatDate } from "@/lib/utils/format";
+import { formatDate } from "@/utils/format";
+import { Category } from "@/types/category/category";
 import { Option } from "@/types/data-table";
+import { getTransactionTypeList } from "@/types/transaction/transaction-type";
 import { ColumnDef } from "@tanstack/react-table";
 import { Edit, Trash2 } from "lucide-react";
 import { TransactionCurrencyDisplay } from "../transaction-currency-display/transaction-currency-display";
 import { TransactionTypeBadge } from "../transaction-type-badge/transaction-type-badge";
+import { Transaction } from "@/types/transaction/transaction";
 
 export const transactionColumns = (
   categories: Array<Category>,
