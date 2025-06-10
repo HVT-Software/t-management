@@ -1,7 +1,8 @@
-/** @type {import('postcss-load-config').Config} */
 const config = {
   plugins: {
-    "@tailwindcss/postcss": {}
+    "@tailwindcss/postcss": {},
+    "postcss-import": {},
+    ...(process.env.NODE_ENV === "production" ? { cssnano: {} } : {})
   }
 };
 
