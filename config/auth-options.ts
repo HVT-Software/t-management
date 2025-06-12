@@ -14,11 +14,11 @@ export const authOptions: AuthOptions = {
         tenantCode: { type: 'text' }
       },
       authorize: async (credentials) => {
-        const res = await authClient.login({
-          tenantCode: credentials!.tenantCode,
-          username: credentials!.username,
-          password: credentials!.password
-        });
+        // const res = await authClient.login({
+        //   tenantCode: credentials!.tenantCode,
+        //   username: credentials!.username,
+        //   password: credentials!.password
+        // });
 
         return res as unknown as User;
       }
@@ -33,12 +33,12 @@ export const authOptions: AuthOptions = {
     },
     jwt: async ({ user, trigger, token }) => {
       if (user && trigger === 'signIn') {
-        token.token = user.token;
-        token.username = user.username;
-        token.user = {
-          username: user.username,
-          tenantName: user.tenantName
-        };
+        // token.token = user.token;
+        // token.username = user.username;
+        // token.user = {
+        //   username: user.username,
+        //   tenantName: user.tenantName
+        // };
       }
       return token;
     },

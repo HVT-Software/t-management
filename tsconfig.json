@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es2020",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext",
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -26,18 +22,10 @@
       }
     ],
     "paths": {
-      "@modules/*": [
-        "./modules/*"
-      ],
-      "@shared/*": [
-        "./shared/*"
-      ],
-      "@config/*": [
-        "./config/*"
-      ],
-      "@app/*": [
-        "./app/*"
-      ],
+      "@modules/*": ["./modules/*"],
+      "@shared/*": ["./shared/*"],
+      "@config/*": ["./config/*"],
+      "@app/*": ["./app/*"]
     }
   },
   "include": [
@@ -50,7 +38,5 @@
     "lint-staged.config.mjs",
     "postcss.config.mjs"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }

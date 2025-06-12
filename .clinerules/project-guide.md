@@ -66,7 +66,7 @@ This project is a web application built with Next.js and TypeScript. It provides
 - Formatting numbers as currency in Vietnamese format using `toCurrency` in `src/utils/format.ts`:
 
   ```typescript
-  import { toCurrency } from "@/utils/format";
+  import { toCurrency } from '@/utils/format';
 
   const amount = 1000000;
   const formattedAmount = toCurrency(amount); // Output: 1.000.000 ₫
@@ -75,7 +75,7 @@ This project is a web application built with Next.js and TypeScript. It provides
 - Formatting dates to Vietnamese locale string using `formatDate` in `src/utils/format.ts`:
 
   ```typescript
-  import { formatDate } from "@/utils/format";
+  import { formatDate } from '@/utils/format';
 
   const date = new Date();
   const formattedDate = formatDate(date); // Output: [Current Date in Vietnamese format]
@@ -84,9 +84,9 @@ This project is a web application built with Next.js and TypeScript. It provides
 - Serializing values to JSON strings using `JSON.stringify` in `src/lib/parsers.ts`:
 
   ```typescript
-  import { serialize } from "@/lib/parsers";
+  import { serialize } from '@/lib/parsers';
 
-  const data = { name: "John", age: 30 };
+  const data = { name: 'John', age: 30 };
   const serializedData = JSON.stringify(data); // Output: {"name":"John","age":30}
   ```
 
@@ -97,7 +97,7 @@ This project is a web application built with Next.js and TypeScript. It provides
 - Transforming CSS values using `CSS.Translate.toString(transform)` in `src/components/ui/sortable.tsx`:
 
   ```typescript
-  import * as CSS from "csstype";
+  import * as CSS from 'csstype';
 
   const transform = { x: 10, y: 20 };
   const cssTransform = CSS.Translate.toString(transform); // Output: translate(10px, 20px)

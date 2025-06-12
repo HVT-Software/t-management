@@ -1,5 +1,5 @@
-import withAuth from "next-auth/middleware";
-import { NextResponse } from "next/server";
+import withAuth from 'next-auth/middleware';
+import { NextResponse } from 'next/server';
 
 const middleware = withAuth(
   async () => {
@@ -9,7 +9,7 @@ const middleware = withAuth(
   },
   {
     pages: {
-      signIn: "/login"
+      signIn: '/login'
     }
   }
 );
@@ -19,7 +19,7 @@ export default middleware;
 export const config = {
   matcher: [
     {
-      source: "/((?!api|icon|_next/static|_next/image|favicon.ico|assets).*)"
+      source: '/((?!api|icon|_next/static|_next/image|favicon.ico|assets).*)'
     }
   ]
 };
