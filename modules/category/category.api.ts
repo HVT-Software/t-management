@@ -1,9 +1,14 @@
-import { baseRouter, procedure } from '@config/trpc';
+import { apiProcedure, baseRouter } from '@config/trpc/init';
 import { serverInstance } from '@config/trpc/server-instance';
+import { DEFAULT_ERROR_MESSAGE } from '@shared/constants/messages';
+import { CLOUD_CATEGORY_ENDPOINT } from '@shared/constants/routes.api';
 import { z } from 'zod';
 
+import { Category } from './models/category';
+import { CategoryFilter } from './models/category-filter';
+
 export const categoryApiRouter = baseRouter({
-  all: procedure.query<Array<Category>>(async () => {
+  all: apiProcedure.query<Array<Category>>(async () => {
     const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, {
       isAll: true,
       hasRemaining: true
@@ -11,7 +16,7 @@ export const categoryApiRouter = baseRouter({
     return res.data.data.items;
   }),
 
-  list: procedure.input(z.custom<CategoryFilter>()).query<WrapList<Category>>(async ({ input }) => {
+  list: apiProcedure.input(z.custom<CategoryFilter>()).query<WrapList<Category>>(async ({ input }) => {
     const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, {
       ...input,
       hasRemaining: true
@@ -20,7 +25,7 @@ export const categoryApiRouter = baseRouter({
     return res.data.data;
   }),
 
-  get: procedure.input(z.string()).query<Category | null>(async ({ input: id }) => {
+  get: apiProcedure.input(z.string()).query<Category | null>(async ({ input: id }) => {
     try {
       const res = await serverInstance.get<Result<Category>>(`${CLOUD_CATEGORY_ENDPOINT}/${id}`);
       return res.data.data ?? null;
@@ -30,7 +35,7 @@ export const categoryApiRouter = baseRouter({
     }
   }),
 
-  save: procedure.input(z.custom<Category>()).mutation(async ({ input }) => {
+  save: apiProcedure.input(z.custom<Category>()).mutation(async ({ input }) => {
     try {
       const res = input?.id
         ? await serverInstance.put<Result<string>>(`${CLOUD_CATEGORY_ENDPOINT}/${input.id}`, input)
@@ -58,7 +63,7 @@ export const categoryApiRouter = baseRouter({
     }
   }),
 
-  delete: procedure.input(z.string()).mutation(async ({ input: id }) => {
+  delete: apiProcedure.input(z.string()).mutation(async ({ input: id }) => {
     try {
       const res = await serverInstance.delete<Result<string>>(`${CLOUD_CATEGORY_ENDPOINT}/${id}`);
       if (res.data.success) {

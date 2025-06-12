@@ -14,13 +14,13 @@ export const authOptions: AuthOptions = {
         tenantCode: { type: 'text' }
       },
       authorize: async (credentials) => {
-        // const res = await authClient.login({
+        // const res = await serverInstance.post({
         //   tenantCode: credentials!.tenantCode,
         //   username: credentials!.username,
         //   password: credentials!.password
         // });
 
-        return res as unknown as User;
+        return {} as unknown as User;
       }
     })
   ],

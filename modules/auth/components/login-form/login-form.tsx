@@ -1,6 +1,6 @@
 'use client';
 
-import { warehousePath } from '@app/routes';
+import { transactionsPath } from '@app/routes';
 import { Button, TextField, Typography } from '@mui/material';
 import { useForm } from '@tanstack/react-form';
 import { signIn } from 'next-auth/react';
@@ -23,7 +23,7 @@ const LoginForm: React.FC = () => {
     if (res?.error) {
       toast.error(res.error);
     } else {
-      router.replace(warehousePath);
+      router.replace(transactionsPath);
     }
   }, []);
 

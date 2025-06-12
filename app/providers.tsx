@@ -2,7 +2,7 @@
 
 import { ProgressProvider } from '@bprogress/next/app';
 import { initLocaleForDayJs } from '@config/dayjs-config';
-import { QueryProvider } from '@config/trpc/client';
+import { QueryProvider } from '@config/trpc';
 import { LocalizationProvider, type PickersLocaleText } from '@mui/x-date-pickers';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { viVN } from '@mui/x-date-pickers/locales';

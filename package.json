@@ -32,6 +32,7 @@
     "@trpc/server": "^11.3.1",
     "@trpc/tanstack-react-query": "^11.3.1",
     "axios": "^1.9.0",
+    "class-transformer": "^0.5.1",
     "class-validator": "^0.14.2",
     "clsx": "^2.1.1",
     "core-js": "^3.42.0",

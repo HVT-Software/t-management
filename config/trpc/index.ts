@@ -1,2 +1,1 @@
-export { apiRouter, type ApiRouter, type ApiRouterOutput } from './router';
-export { baseRouter, procedure, createTRPCContext } from './trpc';
+export { useTRPC, QueryProvider } from './client';
