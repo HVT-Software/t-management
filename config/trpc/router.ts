@@ -1,6 +1,6 @@
 import type { inferRouterOutputs } from '@trpc/server';
 
-import { baseRouter } from './init';
+import { baseRouter } from './trpc';
 
 export const apiRouter = baseRouter({});
 

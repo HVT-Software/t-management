@@ -1,15 +1,13 @@
-import { createTRPCOptionsProxy } from '@trpc/tanstack-react-query';
+import { getQueryClient } from '@config/get-query-client';
+import { createHydrationHelpers } from '@trpc/react-query/rsc';
 import { cache } from 'react';
 import 'server-only';
 
-import { createTRPCContext } from './init';
-import { makeQueryClient } from './query-client';
-import { apiRouter } from './router';
+import { apiRouter, type ApiRouter } from './router';
+import { createCallerFactory, createTRPCContext } from './trpc';
 
-export const getQueryClient = cache(makeQueryClient);
+export const getTRPCQueryClient = cache(getQueryClient);
 
-export const trpcServer = createTRPCOptionsProxy({
-  ctx: createTRPCContext,
-  router: apiRouter,
-  queryClient: getQueryClient
-});
+const caller = createCallerFactory(apiRouter)(createTRPCContext);
+
+export const { trpc: trpcServer, HydrateClient } = createHydrationHelpers<ApiRouter>(caller, getTRPCQueryClient);

@@ -1,4 +1,5 @@
 import { defaultShouldDehydrateQuery, isServer, QueryClient } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
 
 const STALE_TIME = 6000; // ms
 
@@ -12,6 +13,11 @@ export const makeQueryClient = () => {
       },
       dehydrate: {
         shouldDehydrateQuery: (query) => defaultShouldDehydrateQuery(query) || query.state.status === 'pending'
+      },
+      mutations: {
+        onError: () => {
+          toast.error('Có lỗi xảy ra!');
+        }
       }
     }
   });
