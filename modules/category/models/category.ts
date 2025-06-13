@@ -7,7 +7,7 @@ export const categorySchema = z.object({
   description: z.string().optional(),
   budget: z.number().optional(),
   remaining: z.number().optional(),
-  createdAt: z.instanceof(Dayjs).optional()
+  createAt: z.instanceof(Dayjs).optional()
 });
 
 export type Category = z.infer<typeof categorySchema>;

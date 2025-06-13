@@ -42,7 +42,9 @@ export const MuiTableCell: Components<CssVarsTheme>['MuiTableCell'] = {
   styleOverrides: {
     root: {
       fontWeight: 400,
-      borderBottomStyle: 'dashed',
+      borderLeft: '1px solid rgba(145, 158, 171, 0.2) !important',
+      borderBottom: '1px solid rgba(145, 158, 171, 0.2) !important',
+      fontSize: 13,
       '&[data-pinned="true"]': {
         zIndex: 10
       },

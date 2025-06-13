@@ -49,7 +49,7 @@ const UserMenu: React.FC = () => {
           <Typography variant='subtitle2' component='h6'>
             {session?.data?.user?.username}
           </Typography>
-          <Typography variant='caption'>{session?.data?.user?.tenantName}</Typography>
+          <Typography variant='caption'>{session?.data?.user?.merchantName}</Typography>
         </div>
         <Divider variant='fullWidth' className='!border-dashed' />
         <div className='p-2'>

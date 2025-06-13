@@ -1,3 +1,4 @@
+import { CurrencyDisplay } from '@app/(authenticated)/_components/numeric-display';
 import { Category } from '@modules/category/models/category';
 import { DateTimeDisplay } from '@shared/components/date-time-display';
 import { MRT_ColumnDef } from 'material-react-table';
@@ -6,8 +7,7 @@ export const categoryColumns: Array<MRT_ColumnDef<Category>> = [
   {
     header: 'Ngày tạo',
     accessorKey: 'createdAt',
-    id: 'CreatedDate',
-    Cell: ({ row }) => <DateTimeDisplay value={row.original.createdAt} />,
+    Cell: ({ row }) => <DateTimeDisplay value={row.original.createAt} />,
     maxSize: 80
   },
   {
@@ -29,7 +29,7 @@ export const categoryColumns: Array<MRT_ColumnDef<Category>> = [
   {
     header: 'Số tiền',
     accessorKey: 'budget',
-    Cell: ({ renderedCellValue }) => renderedCellValue,
+    Cell: ({ row }) => <CurrencyDisplay value={row.original.budget} />,
     muiTableBodyCellProps: {
       align: 'right'
     }
@@ -37,7 +37,7 @@ export const categoryColumns: Array<MRT_ColumnDef<Category>> = [
   {
     header: 'Còn lại',
     accessorKey: 'remaining',
-    Cell: ({ renderedCellValue }) => renderedCellValue,
+    Cell: ({ row }) => <CurrencyDisplay value={row.original.remaining} />,
     muiTableBodyCellProps: {
       align: 'right'
     }

@@ -1,4 +1,4 @@
-import type { LoginRequest, LoginResponse } from '@integration/auth_pb';
+import type { LoginRequest, LoginResponse } from '@shared/types/auth';
 import 'next-auth';
 import type { Awaitable, RequestInternal } from 'next-auth';
 import type { CommonProviderOptions, CredentialInput } from 'next-auth/providers';

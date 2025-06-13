@@ -159,6 +159,11 @@ export const tableOptions: Partial<MRT_TableOptions<any>> = {
     baseBackgroundColor: '#fffff'
   },
   defaultColumn: {
+    muiTableHeadCellProps: {
+      className: 'border-l-1 border-solid border-grey-300/80',
+      align: 'center'
+    },
+
     muiColumnActionsButtonProps: {
       size: 'small'
     }
