@@ -47,19 +47,6 @@ const LoginForm: React.FC = () => {
           <Typography typography='h4'>{TITLE}</Typography>
         </div>
         <div className='flex h-full flex-col gap-6'>
-          <form.Field name='tenantCode'>
-            {({ state, handleChange, handleBlur }) => (
-              <TextField
-                label='Mã công ty'
-                fullWidth
-                defaultValue={state.value}
-                onBlur={handleBlur}
-                error={state.meta?.errors?.length > 0}
-                helperText={state.meta?.errors?.[0]?.message}
-                onChange={(e) => handleChange(e.target.value)}
-              />
-            )}
-          </form.Field>
           <form.Field name='username'>
             {({ state, handleChange, handleBlur }) => (
               <TextField

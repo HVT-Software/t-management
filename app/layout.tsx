@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang='en' suppressHydrationWarning>
+    <html lang='vi' suppressHydrationWarning>
       <body
         className={`${beVietnamPro.variable} min-h-[100svh] scroll-mt-[64px] overflow-x-hidden overflow-y-auto antialiased`}
       >

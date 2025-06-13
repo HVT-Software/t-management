@@ -1,31 +1,24 @@
-import { Category } from '@modules/category/models/category';
-import { Type } from 'class-transformer';
-import { IsDate, IsEnum, IsNumber, MaxLength, Min, ValidateNested } from 'class-validator';
+import { categorySchema } from '@modules/category/models/category';
+import { z } from 'zod';
 
 import { ETransactionType } from './transaction-type';
 
-export class Transaction {
-  id: string = '';
+export const transactionSchema = z.object({
+  id: z.string().optional(),
+  userId: z.string().optional(),
+  type: z.nativeEnum(ETransactionType, {
+    errorMap: () => ({ message: 'Loại giao dịch không hợp lệ' })
+  }),
+  amount: z
+    .number({
+      invalid_type_error: 'Số tiền phải là số',
+      required_error: 'Số tiền là bắt buộc'
+    })
+    .min(0.01, { message: 'Số tiền phải lớn hơn 0' }),
+  categoryId: z.string().optional(),
+  description: z.string().max(2000, { message: 'Tối đa 2000 ký tự' }).optional(),
+  date: z.date().default(() => new Date()),
+  category: categorySchema.nullable().optional()
+});
 
-  userId?: string;
-
-  @IsEnum(ETransactionType)
-  type!: ETransactionType;
-
-  @IsNumber({ allowNaN: false, allowInfinity: false })
-  @Min(0.01, { message: 'Số tiền phải lớn hơn 0' })
-  amount!: number;
-
-  categoryId?: string;
-
-  @MaxLength(2000, { message: 'Tối đa 2000 ký tự' })
-  description?: string;
-
-  @IsDate()
-  @Type(() => Date)
-  date: Date = new Date();
-
-  @ValidateNested()
-  @Type(() => Category)
-  category?: Category | null;
-}
+export type Transaction = z.infer<typeof transactionSchema>;

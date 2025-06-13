@@ -16,7 +16,7 @@ export const { TRPCProvider, useTRPC } = createTRPCContext<ApiRouter>();
 function getUrl() {
   const base = (() => {
     if (typeof window !== 'undefined') return '';
-    return 'http://localhost:4700';
+    return 'http://localhost:3000';
   })();
   return `${base}/api/trpc`;
 }

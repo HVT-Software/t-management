@@ -44,9 +44,9 @@ RUN chown -R nextjs:nodejs /app
 
 ENV NEXT_TELEMETRY_DISABLED=1 \
     HOSTNAME=0.0.0.0 \
-    PORT=4700 \
+    PORT=3000 \
     NODE_ENV=production
 
 USER nextjs
-EXPOSE 4700
+EXPOSE 3000
 CMD ["dumb-init", "node", "server.js"]

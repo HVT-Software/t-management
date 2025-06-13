@@ -1,14 +1,12 @@
-import { IsString, MinLength } from 'class-validator';
+import { z } from 'zod';
 
-export class Category {
-  id?: string;
+export const categorySchema = z.object({
+  id: z.string().optional(),
+  name: z.string().min(2, { message: 'Tên danh mục phải có ít nhất 2 ký tự.' }),
+  description: z.string().optional(),
+  budget: z.number().optional(),
+  remaining: z.number().optional(),
+  createdAt: z.string().optional()
+});
 
-  @IsString()
-  @MinLength(2, { message: 'Tên danh mục phải có ít nhất 2 ký tự.' })
-  name: string = '';
-
-  description?: string;
-  budget?: number;
-  remaining?: number;
-  createdAt?: string;
-}
+export type Category = z.infer<typeof categorySchema>;
