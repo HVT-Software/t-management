@@ -7,14 +7,14 @@ import dayjs from 'dayjs';
 import { type Session } from 'next-auth';
 import { redirect } from 'next/navigation';
 
-import { dashboardPath } from '../../routes';
+import { categoriesPath } from '../../routes';
 
 const LoginPage: React.FC = async () => {
   const session = (await getSession()) as Session;
 
   if (session?.token) {
     if (dayjs().isBefore(dayjs(session.expiredTime))) {
-      return redirect(dashboardPath);
+      return redirect(categoriesPath);
     }
   }
 

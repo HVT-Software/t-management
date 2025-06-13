@@ -1,3 +1,4 @@
+import { Dayjs } from 'dayjs';
 import { z } from 'zod';
 
 export const categorySchema = z.object({
@@ -6,7 +7,7 @@ export const categorySchema = z.object({
   description: z.string().optional(),
   budget: z.number().optional(),
   remaining: z.number().optional(),
-  createdAt: z.string().optional()
+  createdAt: z.instanceof(Dayjs).optional()
 });
 
 export type Category = z.infer<typeof categorySchema>;

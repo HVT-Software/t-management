@@ -1,2 +1,2 @@
-export const CLOUD_CATEGORY_ENDPOINT = 'category';
-export const CLOUD_TRANSACTION_ENDPOINT = 'transaction';
+export const CLOUD_CATEGORY_ENDPOINT = 'categories';
+export const CLOUD_TRANSACTION_ENDPOINT = 'transactions';
