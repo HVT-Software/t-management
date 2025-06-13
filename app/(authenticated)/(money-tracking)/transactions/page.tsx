@@ -15,12 +15,9 @@ const CategoryListPage: React.FC = async () => {
   const state = dehydrate(queryClient);
 
   return (
-    <>
-      {/* <PageHeader title={TITLE} /> */}
-      <HydrationBoundary state={state}>
-        <CategoryTable initFilter={initFilter} />
-      </HydrationBoundary>
-    </>
+    <HydrationBoundary state={state}>
+      <CategoryTable initFilter={initFilter} />
+    </HydrationBoundary>
   );
 };
 

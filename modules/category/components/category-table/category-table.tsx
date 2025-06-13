@@ -16,10 +16,10 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ initFilter }) => {
 
   return (
     <Card>
-      <div className='mt-1 flex flex-wrap items-center gap-2 p-4'>
+      <div className='mt-1 flex flex-wrap items-center gap-2 p-2'>
         <CategoryTableFilter form={form} />
       </div>
-      <div className='mt-4'>
+      <div className='mt-2'>
         <MRT_TableContainer table={table} />
         <MRT_TablePagination table={table} />
       </div>

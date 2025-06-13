@@ -8,7 +8,6 @@ interface DateTimeDisplayProps {
 }
 
 export const DateTimeDisplay: React.FC<DateTimeDisplayProps> = ({ value }) => {
-  console.log(value);
   const displayValue = useMemo(() => {
     if (!value) {
       return null;
