@@ -1,3 +1,4 @@
+import { RowAction } from '@app/(authenticated)/_components/row-action';
 import { tableOptions } from '@config/table-options';
 import { useTRPC } from '@config/trpc';
 import { Category } from '@modules/category/models/category';
@@ -5,11 +6,12 @@ import { CategoryFilter } from '@modules/category/models/category-filter';
 import { SortDirection } from '@shared/dto/pagination-dto';
 import { useAppForm } from '@shared/utilities/form-context';
 import { useStore } from '@tanstack/react-form';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import type { Updater } from '@tanstack/react-table';
 import { MRT_SortingState, type MRT_TableOptions, useMaterialReactTable } from 'material-react-table';
 import { useRef } from 'react';
 
+import { CategoryPopup } from '../category-form/category-popup';
 import { categoryColumns } from './category-table.columns';
 
 const getRowId = (row: Category) => row.id + '';
@@ -23,6 +25,7 @@ export const useCategoryTable = (initFilter: CategoryFilter) => {
   const formData = useStore(form.store);
 
   const { data, isFetching } = useQuery(trpc.category.list.queryOptions(formData.values));
+  const { mutateAsync: xoa } = useMutation(trpc.category.delete.mutationOptions());
 
   const currentSorting = [
     {
@@ -60,6 +63,8 @@ export const useCategoryTable = (initFilter: CategoryFilter) => {
     enableGlobalFilter: true,
     enableColumnFilters: false,
     enableSorting: true,
+    enableEditing: true,
+
     onSortingChange: handleSortingChange,
     onPaginationChange: handlePaginationChange,
     state: {
@@ -73,7 +78,18 @@ export const useCategoryTable = (initFilter: CategoryFilter) => {
       density: 'compact'
     },
     getRowId,
-    rowCount: data?.totalCount ?? 0
+    rowCount: data?.totalCount ?? 0,
+    renderCreateRowDialogContent: ({ table, row }) => <CategoryPopup table={table} row={row} isCreate />,
+    renderEditRowDialogContent: ({ table, row }) => <CategoryPopup table={table} row={row} />,
+    renderRowActions: ({ table, row }) => (
+      <RowAction
+        table={table}
+        row={row}
+        xoa={async (id) => {
+          await xoa(id);
+        }}
+      />
+    )
   });
 
   const stableReturn = useRef<{ form: typeof form; table: typeof table } | null>(null);

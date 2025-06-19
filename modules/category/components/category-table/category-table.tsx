@@ -2,6 +2,7 @@
 
 import { CategoryFilter } from '@modules/category/models/category-filter';
 import { Card } from '@mui/material';
+import { AddButon } from '@shared/components/buttons';
 import { MRT_TableContainer, MRT_TablePagination } from 'material-react-table';
 
 import CategoryTableFilter from './category-table-filter';
@@ -17,6 +18,7 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ initFilter }) => {
   return (
     <Card>
       <div className='mt-1 flex flex-wrap items-center gap-2 p-2'>
+        <AddButon onClick={() => table.setCreatingRow(true)} />
         <CategoryTableFilter form={form} />
       </div>
       <div className='mt-2'>

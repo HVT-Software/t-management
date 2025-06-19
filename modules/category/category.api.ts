@@ -73,12 +73,6 @@ export const categoryApiRouter = baseRouter({
           message: 'Xóa nhóm chi tiêu thành công!'
         };
       }
-
-      return {
-        success: false,
-        data: res.data.data,
-        message: res.data.message ?? 'Xóa nhóm chi tiêu thất bại!'
-      };
     } catch (e) {
       console.error(e);
       return {

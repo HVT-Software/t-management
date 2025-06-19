@@ -1,0 +1,61 @@
+'use client';
+
+import { useTRPC } from '@config/trpc/client';
+import { getQueryClient } from '@config/trpc/query-client';
+import { Category, categoryDefault, categorySchema } from '@modules/category/models/category';
+import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
+import { BackButon, SaveButon } from '@shared/components/buttons';
+import { useAppForm } from '@shared/utilities/form-context';
+import { useMutation } from '@tanstack/react-query';
+import { MRT_Row, MRT_TableInstance } from 'material-react-table';
+
+import CategoryForm from './category-form';
+
+interface CategoryPopupProps {
+  table: MRT_TableInstance<Category>;
+  row: MRT_Row<Category>;
+  isCreate?: boolean;
+}
+
+export const CategoryPopup: React.FC<CategoryPopupProps> = ({ table, row, isCreate = false }) => {
+  const trpc = useTRPC();
+  const queryClient = getQueryClient();
+  const { mutateAsync: save } = useMutation(
+    trpc.category.save.mutationOptions({
+      onSuccess: () => queryClient.invalidateQueries({ queryKey: trpc.category.save.mutationKey() })
+    })
+  );
+
+  const form = useAppForm({
+    validators: {
+      onSubmit: categorySchema
+    },
+    defaultValues: isCreate ? categoryDefault : (row.original as any),
+    onSubmit: ({ value }) => save(value)
+  });
+
+  return (
+    <Dialog
+      open
+      maxWidth='md'
+      fullWidth
+      component='form'
+      onSubmit={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        void form.handleSubmit();
+      }}
+    >
+      <DialogTitle>DANH MỤC</DialogTitle>
+      <DialogContent>
+        <form className='py-1'>
+          <CategoryForm form={form} />
+        </form>
+      </DialogContent>
+      <DialogActions>
+        <SaveButon type='submit' />
+        <BackButon onClick={() => (isCreate ? table.setCreatingRow(null) : table.setEditingRow(null))} />
+      </DialogActions>
+    </Dialog>
+  );
+};

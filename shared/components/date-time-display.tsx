@@ -1,10 +1,12 @@
+'use client';
+
 import { DATE_FORMAT, TIME_FORMAT } from '@config/date-time-format';
 import { Typography } from '@mui/material';
 import dayjs, { type Dayjs, isDayjs } from 'dayjs';
 import { useMemo } from 'react';
 
 interface DateTimeDisplayProps {
-  value?: Dayjs | string;
+  value?: Dayjs | string | null | undefined;
 }
 
 export const DateTimeDisplay: React.FC<DateTimeDisplayProps> = ({ value }) => {

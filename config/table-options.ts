@@ -116,6 +116,7 @@ export const tableOptions: Partial<MRT_TableOptions<any>> = {
   enableSorting: false,
   enableMultiSort: false,
   enableGlobalFilter: false,
+  positionActionsColumn: 'last',
   localization: localization,
   renderEmptyRowsFallback: () => createElement(NoRecordView),
   muiTableContainerProps: {
@@ -153,6 +154,15 @@ export const tableOptions: Partial<MRT_TableOptions<any>> = {
       size: 40,
       maxSize: 40,
       minSize: 40
+    },
+    'mrt-row-actions': {
+      muiTableHeadCellProps: {
+        align: 'center'
+      },
+      muiTableBodyCellProps: {
+        align: 'center'
+      },
+      maxSize: 60
     }
   },
   mrtTheme: {

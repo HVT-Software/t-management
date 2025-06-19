@@ -13,6 +13,7 @@ import { getQueryClient } from './query-client';
 import type { ApiRouter } from './router';
 
 export const { TRPCProvider, useTRPC } = createTRPCContext<ApiRouter>();
+
 function getUrl() {
   const base = (() => {
     if (typeof window !== 'undefined') return '';
@@ -20,6 +21,7 @@ function getUrl() {
   })();
   return `${base}/api/trpc`;
 }
+
 export function QueryProvider(
   props: Readonly<{
     children: React.ReactNode;
@@ -48,6 +50,7 @@ export function QueryProvider(
       ]
     })
   );
+
   return (
     <QueryClientProvider client={queryClient}>
       <TRPCProvider trpcClient={trpcClient} queryClient={queryClient}>

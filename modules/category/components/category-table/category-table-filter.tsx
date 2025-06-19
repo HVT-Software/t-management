@@ -12,7 +12,7 @@ const CategoryTableFilter = withForm({
         {({ state, handleChange, handleBlur }) => (
           <SearchField
             label='Tìm kiếm'
-            placeholder='Nhập biển số, mã xe'
+            placeholder='Tìm kiếm theo tên'
             variant='outlined'
             className='w-60'
             value={state.value}
