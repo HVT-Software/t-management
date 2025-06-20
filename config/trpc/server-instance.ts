@@ -23,5 +23,9 @@ serverInstance.interceptors.response.use(undefined, async (error) => {
     (await cookies()).delete('next-auth.session-token');
   }
 
+  if (error.response?.status === 400) {
+    return Promise.reject(new Error(error.response?.data?.message || 'Bad request'));
+  }
+
   return Promise.reject(error);
 });

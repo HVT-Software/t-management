@@ -22,6 +22,13 @@ const handler = (req: Request) =>
         if (axiosError.status === 401) {
           throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Token invalid' });
         }
+
+        if (axiosError.status === 400) {
+          throw new TRPCError({
+            code: 'BAD_REQUEST',
+            message: axiosError.response?.data?.data?.message || 'Bad request'
+          });
+        }
       } else {
         logger.error(error.path as any, { service: 'tRPC' });
         return error;

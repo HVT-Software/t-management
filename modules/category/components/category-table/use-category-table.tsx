@@ -10,6 +10,7 @@ import { useMutation, useQuery } from '@tanstack/react-query';
 import type { Updater } from '@tanstack/react-table';
 import { MRT_SortingState, type MRT_TableOptions, useMaterialReactTable } from 'material-react-table';
 import { useRef } from 'react';
+import { toast } from 'sonner';
 
 import { CategoryPopup } from '../category-form/category-popup';
 import { categoryColumns } from './category-table.columns';
@@ -25,7 +26,11 @@ export const useCategoryTable = (initFilter: CategoryFilter) => {
   const formData = useStore(form.store);
 
   const { data, isFetching } = useQuery(trpc.category.list.queryOptions(formData.values));
-  const { mutateAsync: xoa } = useMutation(trpc.category.delete.mutationOptions());
+  const { mutateAsync: xoa } = useMutation(
+    trpc.category.delete.mutationOptions({
+      onError: (error) => toast.error(error?.message)
+    })
+  );
 
   const currentSorting = [
     {

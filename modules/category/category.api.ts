@@ -9,20 +9,30 @@ import { CategoryFilter } from './models/category-filter';
 
 export const categoryApiRouter = baseRouter({
   all: apiProcedure.query<Array<Category>>(async () => {
-    const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, {
-      isAll: true,
-      hasRemaining: true
-    });
-    return res.data.data.items;
+    try {
+      const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, {
+        isAll: true,
+        hasRemaining: true
+      });
+      return res.data.data.items;
+    } catch (e) {
+      console.error(e);
+      return [];
+    }
   }),
 
   list: apiProcedure.input(z.custom<CategoryFilter>()).query<WrapList<Category>>(async ({ input }) => {
-    const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, {
-      ...input,
-      hasRemaining: true
-    });
+    try {
+      const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, {
+        ...input,
+        hasRemaining: true
+      });
 
-    return res.data.data;
+      return res.data.data;
+    } catch (e) {
+      console.error(e);
+      return { items: [], totalCount: 0 };
+    }
   }),
 
   get: apiProcedure.input(z.string()).query<Category | null>(async ({ input: id }) => {
@@ -64,22 +74,10 @@ export const categoryApiRouter = baseRouter({
   }),
 
   delete: apiProcedure.input(z.string()).mutation(async ({ input: id }) => {
-    try {
-      const res = await serverInstance.delete<Result<string>>(`${CLOUD_CATEGORY_ENDPOINT}/${id}`);
-      if (res.data.success) {
-        return {
-          success: true,
-          data: res.data.data,
-          message: 'Xóa nhóm chi tiêu thành công!'
-        };
-      }
-    } catch (e) {
-      console.error(e);
-      return {
-        success: false,
-        data: undefined,
-        message: DEFAULT_ERROR_MESSAGE
-      };
-    }
+    await serverInstance.delete<Result<string>>(`${CLOUD_CATEGORY_ENDPOINT}/${id}`);
+    return {
+      success: true,
+      message: 'Xóa nhóm chi tiêu thành công'
+    };
   })
 });
