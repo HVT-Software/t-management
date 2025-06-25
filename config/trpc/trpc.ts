@@ -26,7 +26,6 @@ import { ZodError } from "zod";
  */
 export const createTRPCContext = async (opts: { headers: Headers }) => {
 	const session = await auth();
-
 	return {
 		session,
 		...opts,

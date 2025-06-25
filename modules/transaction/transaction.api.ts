@@ -1,19 +1,19 @@
 import { serverInstance } from '@config/axios-clients/server-instance';
-import { apiProcedure, baseRouter } from '@config/trpc/init';
 import { DEFAULT_ERROR_MESSAGE } from '@shared/constants/messages';
 import { CLOUD_TRANSACTION_ENDPOINT } from '@shared/constants/routes.api';
 import { z } from 'zod';
 
+import { createTRPCRouter, protectedProcedure } from '@config/trpc/trpc';
 import { Transaction } from './models/transaction';
 import { TransactionFilter } from './models/transaction-filter';
 
-export const transactionApiRouter = baseRouter({
-  list: apiProcedure.input(z.custom<TransactionFilter>()).query<WrapList<Transaction>>(async ({ input }) => {
+export const transactionApiRouter = createTRPCRouter({
+  list: protectedProcedure.input(z.custom<TransactionFilter>()).query<WrapList<Transaction>>(async ({ input }) => {
     const res = await serverInstance.post<Result<WrapList<Transaction>>>(`${CLOUD_TRANSACTION_ENDPOINT}/list`, input);
     return res.data.data;
   }),
 
-  get: apiProcedure.input(z.string()).query<Transaction | null>(async ({ input: id }) => {
+  get: protectedProcedure.input(z.string()).query<Transaction | null>(async ({ input: id }) => {
     try {
       const res = await serverInstance.get<Result<Transaction>>(`${CLOUD_TRANSACTION_ENDPOINT}/${id}`);
       return res.data.data ?? null;
@@ -23,7 +23,7 @@ export const transactionApiRouter = baseRouter({
     }
   }),
 
-  save: apiProcedure.input(z.custom<Transaction>()).mutation(async ({ input }) => {
+  save: protectedProcedure.input(z.custom<Transaction>()).mutation(async ({ input }) => {
     try {
       const res = input?.id
         ? await serverInstance.put<Result<Transaction>>(`${CLOUD_TRANSACTION_ENDPOINT}/${input.id}`, input)
@@ -50,7 +50,7 @@ export const transactionApiRouter = baseRouter({
     }
   }),
 
-  delete: apiProcedure.input(z.string()).mutation(async ({ input: id }) => {
+  delete: protectedProcedure.input(z.string()).mutation(async ({ input: id }) => {
     try {
       const res = await serverInstance.delete<Result<string>>(`${CLOUD_TRANSACTION_ENDPOINT}/${id}`);
       if (res.data.success) {

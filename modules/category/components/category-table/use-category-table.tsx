@@ -1,36 +1,27 @@
 import { RowAction } from '@app/(authenticated)/_components/row-action';
 import { tableOptions } from '@config/table-options';
-import { useTRPC } from '@config/trpc';
 import { Category } from '@modules/category/models/category';
 import { CategoryFilter } from '@modules/category/models/category-filter';
 import { SortDirection } from '@shared/dto/pagination-dto';
 import { useAppForm } from '@shared/utilities/form-context';
 import { useStore } from '@tanstack/react-form';
-import { useMutation, useQuery } from '@tanstack/react-query';
 import type { Updater } from '@tanstack/react-table';
 import { MRT_SortingState, type MRT_TableOptions, useMaterialReactTable } from 'material-react-table';
 import { useRef } from 'react';
-import { toast } from 'sonner';
 
+import { api } from '@config/trpc/react';
 import { CategoryPopup } from '../category-form/category-popup';
 import { categoryColumns } from './category-table.columns';
 
 const getRowId = (row: Category) => row.id + '';
 
 export const useCategoryTable = (initFilter: CategoryFilter) => {
-  const trpc = useTRPC();
   const form = useAppForm({
     defaultValues: initFilter
   });
 
   const formData = useStore(form.store);
-
-  const { data, isFetching } = useQuery(trpc.category.list.queryOptions(formData.values));
-  const { mutateAsync: xoa } = useMutation(
-    trpc.category.delete.mutationOptions({
-      onError: (error) => toast.error(error?.message)
-    })
-  );
+  const { data, isFetching } = api.category.list.useQuery(formData.values);
 
   const currentSorting = [
     {
@@ -84,15 +75,12 @@ export const useCategoryTable = (initFilter: CategoryFilter) => {
     },
     getRowId,
     rowCount: data?.totalCount ?? 0,
-    renderCreateRowDialogContent: ({ table, row }) => <CategoryPopup table={table} row={row} isCreate />,
-    renderEditRowDialogContent: ({ table, row }) => <CategoryPopup table={table} row={row} />,
+    renderCreateRowDialogContent: ({ table, row }) => <CategoryPopup table={table} />,
+    renderEditRowDialogContent: ({ table, row }) => <CategoryPopup table={table} id={row.id} />,
     renderRowActions: ({ table, row }) => (
       <RowAction
         table={table}
         row={row}
-        xoa={async (id) => {
-          await xoa(id);
-        }}
       />
     )
   });

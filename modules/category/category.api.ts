@@ -35,7 +35,7 @@ export const categoryApiRouter = createTRPCRouter({
     }
   }),
 
-  get: protectedProcedure.input(z.string()).query<Category | null>(async ({ input: id }) => {
+  get: protectedProcedure.input(z.string().optional()).query<Category | null>(async ({ input: id }) => {
     try {
       const res = await serverInstance.get<Result<Category>>(`${CLOUD_CATEGORY_ENDPOINT}/${id}`);
       return res.data.data ?? null;

@@ -4,51 +4,32 @@ import { Category, categoryDefault, categorySchema } from '@modules/category/mod
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { BackButon, SaveButon } from '@shared/components/buttons';
 import { useAppForm } from '@shared/utilities/form-context';
-import { useMutation } from '@tanstack/react-query';
-import { MRT_Row, MRT_TableInstance } from 'material-react-table';
-import { toast } from 'sonner';
+import { MRT_TableInstance } from 'material-react-table';
 
+import { api } from '@config/trpc/react';
 import CategoryForm from './category-form';
 
 interface CategoryPopupProps {
+  id?: string
   table: MRT_TableInstance<Category>;
-  row: MRT_Row<Category>;
-  isCreate?: boolean;
 }
 
-export const CategoryPopup: React.FC<CategoryPopupProps> = ({ table, row, isCreate = false }) => {
+export const CategoryPopup: React.FC<CategoryPopupProps> = ({ table, id }) => {
+  const ultil = api.useUtils();
 
-
-
-
-  const { mutateAsync: save } = useMutation(
-    trpc.category.save.mutationOptions({
-      onSuccess: (value) => {
-        queryClient.invalidateQueries({ queryKey: trpc.category.list.queryKey() });
-        queryClient.invalidateQueries({ queryKey: trpc.category.all.queryKey() });
-
-        if (value.success) {
-          toast.success('Lưu thành công');
-          if (isCreate) {
-            table.setCreatingRow(null);
-          } else {
-            table.setEditingRow(null);
-          }
-        } else {
-          toast.error('Lưu thất bại');
-        }
-      },
-      onError: (error) => {
-        toast.error(JSON.parse(error.message));
-      }
-    })
-  );
+  const { data } = api.category.get.useQuery(id)
+  const { mutateAsync: save } = api.category.save.useMutation({
+    onSuccess: () => {
+      ultil.category.list.invalidate();
+      ultil.category.all.invalidate();
+    }
+  })
 
   const form = useAppForm({
     validators: {
       onSubmit: categorySchema
     },
-    defaultValues: isCreate ? categoryDefault : (row.original as any),
+    defaultValues: id && data ? data as any : categoryDefault,
     onSubmit: ({ value }) => save(value)
   });
 
@@ -72,7 +53,7 @@ export const CategoryPopup: React.FC<CategoryPopupProps> = ({ table, row, isCrea
       </DialogContent>
       <DialogActions>
         <SaveButon type='submit' />
-        <BackButon onClick={() => (isCreate ? table.setCreatingRow(null) : table.setEditingRow(null))} />
+        <BackButon onClick={() => (id ? table.setEditingRow(null) : table.setCreatingRow(null))} />
       </DialogActions>
     </Dialog>
   );
