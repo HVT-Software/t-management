@@ -1,4 +1,4 @@
-import { authOptions } from '@config/auth-options';
+import { authConfig } from '@config/auth/auth-options';
 import { type CallbacksOptions, getServerSession } from 'next-auth';
 
 const serverSessionCallback: CallbacksOptions['session'] = async ({ session, token }) => {
@@ -11,9 +11,9 @@ const serverSessionCallback: CallbacksOptions['session'] = async ({ session, tok
 };
 
 const serverOptions = {
-  ...authOptions,
+  ...authConfig,
   callbacks: {
-    ...authOptions.callbacks,
+    ...authConfig.callbacks,
     session: serverSessionCallback
   }
 };

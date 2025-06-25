@@ -53,6 +53,7 @@
     "server-only": "^0.0.1",
     "sharp": "^0.34.2",
     "sonner": "^2.0.5",
+    "superjson": "^2.2.2",
     "throttleit": "^2.1.0",
     "type-fest": "^4.41.0",
     "use-immer": "^0.11.0",

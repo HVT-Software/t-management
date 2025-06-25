@@ -1,4 +1,3 @@
-import { getQueryClient } from '@config/trpc/query-client';
 import { Add, Refresh, Search } from '@mui/icons-material';
 import { Button, ButtonProps } from '@mui/material';
 import { ArrowLeft, SaveIcon } from 'lucide-react';
@@ -10,11 +9,9 @@ interface IButtonAction extends ButtonProps {
 }
 
 const SaveButon: React.FC<IButtonAction> = ({ ...props }) => {
-  const client = getQueryClient();
-  const isLoading = client.isMutating();
 
   return (
-    <Button {...props} size='small' variant='contained' color='primary' loading={isLoading > 0}>
+    <Button {...props} size='small' variant='contained' color='primary'>
       <SaveIcon className='mr-1 !size-5' />
       Lưu
     </Button>

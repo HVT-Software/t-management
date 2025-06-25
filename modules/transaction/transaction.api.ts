@@ -1,5 +1,5 @@
+import { serverInstance } from '@config/axios-clients/server-instance';
 import { apiProcedure, baseRouter } from '@config/trpc/init';
-import { serverInstance } from '@config/trpc/server-instance';
 import { DEFAULT_ERROR_MESSAGE } from '@shared/constants/messages';
 import { CLOUD_TRANSACTION_ENDPOINT } from '@shared/constants/routes.api';
 import { z } from 'zod';

@@ -1,40 +1,34 @@
-import { createTRPCContext } from '@config/trpc/init';
-import { apiRouter } from '@config/trpc/router';
-import { logger } from '@shared/utilities/logger';
-import { TRPCError } from '@trpc/server';
-import { fetchRequestHandler } from '@trpc/server/adapters/fetch';
-import { AxiosError } from 'axios';
+import { fetchRequestHandler } from "@trpc/server/adapters/fetch";
+import type { NextRequest } from "next/server";
 
-export const dynamic = 'force-dynamic';
+import { appRouter } from "@config/trpc/root";
+import { createTRPCContext } from "@config/trpc/trpc";
+import { env } from "../../../../env";
 
-const handler = (req: Request) =>
-  fetchRequestHandler({
-    endpoint: '/api/trpc',
-    req,
-    router: apiRouter,
-    onError: (error) => {
-      if (error.error.cause instanceof AxiosError) {
-        const axiosError = error.error.cause;
-        logger.error({ error: axiosError.message, path: error.path, details: axiosError?.response?.data } as any, {
-          service: 'tRPC'
-        });
+/**
+ * This wraps the `createTRPCContext` helper and provides the required context for the tRPC API when
+ * handling a HTTP request (e.g. when you make requests from Client Components).
+ */
+const createContext = async (req: NextRequest) => {
+	return createTRPCContext({
+		headers: req.headers,
+	});
+};
 
-        if (axiosError.status === 401) {
-          throw new TRPCError({ code: 'UNAUTHORIZED', message: 'Token invalid' });
-        }
-
-        if (axiosError.status === 400) {
-          throw new TRPCError({
-            code: 'BAD_REQUEST',
-            message: axiosError.response?.data?.data?.message || 'Bad request'
-          });
-        }
-      } else {
-        logger.error(error.path as any, { service: 'tRPC' });
-        return error;
-      }
-    },
-    createContext: createTRPCContext
-  });
+const handler = (req: NextRequest) =>
+	fetchRequestHandler({
+		endpoint: "/api/trpc",
+		req,
+		router: appRouter,
+		createContext: () => createContext(req),
+		onError:
+			env.NODE_ENV === "development"
+				? ({ path, error }) => {
+						console.error(
+							`❌ tRPC failed on ${path ?? "<no-path>"}: ${error.message}`,
+						);
+					}
+				: undefined,
+	});
 
 export { handler as GET, handler as POST };

@@ -4,7 +4,7 @@ import axios from 'axios';
 import type { AuthOptions, User } from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
-export const authOptions: AuthOptions = {
+export const authConfig: AuthOptions = {
   pages: {
     signIn: '/login'
   },

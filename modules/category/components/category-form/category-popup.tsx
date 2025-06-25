@@ -1,7 +1,5 @@
 'use client';
 
-import { useTRPC } from '@config/trpc/client';
-import { getQueryClient } from '@config/trpc/query-client';
 import { Category, categoryDefault, categorySchema } from '@modules/category/models/category';
 import { Dialog, DialogActions, DialogContent, DialogTitle } from '@mui/material';
 import { BackButon, SaveButon } from '@shared/components/buttons';
@@ -19,8 +17,9 @@ interface CategoryPopupProps {
 }
 
 export const CategoryPopup: React.FC<CategoryPopupProps> = ({ table, row, isCreate = false }) => {
-  const trpc = useTRPC();
-  const queryClient = getQueryClient();
+
+
+
 
   const { mutateAsync: save } = useMutation(
     trpc.category.save.mutationOptions({
