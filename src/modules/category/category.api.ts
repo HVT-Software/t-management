@@ -21,55 +21,36 @@ export const categoryApiRouter = createTRPCRouter({
   }),
 
   list: protectedProcedure.input(z.custom<CategoryFilter>()).query<WrapList<Category>>(async ({ input }) => {
-    try {
-      const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, {
-        ...input,
-        hasRemaining: true
-      });
-
-      return res.data.data;
-    } catch (e) {
-      console.error(e);
-      return { items: [], totalCount: 0 };
-    }
+    const res = await serverInstance.post<Result<WrapList<Category>>>(`${CLOUD_CATEGORY_ENDPOINT}/list`, {
+      ...input,
+      hasRemaining: true
+    });
+    console.log(res);
+    return res.data.data;
   }),
 
   get: protectedProcedure.input(z.string().optional()).query<Category | null>(async ({ input: id }) => {
-    try {
-      const res = await serverInstance.get<Result<Category>>(`${CLOUD_CATEGORY_ENDPOINT}/${id}`);
-      return res.data.data ?? null;
-    } catch (e) {
-      console.error(e);
-      return null;
-    }
+    const res = await serverInstance.get<Result<Category>>(`${CLOUD_CATEGORY_ENDPOINT}/${id}`);
+    return res.data.data ?? null;
   }),
 
   save: protectedProcedure.input(z.custom<Category>()).mutation(async ({ input }) => {
-    try {
-      const res = input?.id
-        ? await serverInstance.put<Result<string>>(`${CLOUD_CATEGORY_ENDPOINT}/${input.id}`, input)
-        : await serverInstance.post<Result<string>>(CLOUD_CATEGORY_ENDPOINT, input);
+    const res = input?.id
+      ? await serverInstance.put<Result<string>>(`${CLOUD_CATEGORY_ENDPOINT}/${input.id}`, input)
+      : await serverInstance.post<Result<string>>(CLOUD_CATEGORY_ENDPOINT, input);
 
-      if (res.data.success) {
-        return {
-          ...res.data,
-          success: true,
-          message: input?.id ? 'Cập nhật nhóm chi tiêu thành công' : 'Thêm nhóm chi tiêu thành công'
-        };
-      }
+    if (res.data.success) {
       return {
-        success: false,
-        data: '',
-        message: res.data.message ?? DEFAULT_ERROR_MESSAGE
-      };
-    } catch (e) {
-      console.error(e);
-      return {
-        success: false,
-        data: '',
-        message: DEFAULT_ERROR_MESSAGE
+        ...res.data,
+        success: true,
+        message: input?.id ? 'Cập nhật nhóm chi tiêu thành công' : 'Thêm nhóm chi tiêu thành công'
       };
     }
+    return {
+      success: false,
+      data: '',
+      message: res.data.message ?? DEFAULT_ERROR_MESSAGE
+    };
   }),
 
   delete: protectedProcedure.input(z.string()).mutation(async ({ input: id }) => {

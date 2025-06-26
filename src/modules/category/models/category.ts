@@ -31,7 +31,7 @@ export const categorySchema = z.object({
 export type Category = z.infer<typeof categorySchema>;
 
 export const categoryDefault: Category = {
-  id: undefined,
+  id: '',
   name: '',
   description: '',
   budget: 0,

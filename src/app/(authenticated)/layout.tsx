@@ -1,5 +1,5 @@
 import { MainHeader } from '@shared/components/main-header';
-import { navigationItems, NavigationSidebar } from '@shared/components/navigation-sidebar';
+import { NavigationSidebar, navigationItems } from '@shared/components/navigation-sidebar';
 
 const AuthenticatedLayout: React.FC<WrappedComponentProps> = async ({ children }) => {
   return (

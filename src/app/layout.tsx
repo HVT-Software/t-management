@@ -5,11 +5,12 @@ import type { Metadata, Viewport } from 'next';
 import { CookiesProvider } from 'next-client-cookies/server';
 
 import './global.css';
+import { TRPCReactProvider } from '@config/trpc/react';
 import Providers from './providers';
 
 export const metadata: Metadata = {
-  title: 'TMS',
-  description: 'Powered by FMS'
+  title: 'Quản lý chi tiêu',
+  description: ''
 };
 
 export const viewport: Viewport = {
@@ -32,7 +33,9 @@ export default function RootLayout({
         <InitColorSchemeScript attribute="[data-theme='%s']" />
         <ThemeRegistry>
           <CookiesProvider>
-            <Providers>{children}</Providers>
+            <TRPCReactProvider>
+              <Providers>{children}</Providers>
+            </TRPCReactProvider>
           </CookiesProvider>
         </ThemeRegistry>
       </body>

@@ -1,6 +1,6 @@
 import { categoryApiRouter } from '@modules/category/category.api';
-import { parse, stringify } from 'devalue';
 import { createCallerFactory, createTRPCRouter } from './trpc';
+
 /**
  * This is the primary router for your server.
  *
@@ -21,8 +21,3 @@ export type AppRouter = typeof appRouter;
  *       ^? Post[]
  */
 export const createCaller = createCallerFactory(appRouter);
-
-export const devalueTransformer = {
-  serialize: (data: any) => stringify(data),
-  deserialize: (data: any) => parse(data)
-};

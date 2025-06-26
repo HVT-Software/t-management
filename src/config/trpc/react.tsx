@@ -6,7 +6,8 @@ import { createTRPCReact } from '@trpc/react-query';
 import type { inferRouterInputs, inferRouterOutputs } from '@trpc/server';
 import { useState } from 'react';
 import { createQueryClient } from './query-client';
-import { AppRouter, devalueTransformer } from './root';
+import { AppRouter } from './root';
+import { devalueTransformer } from './transformer';
 
 let clientQueryClientSingleton: QueryClient | undefined = undefined;
 const getQueryClient = () => {
