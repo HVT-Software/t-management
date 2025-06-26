@@ -26,10 +26,11 @@
       }
     ],
     "paths": {
-      "@modules/*": ["./modules/*"],
-      "@shared/*": ["./shared/*"],
-      "@config/*": ["./config/*"],
-      "@app/*": ["./app/*"]
+      "@modules/*": ["./src/modules/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@config/*": ["./src/config/*"],
+      "@app/*": ["./src/app/*"],
+      "@env": ["./src/env.js"]
     }
   },
   "include": [
