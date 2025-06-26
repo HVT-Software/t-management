@@ -1,7 +1,7 @@
 import { getSession } from '@shared/utilities/get-session';
 import axios from 'axios';
-import type { Session } from 'next-auth';
 import { cookies } from 'next/headers';
+import type { Session } from 'next-auth';
 
 const API_URL = process.env.API_URL;
 

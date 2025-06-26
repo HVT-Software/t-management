@@ -1,11 +1,10 @@
 import { serverInstance } from '@config/axios-clients/server-instance';
+import { createTRPCRouter, protectedProcedure } from '@config/trpc/trpc';
 import { DEFAULT_ERROR_MESSAGE } from '@shared/constants/messages';
 import { CLOUD_CATEGORY_ENDPOINT } from '@shared/constants/routes.api';
 import { z } from 'zod';
-
 import { Category } from './models/category';
 import { CategoryFilter } from './models/category-filter';
-import { createTRPCRouter, protectedProcedure } from '@config/trpc/trpc';
 
 export const categoryApiRouter = createTRPCRouter({
   all: protectedProcedure.query<Array<Category>>(async () => {

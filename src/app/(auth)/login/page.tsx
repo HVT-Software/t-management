@@ -1,13 +1,12 @@
+import { categoriesPath } from '@app/routes';
 import LoginForm from '@modules/auth/components/login-form/login-form';
 import { LoginView } from '@modules/auth/components/login-view';
 import ColorSchemeToggle from '@shared/components/color-scheme-toggle';
 import { isFromMobileBrowser } from '@shared/helpers/is-from-mobile-browser';
 import { getSession } from '@shared/utilities/get-session';
 import dayjs from 'dayjs';
-import { type Session } from 'next-auth';
 import { redirect } from 'next/navigation';
-
-import { categoriesPath } from '../../routes';
+import { type Session } from 'next-auth';
 
 const LoginPage: React.FC = async () => {
   const session = (await getSession()) as Session;

@@ -1,5 +1,6 @@
 import { RowAction } from '@app/(authenticated)/_components/row-action';
 import { tableOptions } from '@config/table-options';
+import { api } from '@config/trpc/react';
 import { Category } from '@modules/category/models/category';
 import { CategoryFilter } from '@modules/category/models/category-filter';
 import { SortDirection } from '@shared/dto/pagination-dto';
@@ -8,8 +9,6 @@ import { useStore } from '@tanstack/react-form';
 import type { Updater } from '@tanstack/react-table';
 import { MRT_SortingState, type MRT_TableOptions, useMaterialReactTable } from 'material-react-table';
 import { useRef } from 'react';
-
-import { api } from '@config/trpc/react';
 import { CategoryPopup } from '../category-form/category-popup';
 import { categoryColumns } from './category-table.columns';
 
@@ -75,14 +74,9 @@ export const useCategoryTable = (initFilter: CategoryFilter) => {
     },
     getRowId,
     rowCount: data?.totalCount ?? 0,
-    renderCreateRowDialogContent: ({ table, row }) => <CategoryPopup table={table} />,
+    renderCreateRowDialogContent: ({ table }) => <CategoryPopup table={table} />,
     renderEditRowDialogContent: ({ table, row }) => <CategoryPopup table={table} id={row.id} />,
-    renderRowActions: ({ table, row }) => (
-      <RowAction
-        table={table}
-        row={row}
-      />
-    )
+    renderRowActions: ({ table, row }) => <RowAction table={table} row={row} />
   });
 
   const stableReturn = useRef<{ form: typeof form; table: typeof table } | null>(null);

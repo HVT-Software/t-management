@@ -17,14 +17,7 @@
     "declaration": false,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      },
-      {
-        "name": "@styled/typescript-styled-plugin"
-      }
-    ],
+    "plugins": [{ "name": "next" }],
     "paths": {
       "@modules/*": ["./src/modules/*"],
       "@shared/*": ["./src/shared/*"],
@@ -33,15 +26,6 @@
       "@env": ["./src/env.js"]
     }
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    ".next/types/**/*.ts",
-    "eslint.config.mjs",
-    "prettier.config.cjs",
-    "lint-staged.config.mjs",
-    "postcss.config.mjs"
-  ],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "postcss.config.mjs"],
   "exclude": ["node_modules"]
 }
